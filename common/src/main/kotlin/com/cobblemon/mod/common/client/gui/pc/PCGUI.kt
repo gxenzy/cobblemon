@@ -135,7 +135,7 @@ class PCGUI(
     private var dragEndX: Int? = null
     private var dragEndY: Int? = null
 
-    internal data class SelectionArea(val left: Int, val top: Int, val right: Int, val bottom: Int)
+    data class SelectionArea(val left: Int, val top: Int, val right: Int, val bottom: Int)
 
     private data class BoxGridBounds(val left: Int, val top: Int, val right: Int, val bottom: Int) {
         fun contains(x: Int, y: Int) = x in left..< right && y >= top && y < bottom
