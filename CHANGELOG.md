@@ -32,6 +32,7 @@
 - Broken datapack evolutions are now logged and skipped in the Pokédex evolution tree instead of crashing.
 - Fixed friendship booster items not being recognised as such
 - Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
+- Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 
 ### Developer
 
