@@ -33,6 +33,7 @@
 - Fixed friendship booster items not being recognised as such
 - Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
+- Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
 
 ### Developer
 
