@@ -36,6 +36,7 @@
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
 
 ### Developer
+- Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
 
 ### Molang & Datapacks
 - Fixed `q.pokemon.nature` returning class instance instead of proper string value (`cobblemon:adamant`)

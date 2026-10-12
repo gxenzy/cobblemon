@@ -34,7 +34,7 @@ mod-menu = "11.0.3"
 c2me-fabric = "0.3.0+alpha.0.320+1.21.1"
 
 # NeoForge
-neoforge = "21.1.182"
+neoforge = "21.1.195"
 neo-kotlin-for-forge = "5.10.0"
 debugutils-forge = "1.21.1-1.0.9-neoforge"
 c2me-neoforge = "0.3.0+alpha.0.73+1.21.1"
