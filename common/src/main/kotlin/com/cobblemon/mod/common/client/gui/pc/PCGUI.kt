@@ -370,7 +370,7 @@ class PCGUI(
         context.pose().pushPose()
         context.pose().translate(0.0, 0.0, 1500.0)
         val borderColor = FastColor.ARGB32.color(255, 205, 212, 255)
-        val bgColor = FastColor.ARGB32.color(100, 205, 212, 255)
+        val bgColor = FastColor.ARGB32.color(75, 133, 183, 230)
         val thickness = 1
         context.fill(area.left, area.top, area.right, area.bottom, bgColor)
         context.fill(area.left, area.top, area.right, area.top + thickness, borderColor)
@@ -781,7 +781,12 @@ class PCGUI(
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         val clickX = mouseX.toInt()
         val clickY = mouseY.toInt()
-        if (storageWidget.multiSelection == null && button == 0 && getBoxGridBounds().contains(clickX, clickY)) {
+        if (
+            storageWidget.multiSelection == null &&
+            button == 0 &&
+            getBoxGridBounds().contains(clickX, clickY) &&
+            storageWidget.pastureWidget == null
+            ) {
             dragStartX = clickX
             dragStartY = clickY
         } else {
@@ -817,8 +822,10 @@ class PCGUI(
         storageWidget.pastureWidget?.let { pasture ->
             if (pasture.pastureScrollList.isHovered) pasture.pastureScrollList.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)
         }
-        dragEndX = mouseX.toInt()
-        dragEndY = mouseY.toInt()
+        if (storageWidget.pastureWidget == null) {
+            dragEndX = mouseX.toInt()
+            dragEndY = mouseY.toInt()
+        }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)
     }
 

@@ -283,9 +283,18 @@ class StorageWidget(
 
         val width = selection.getHorizontalSize()
         val height = selection.getVerticalSize()
+        val destinationPokemon = pc.get(destination)
         val destinationColumn = destination.slot % 6
         val destinationRow = destination.slot / 6
         if (destinationColumn + width > 6 || destinationRow + height > 5) return false
+
+        // Handle swapping logic
+        if (selection.getPokemonCount() == 1 && destinationPokemon != null) {
+            val pokemon = selection.getPokemon(0, 0) ?: return false // Should never be null but better safe than sorry
+            val pos = pc.getPosition(pokemon) ?: return false
+            SwapPCPokemonPacket(pokemon.uuid, pos, destinationPokemon.uuid, destination).sendToServer()
+            return true
+        }
 
         val moves = mutableListOf<PCPokemonMove>()
         for (row in 0 until height) {

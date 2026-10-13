@@ -2,6 +2,7 @@
 ## [1.8.3 (MONTH xth, 2026)](#1-8-3)
 
 ### Additions
+- You can now drag to select multiple Pokémon inside the PC menu.
 
 ### Pokémon Added
 #### Generation 4
