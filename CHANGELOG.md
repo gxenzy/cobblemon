@@ -34,6 +34,7 @@
 - Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
+- Fixed all pots of mod on NeoForge
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
