@@ -9596,5 +9596,6 @@
     "cobblemon.config.ui.world_spawning_blocklist": "ワールドごとのスポーンブロックリスト",
     "cobblemon.config.ui.world_spawning_blocklist.tooltip": "ポケモンの出現ロジックを無効にするワールド。",
     "advancements.cobblemon.obtain_tm": "Show Me Your Moves!",
-    "advancements.cobblemon.obtain_tm.description": "わざマシンを見つけるか、印刷する"
+    "advancements.cobblemon.obtain_tm.description": "わざマシンを見つけるか、印刷する",
+    "itemGroup.cobblemon.tm_item": "Cobblemon：わざマシン"
 }
