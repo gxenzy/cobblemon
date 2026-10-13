@@ -117,16 +117,27 @@ class StorageWidget(
             subKey = "ui.generic.yes",
             onPress = {
                 if (canDeleteSelected() && displayConfirmRelease) {
-                    val position = selectedPosition ?: return@ReleaseConfirmButton
-                    val pokemon = getSelectedPokemon() ?: return@ReleaseConfirmButton
+                    val selection = multiSelection
+                    if (selection != null) {
+                        selection.pokemonEntries().forEach { (column, row, pokemon) ->
+                            val position = PCPosition(
+                                selection.sourceBox,
+                                (selection.sourceRow + row) * 6 + selection.sourceColumn + column
+                            )
+                            CobblemonNetwork.sendToServer(ReleasePCPokemonPacket(pokemon.uuid, position))
+                        }
+                    } else {
+                        val position = selectedPosition ?: return@ReleaseConfirmButton
+                        val pokemon = getSelectedPokemon() ?: return@ReleaseConfirmButton
 
-                    val packet = when (position) {
-                        is PartyPosition -> ReleasePartyPokemonPacket(pokemon.uuid, position)
-                        is PCPosition -> ReleasePCPokemonPacket(pokemon.uuid, position)
-                        else -> return@ReleaseConfirmButton
+                        val packet = when (position) {
+                            is PartyPosition -> ReleasePartyPokemonPacket(pokemon.uuid, position)
+                            is PCPosition -> ReleasePCPokemonPacket(pokemon.uuid, position)
+                            else -> return@ReleaseConfirmButton
+                        }
+                        CobblemonNetwork.sendToServer(packet)
                     }
 
-                    CobblemonNetwork.sendToServer(packet)
                     playSound(CobblemonSounds.PC_RELEASE)
                     resetSelected()
                     displayConfirmRelease = false
@@ -153,6 +164,7 @@ class StorageWidget(
     }
 
     fun canDeleteSelected(): Boolean {
+        multiSelection?.let { return it.pokemonEntries().isNotEmpty() }
         return !(selectedPosition is PartyPosition && party.filterNotNull().size <= 1)
                 && selectedPosition != null
                 && grabbedSlot != null
@@ -318,11 +330,14 @@ class StorageWidget(
                 shadow = true
             )
 
+            val pokemonCount = multiSelection?.getPokemonCount() ?: 0
+
             if (canDeleteSelected() && displayConfirmRelease) {
                 drawScaledText(
                     context = context,
                     font = CobblemonResources.DEFAULT_LARGE,
-                    text = lang("ui.pc.release").bold(),
+                    text = if (pokemonCount > 1)
+                    { lang("ui.pc.release_all").bold() } else { lang("ui.pc.release").bold() },
                     x = x + 223,
                     y = y + 119,
                     centered = true

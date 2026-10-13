@@ -32,4 +32,6 @@ data class PCMultiSelection(
         }
     }
 
+    fun getPokemonCount(): Int = pokemonEntries().size
+
 }

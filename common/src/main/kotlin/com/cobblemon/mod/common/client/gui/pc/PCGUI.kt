@@ -162,11 +162,22 @@ class PCGUI(
 
         val clippedEndX = endX.coerceIn(bounds.left, bounds.right - 1)
         val clippedEndY = endY.coerceIn(bounds.top, bounds.bottom - 1)
-        val left = minOf(startX, clippedEndX)
-        val top = minOf(startY, clippedEndY)
-        val right = maxOf(startX, clippedEndX) + 1
-        val bottom = maxOf(startY, clippedEndY) + 1
-        return if ((right - left) * (bottom - top) > 25) SelectionArea(left, top, right, bottom) else null
+        val columns = 6
+        val rows = 5
+        val slotPitch = StorageSlot.SIZE + StorageWidget.BOX_SLOT_PADDING
+        val gridLeft = bounds.left + StorageWidget.BOX_SLOT_START_OFFSET_X
+        val gridTop = bounds.top + StorageWidget.BOX_SLOT_START_OFFSET_Y + if (displayOptions) 5 else 0
+        val startColumn = ((startX - gridLeft) / slotPitch).coerceIn(0, columns - 1)
+        val endColumn = ((clippedEndX - gridLeft) / slotPitch).coerceIn(0, columns - 1)
+        val startRow = ((startY - gridTop) / slotPitch).coerceIn(0, rows - 1)
+        val endRow = ((clippedEndY - gridTop) / slotPitch).coerceIn(0, rows - 1)
+        val left = gridLeft + minOf(startColumn, endColumn) * slotPitch
+        val top = gridTop + minOf(startRow, endRow) * slotPitch
+        val right = gridLeft + maxOf(startColumn, endColumn) * slotPitch + StorageSlot.SIZE
+        val bottom = gridTop + maxOf(startRow, endRow) * slotPitch + StorageSlot.SIZE
+        return if ((clippedEndX - startX + 1).let { kotlin.math.abs(it) } * (clippedEndY - startY + 1).let { kotlin.math.abs(it) } > 25) {
+            SelectionArea(left, top, right, bottom)
+        } else null
     }
 
     override fun renderBlurredBackground(delta: Float) {}
@@ -359,8 +370,9 @@ class PCGUI(
         context.pose().pushPose()
         context.pose().translate(0.0, 0.0, 1500.0)
         val borderColor = FastColor.ARGB32.color(255, 205, 212, 255)
+        val bgColor = FastColor.ARGB32.color(100, 205, 212, 255)
         val thickness = 1
-        context.fill(area.left, area.top, area.right, area.bottom, 0x6600A0FF)
+        context.fill(area.left, area.top, area.right, area.bottom, bgColor)
         context.fill(area.left, area.top, area.right, area.top + thickness, borderColor)
         context.fill(area.left, area.bottom - thickness, area.right, area.bottom, borderColor)
         context.fill(area.left, area.top, area.left + thickness, area.bottom, borderColor)

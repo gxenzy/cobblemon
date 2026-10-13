@@ -45,11 +45,13 @@ class ReleaseButton(
                 vOffset = if (isHovered(mouseX.toDouble(), mouseY.toDouble())) HEIGHT else 0,
                 textureHeight = HEIGHT * 2
             )
+            val pokemonCount = parent.multiSelection?.getPokemonCount() ?: 0
 
             drawScaledText(
                 context = context,
                 font = CobblemonResources.DEFAULT_LARGE,
-                text = lang("ui.pc.release").bold(),
+                text = if (pokemonCount > 1)
+                    { lang("ui.pc.release_all").bold() } else { lang("ui.pc.release").bold() },
                 x = x + (WIDTH / 2),
                 y = y + 3.5,
                 centered = true,
