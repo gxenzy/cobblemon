@@ -24,6 +24,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -31,6 +32,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
+import net.minecraft.world.level.CollisionGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -43,9 +45,11 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.level.block.state.properties.Property
 import net.minecraft.world.level.pathfinder.PathComputationType
 import net.minecraft.world.phys.BlockHitResult
+import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
+import java.util.Optional
 
 @Suppress("DEPRECATED", "OVERRIDE_DEPRECATION")
 class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
@@ -74,6 +78,14 @@ class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
         const val MAX_CHARGE_LEVEL = 5
         val CHARGE_LEVEL: IntegerProperty = IntegerProperty.create("charge", 0, MAX_CHARGE_LEVEL + 1)
         val NATURAL: BooleanProperty = BooleanProperty.create("natural")
+
+        fun canSetSpawn(level: Level): Boolean {
+            return Cobblemon.config.healingMachineRespawn
+        }
+
+        fun findStandUpPosition(entityType: EntityType<*>, level: CollisionGetter, pos: BlockPos): Optional<Vec3> {
+            return RespawnAnchorBlock.findStandUpPosition(entityType, level, pos) // Exists if we ever want to make something more custom, but anchor block logic should suffice
+        }
     }
 
     init {
@@ -156,10 +168,8 @@ class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
         val healPC = player.level().gameRules.getBoolean(CobblemonGameRules.HEALERS_HEAL_PC)
 
         // Do spawnpoint stuff
-        if (Cobblemon.config.healingMachineRespawn) {
-            if (!player.isCreative) {
-                player.setRespawnPosition(world.dimension(), blockPos, player.yRot, false, true)
-            }
+        if (canSetSpawn(world)) {
+            player.setRespawnPosition(world.dimension(), blockPos, player.yRot, false, true)
         }
 
         if (party.none() && (!healPC || pc.none())) {
