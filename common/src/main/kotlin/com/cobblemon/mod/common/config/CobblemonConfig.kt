@@ -407,6 +407,9 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.World, lang = "type_gem_tick_chance", SERVER)
     var typeGemTickChance = 1.0f
 
+    @CobblemonConfigField(Category.Healing, lang = "healing_machine_respawn", SERVER)
+    var healingMachineRespawn = true // TODO: set this to false before merge
+
     fun clone(): CobblemonConfig {
         val newConfig = CobblemonConfig()
         CobblemonConfig::class.memberProperties.forEach { property ->

@@ -15,6 +15,7 @@ import com.cobblemon.mod.common.api.riding.RidingStyle;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory;
 import com.cobblemon.mod.common.api.stats.CobblemonStats;
+import com.cobblemon.mod.common.block.HealingMachineBlock;
 import com.cobblemon.mod.common.duck.ServerLevelDuck;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.world.gamerules.CobblemonGameRules;
@@ -22,16 +23,20 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
@@ -141,5 +146,50 @@ public abstract class ServerPlayerMixin implements PlayerSpawnerAccessor {
                 !Cobblemon.config.getWorldSpawningBlocklist().contains(
                         ((ServerLevelDuck) this.serverLevel()).cobblemon$getLevelResourceLocation()
                 );
+    }
+
+    @ModifyVariable(method = "findRespawnAndUseSpawnBlock", at = @At("HEAD"), ordinal = 0)
+    private static boolean cobblemon$forceRespawnAtHealingMachine(
+            boolean forced,
+            @Local(argsOnly = true) ServerLevel level,
+            @Local(argsOnly = true) BlockPos pos
+    ) {
+        return forced || cobblemon$isHealingMachineRespawn(level, pos);
+    }
+
+    @ModifyExpressionValue(
+            method = "findRespawnAndUseSpawnBlock",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/state/BlockState;getBlock()Lnet/minecraft/world/level/block/Block;",
+                    ordinal = 0
+            )
+    )
+    private static Block cobblemon$useAnchorHandlingForHealingMachine(
+            Block block,
+            @Local(argsOnly = true) ServerLevel level,
+            @Local(argsOnly = true) BlockPos pos
+    ) {
+        return cobblemon$isHealingMachineRespawn(level, pos) ? Blocks.RESPAWN_ANCHOR : block;
+    }
+
+    @ModifyExpressionValue(
+            method = "findRespawnAndUseSpawnBlock",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/RespawnAnchorBlock;canSetSpawn(Lnet/minecraft/world/level/Level;)Z"
+            )
+    )
+    private static boolean cobblemon$allowHealingMachineDimension(
+            boolean canSetAnchorSpawn,
+            @Local(argsOnly = true) ServerLevel level,
+            @Local(argsOnly = true) BlockPos pos
+    ) {
+        return canSetAnchorSpawn || cobblemon$isHealingMachineRespawn(level, pos);
+    }
+
+    @Unique
+    private static boolean cobblemon$isHealingMachineRespawn(ServerLevel level, BlockPos pos) {
+        return level.getBlockState(pos).getBlock() instanceof HealingMachineBlock;
     }
 }

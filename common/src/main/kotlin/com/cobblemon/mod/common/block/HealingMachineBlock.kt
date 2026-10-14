@@ -32,12 +32,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.BaseEntityBlock
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.minecraft.world.level.block.Mirror
-import net.minecraft.world.level.block.RenderShape
-import net.minecraft.world.level.block.Rotation
+import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -158,7 +153,14 @@ class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
         }
         val party = serverPlayerEntity.party()
         val pc = serverPlayerEntity.pc()
-        val healPC = player.level().gameRules.getBoolean(CobblemonGameRules.HEALERS_HEAL_PC);
+        val healPC = player.level().gameRules.getBoolean(CobblemonGameRules.HEALERS_HEAL_PC)
+
+        // Do spawnpoint stuff
+        if (Cobblemon.config.healingMachineRespawn) {
+            if (!player.isCreative) {
+                player.setRespawnPosition(world.dimension(), blockPos, player.yRot, false, true)
+            }
+        }
 
         if (party.none() && (!healPC || pc.none())) {
             player.sendSystemMessage(lang("healingmachine.nopokemon").red(), true)
@@ -183,6 +185,7 @@ class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
             player.sendSystemMessage(lang("healingmachine.notenoughcharge", "${((neededCharge/party.count())*100f).toInt()}%").red(), true)
         }
         party.forEach { it.tryRecallWithAnimation() }
+
         return InteractionResult.CONSUME
     }
 
