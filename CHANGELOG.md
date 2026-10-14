@@ -21,6 +21,8 @@
 ### Animation updates for the following Pokémon
 
 ### Changes
+- Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
+- Moved EXP Candies from the Medicine recipe book category to the Misc category
 
 ### Fixes
 - Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
