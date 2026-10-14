@@ -299,16 +299,13 @@ class CobblemonNeoForge : CobblemonImplementation {
             event.register(CobblemonBlocks.resourceKey) { helper ->
                 CobblemonBlocks.register { identifier, block ->
                     if (block is FlowerPotBlock) {
+                        helper.register(identifier, block)
+
                         val pottedIdentifier = RegistryAccessResolver.getAccess()
                             .registryOrThrow(Registries.BLOCK)
                             .getKeyOrNull(block.potted)!!
 
                         (Blocks.FLOWER_POT as FlowerPotBlock).addPlant(pottedIdentifier) { block }
-
-                        helper.register(
-                            identifier,
-                            block
-                        )
                     }
                 }
             }
