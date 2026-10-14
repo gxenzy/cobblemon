@@ -36,7 +36,7 @@ class MovePCPokemonBatchPacket(val moves: List<PCPokemonMove>) : NetworkPacket<M
 
     companion object {
         val ID = cobblemonResource("move_pc_pokemon_batch")
-        private const val MAX_MOVES = 30
+        const val MAX_MOVES = 60
 
         fun decode(buffer: RegistryFriendlyByteBuf): MovePCPokemonBatchPacket {
             val size = buffer.readVarInt()

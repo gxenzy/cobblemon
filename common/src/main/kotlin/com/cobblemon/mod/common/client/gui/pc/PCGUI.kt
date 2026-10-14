@@ -134,6 +134,7 @@ class PCGUI(
     private var dragStartY: Int? = null
     private var dragEndX: Int? = null
     private var dragEndY: Int? = null
+    private var selectionDragActive = false
 
     data class SelectionArea(val left: Int, val top: Int, val right: Int, val bottom: Int)
 
@@ -153,6 +154,7 @@ class PCGUI(
     }
 
     internal fun getSelectionArea(): SelectionArea? {
+        if (!selectionDragActive) return null
         val startX = dragStartX ?: return null
         val startY = dragStartY ?: return null
         val endX = dragEndX ?: return null
@@ -171,13 +173,15 @@ class PCGUI(
         val endColumn = ((clippedEndX - gridLeft) / slotPitch).coerceIn(0, columns - 1)
         val startRow = ((startY - gridTop) / slotPitch).coerceIn(0, rows - 1)
         val endRow = ((clippedEndY - gridTop) / slotPitch).coerceIn(0, rows - 1)
-        val left = gridLeft + minOf(startColumn, endColumn) * slotPitch
-        val top = gridTop + minOf(startRow, endRow) * slotPitch
-        val right = gridLeft + maxOf(startColumn, endColumn) * slotPitch + StorageSlot.SIZE
-        val bottom = gridTop + maxOf(startRow, endRow) * slotPitch + StorageSlot.SIZE
-        return if ((clippedEndX - startX + 1).let { kotlin.math.abs(it) } * (clippedEndY - startY + 1).let { kotlin.math.abs(it) } > 25) {
-            SelectionArea(left, top, right, bottom)
-        } else null
+        val startSlotLeft = gridLeft + startColumn * slotPitch
+        val endSlotLeft = gridLeft + endColumn * slotPitch
+        val startSlotTop = gridTop + startRow * slotPitch
+        val endSlotTop = gridTop + endRow * slotPitch
+        val left = if (endX < startX) endSlotLeft else startSlotLeft
+        val top = if (endY < startY) endSlotTop else startSlotTop
+        val right = (if (endX > startX) endSlotLeft else startSlotLeft) + StorageSlot.SIZE
+        val bottom = (if (endY > startY) endSlotTop else startSlotTop) + StorageSlot.SIZE
+        return SelectionArea(left, top, right, bottom)
     }
 
     override fun renderBlurredBackground(delta: Float) {}
@@ -779,6 +783,8 @@ class PCGUI(
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
+        storageWidget.clearPendingStorageSlotClick()
+        selectionDragActive = false
         val clickX = mouseX.toInt()
         val clickY = mouseY.toInt()
         if (
@@ -822,20 +828,41 @@ class PCGUI(
         storageWidget.pastureWidget?.let { pasture ->
             if (pasture.pastureScrollList.isHovered) pasture.pastureScrollList.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)
         }
-        if (storageWidget.pastureWidget == null) {
-            dragEndX = mouseX.toInt()
-            dragEndY = mouseY.toInt()
+        if (button == 0 && storageWidget.pastureWidget == null) {
+            val startX = dragStartX
+            val startY = dragStartY
+            if (startX != null && startY != null) {
+                val offsetX = mouseX - startX
+                val offsetY = mouseY - startY
+                if (offsetX * offsetX + offsetY * offsetY >= 25.0) {
+                    selectionDragActive = true
+                    storageWidget.clearPendingStorageSlotClick()
+                    dragEndX = mouseX.toInt()
+                    dragEndY = mouseY.toInt()
+                }
+            }
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY)
     }
 
     override fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        if (button == 0 && getSelectionArea() != null) storageWidget.updateSelection()
+        val handled = super.mouseReleased(mouseX, mouseY, button)
+        if (button == 0) {
+            if (selectionDragActive) {
+                dragEndX = mouseX.toInt()
+                dragEndY = mouseY.toInt()
+                storageWidget.updateSelection()
+                storageWidget.clearPendingStorageSlotClick()
+            } else {
+                storageWidget.completePendingStorageSlotClick(mouseX, mouseY)
+            }
+        }
         dragStartX = null
         dragStartY = null
         dragEndX = null
         dragEndY = null
-        return super.mouseReleased(mouseX, mouseY, button)
+        selectionDragActive = false
+        return handled
     }
 
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {

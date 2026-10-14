@@ -29,6 +29,7 @@ import com.cobblemon.mod.common.net.messages.client.storage.pc.InitializePCPacke
 import com.cobblemon.mod.common.net.messages.client.storage.pc.MoveClientPCPokemonPacket
 import com.cobblemon.mod.common.net.messages.client.storage.pc.SetPCPokemonPacket
 import com.cobblemon.mod.common.net.messages.client.storage.pc.wallpaper.UnlockPCBoxWallpaperPacket
+import com.cobblemon.mod.common.net.messages.server.storage.pc.MovePCPokemonBatchPacket
 import com.cobblemon.mod.common.pokemon.Pokemon
 import com.cobblemon.mod.common.util.DataKeys
 import com.cobblemon.mod.common.util.asTranslated
@@ -271,7 +272,7 @@ open class PCStore(
     }
 
     fun moveBatch(moves: List<Triple<UUID, PCPosition, PCPosition>>): Boolean {
-        if (moves.isEmpty() || moves.size > POKEMON_PER_BOX) return false
+        if (moves.isEmpty() || moves.size > MovePCPokemonBatchPacket.MAX_MOVES) return false
         if (moves.map { it.second }.toSet().size != moves.size ||
             moves.map { it.third }.toSet().size != moves.size ||
             moves.map { it.first }.toSet().size != moves.size
