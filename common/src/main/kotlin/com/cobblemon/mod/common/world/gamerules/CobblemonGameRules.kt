@@ -26,5 +26,7 @@ object CobblemonGameRules {
     val SHINY_STARTERS: GameRules.Key<GameRules.BooleanValue> = Cobblemon.implementation.registerGameRule("doShinyStarters", GameRules.Category.MISC, BooleanRuleInvoker.`cobblemon$create`(false))
     @JvmField
     val HEALERS_HEAL_PC: GameRules.Key<GameRules.BooleanValue> = Cobblemon.implementation.registerGameRule("healersHealPC", GameRules.Category.MISC, BooleanRuleInvoker.`cobblemon$create`(false))
+    @JvmField
+    val HEALER_SET_SPAWN: GameRules.Key<GameRules.BooleanValue> = Cobblemon.implementation.registerGameRule("healersSetSpawn", GameRules.Category.MISC, BooleanRuleInvoker.`cobblemon$create`(false))
 
 }

@@ -80,7 +80,7 @@ class HealingMachineBlock(settings: Properties) : BaseEntityBlock(settings) {
         val NATURAL: BooleanProperty = BooleanProperty.create("natural")
 
         fun canSetSpawn(level: Level): Boolean {
-            return Cobblemon.config.healingMachineRespawn
+            return level.gameRules.getBoolean(CobblemonGameRules.HEALER_SET_SPAWN)
         }
 
         fun findStandUpPosition(entityType: EntityType<*>, level: CollisionGetter, pos: BlockPos): Optional<Vec3> {

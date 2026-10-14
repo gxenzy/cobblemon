@@ -2,6 +2,7 @@
 ## [1.8.3 (MONTH xth, 2026)](#1-8-3)
 
 ### Additions
+- Added the `healersSetSpawn` gamerule. When enabled, using a healing machine will set your spawnpoint.
 
 ### Pokémon Added
 #### Generation 4
