@@ -36,9 +36,13 @@
 - Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
+- Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
+- New Platform Event `PLAYER_RESPAWN` which is fired when a player respawns (either through death or returning from the end)
+- Platform Events `SERVER_PLAYER_TICK_PRE` and `SERVER_PLAYER_TICK_POST` no longer fire when the player is dead
+  - it is now tied much closer to the actual entity rather than the player (or their connection)
 
 ### Molang & Datapacks
 - Fixed `q.pokemon.nature` returning class instance instead of proper string value (`cobblemon:adamant`)
