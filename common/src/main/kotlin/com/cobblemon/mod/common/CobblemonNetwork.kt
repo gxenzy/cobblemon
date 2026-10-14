@@ -197,6 +197,7 @@ import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetMarkingsPa
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetNicknamePacket
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.evolution.AcceptEvolutionPacket
 import com.cobblemon.mod.common.net.messages.server.pokeradar.PokeRadarScanPacket
+import com.cobblemon.mod.common.net.messages.server.pokeradar.PokeRadarTeleportPacket
 import com.cobblemon.mod.common.net.messages.server.riding.DismountPokemonPacket
 import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdateDriverInputPacket
 import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdatePassengerPositionPacket
@@ -256,6 +257,7 @@ import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetItemHiddenH
 import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetMarkingsHandler
 import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetNicknameHandler
 import com.cobblemon.mod.common.net.serverhandling.pokeradar.PokeRadarScanHandler
+import com.cobblemon.mod.common.net.serverhandling.pokeradar.PokeRadarTeleportHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.DismountPokemonPacketHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.DriverInputPacketHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.ServerboundUpdatePassengerPositionHandler
@@ -656,8 +658,9 @@ object CobblemonNetwork {
 
 	    // Poke Radar
 	    list.add(PacketRegisterInfo(PokeRadarScanPacket.ID, PokeRadarScanPacket::decode, PokeRadarScanHandler))
-	    
-        // Debug / cheats
+	    list.add(PacketRegisterInfo(PokeRadarTeleportPacket.ID, PokeRadarTeleportPacket::decode, PokeRadarTeleportHandler))
+
+	    // Debug / cheats
         list.add(PacketRegisterInfo(RequestOpenRidingStatsDebugGUIPacket.ID, RequestOpenRidingStatsDebugGUIPacket::decode, RequestOpenRidingStatsDebugGUIHandler))
 
 
