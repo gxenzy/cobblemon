@@ -49,6 +49,7 @@ import com.cobblemon.mod.common.client.net.pokedex.ServerConfirmedRegisterHandle
 import com.cobblemon.mod.common.client.net.pokemon.update.ClientboundSeatAssignmentPacketHandler
 import com.cobblemon.mod.common.client.net.pokemon.update.ClientboundUpdateRidingStateHandler
 import com.cobblemon.mod.common.client.net.pokemon.update.PokemonUpdatePacketHandler
+import com.cobblemon.mod.common.client.net.pokeradar.PokeRadarScanResultHandler
 import com.cobblemon.mod.common.client.net.riding.ClientboundUpdateDriverInputHandler
 import com.cobblemon.mod.common.client.net.settings.OpenCobblemonConfigEditorHandler
 import com.cobblemon.mod.common.client.net.settings.ServerSettingsPacketHandler
@@ -107,6 +108,7 @@ import com.cobblemon.mod.common.net.messages.client.pokemon.update.evolution.Add
 import com.cobblemon.mod.common.net.messages.client.pokemon.update.evolution.ClearEvolutionsPacket
 import com.cobblemon.mod.common.net.messages.client.pokemon.update.evolution.ClientboundSeatAssignmentPacket
 import com.cobblemon.mod.common.net.messages.client.pokemon.update.evolution.RemoveEvolutionPacket
+import com.cobblemon.mod.common.net.messages.client.pokeradar.PokeRadarScanResultPacket
 import com.cobblemon.mod.common.net.messages.client.settings.OpenCobblemonConfigScreenPacket
 import com.cobblemon.mod.common.net.messages.client.settings.ServerSettingsPacket
 import com.cobblemon.mod.common.net.messages.client.sound.UnvalidatedPlaySoundS2CPacket
@@ -194,6 +196,7 @@ import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetItemHidden
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetMarkingsPacket
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetNicknamePacket
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.evolution.AcceptEvolutionPacket
+import com.cobblemon.mod.common.net.messages.server.pokeradar.PokeRadarScanPacket
 import com.cobblemon.mod.common.net.messages.server.riding.DismountPokemonPacket
 import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdateDriverInputPacket
 import com.cobblemon.mod.common.net.messages.server.riding.ServerboundUpdatePassengerPositionPacket
@@ -252,6 +255,7 @@ import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetActiveMarkH
 import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetItemHiddenHandler
 import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetMarkingsHandler
 import com.cobblemon.mod.common.net.serverhandling.pokemon.update.SetNicknameHandler
+import com.cobblemon.mod.common.net.serverhandling.pokeradar.PokeRadarScanHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.DismountPokemonPacketHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.DriverInputPacketHandler
 import com.cobblemon.mod.common.net.serverhandling.riding.ServerboundUpdatePassengerPositionHandler
@@ -512,6 +516,9 @@ object CobblemonNetwork {
         list.add(PacketRegisterInfo(ClientboundUpdateDriverInputPacket.ID, ClientboundUpdateDriverInputPacket::decode, ClientboundUpdateDriverInputHandler))
         list.add(PacketRegisterInfo(ClientboundSeatAssignmentPacket.ID, ClientboundSeatAssignmentPacket::decode, ClientboundSeatAssignmentPacketHandler))
 
+	    // Poke Radar
+	    list.add(PacketRegisterInfo(PokeRadarScanResultPacket.ID, PokeRadarScanResultPacket::decode, PokeRadarScanResultHandler))
+	    
         // Habitat blocks
         list.add(PacketRegisterInfo(OpenHabitatBlockEditorPacket.ID, OpenHabitatBlockEditorPacket::decode, OpenHabitatBlockEditorHandler))
 
@@ -647,6 +654,9 @@ object CobblemonNetwork {
         // Habitat blocks
         list.add(PacketRegisterInfo(SaveHabitatBlockSettingsPacket.ID, SaveHabitatBlockSettingsPacket::decode, SaveHabitatBlockSettingsHandler))
 
+	    // Poke Radar
+	    list.add(PacketRegisterInfo(PokeRadarScanPacket.ID, PokeRadarScanPacket::decode, PokeRadarScanHandler))
+	    
         // Debug / cheats
         list.add(PacketRegisterInfo(RequestOpenRidingStatsDebugGUIPacket.ID, RequestOpenRidingStatsDebugGUIPacket::decode, RequestOpenRidingStatsDebugGUIHandler))
 

@@ -6,17 +6,16 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 
-class PokeRadarGUI private constructor(
-	val type: PokeRadarType,
+open class PokeRadarGUI(
+	open val type: PokeRadarType,
 ) : Screen(Component.translatable("cobblemon.ui.poke_radar.title")), CobblemonRenderable {
 
 	companion object {
-		/**
-		 * Attempts to open this screen for a client.
-		 */
+
+		// TODO: For now always opens Radar Page, later need persistant storage and open the last opened page
 		fun open(type: PokeRadarType) {
 			val mc = Minecraft.getInstance()
-			val screen = PokeRadarGUI(type)
+			val screen = RadarGUI(type)
 			mc.setScreen(screen)
 		}
 	}

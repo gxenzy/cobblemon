@@ -407,6 +407,9 @@ class CobblemonConfig {
     @CobblemonConfigField(Category.World, lang = "type_gem_tick_chance", SERVER)
     var typeGemTickChance = 1.0f
 
+	@CobblemonConfigField(Category.Spawning, lang = "poke_radar_cooldown", SERVER)
+	var pokeRadarCooldown = 1.0f
+
     fun clone(): CobblemonConfig {
         val newConfig = CobblemonConfig()
         CobblemonConfig::class.memberProperties.forEach { property ->
