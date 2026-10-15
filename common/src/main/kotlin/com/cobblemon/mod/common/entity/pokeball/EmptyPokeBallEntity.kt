@@ -269,6 +269,7 @@ class EmptyPokeBallEntity : ThrowableItemProjectile, PosableEntity, WaterDragMod
                         attemptCatch(pokemonEntity)
                     },
                     ifCanceled = {
+                        captureFuture.complete(false)
                         drop()
                         return
                     }

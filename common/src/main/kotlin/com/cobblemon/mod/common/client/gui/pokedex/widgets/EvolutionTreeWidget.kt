@@ -6,20 +6,18 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.cobblemon.mod.common.client.gui.pokedex.widgets.evolutiontree
+package com.cobblemon.mod.common.client.gui.pokedex.widgets
 
 import com.cobblemon.mod.common.Cobblemon
-import com.cobblemon.mod.common.CobblemonItems
 import com.cobblemon.mod.common.api.gui.*
 import com.cobblemon.mod.common.api.pokedex.Dexes
 import com.cobblemon.mod.common.api.pokedex.PokedexEntryProgress
-import com.cobblemon.mod.common.api.pokedex.entry.PokedexEntry
-import com.cobblemon.mod.common.api.pokedex.entry.PokedexForm
-import com.cobblemon.mod.common.api.pokemon.PokemonProperties
+import com.cobblemon.mod.common.api.pokedex.entry.*
 import com.cobblemon.mod.common.api.pokemon.PokemonSpecies
-import com.cobblemon.mod.common.api.pokemon.evolution.Evolution
 import com.cobblemon.mod.common.api.text.add
 import com.cobblemon.mod.common.api.text.bold
+import com.cobblemon.mod.common.api.text.green
+import com.cobblemon.mod.common.api.text.red
 import com.cobblemon.mod.common.client.CobblemonClient
 import com.cobblemon.mod.common.client.CobblemonResources
 import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUI
@@ -29,18 +27,22 @@ import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUIConstants.POKEMON_D
 import com.cobblemon.mod.common.client.gui.pokedex.PokedexGUIConstants.SCROLL_SLOT_SIZE
 import com.cobblemon.mod.common.client.gui.pokedex.ScaledButton
 import com.cobblemon.mod.common.client.gui.pokedex.renderTooltip
-import com.cobblemon.mod.common.client.gui.pokedex.widgets.PokemonSlotWidget
 import com.cobblemon.mod.common.client.gui.summary.widgets.SoundlessWidget
 import com.cobblemon.mod.common.client.render.drawScaledText
 import com.cobblemon.mod.common.client.render.renderScaledGuiItemIcon
+import com.cobblemon.mod.common.pokemon.FormData
 import com.cobblemon.mod.common.pokemon.Gender
 import com.cobblemon.mod.common.pokemon.RenderablePokemon
-import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.lang
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.core.registries.Registries
+import net.minecraft.locale.Language
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.tags.TagKey
 
 class EvolutionTreeWidget(
     val parent: PokedexGUI,
@@ -92,6 +94,8 @@ class EvolutionTreeWidget(
 
     private var hoveredTooltips: List<MutableComponent>? = null
 
+    private var viewedForm: FormData? = null
+
     private val expandButton: ScaledButton = ScaledButton(
         0f,
         0f,
@@ -100,10 +104,13 @@ class EvolutionTreeWidget(
         resource = expandResource,
         clickAction = {
             parent.evolutionTreeExpanded = !parent.evolutionTreeExpanded
-            expandButton.resource = if (parent.evolutionTreeExpanded) minimizeResource else expandResource
             updatePositioning()
         }
     ).apply { addWidget(this) }
+
+    init {
+        updatePositioning()
+    }
 
     override fun renderWidget(
         guiGraphics: GuiGraphics,
@@ -146,9 +153,31 @@ class EvolutionTreeWidget(
         if (pokedexEntry == null || pokedexForm == null) return
 
         updatePositioning()
+        var rootSpecies = pokedexEntry
+        var rootForm = pokedexForm
+        var preEvolution = findPreEvolution(rootSpecies, rootForm)
+        // Stop at whatever the dex can't resolve, and at cycles (datapacks)
+        val visited = mutableSetOf(rootSpecies.speciesId to rootForm.displayForm)
+        while (preEvolution != null) {
+            val preEvolutionSpecies = DexEntries.entries.values.firstOrNull { it.speciesId == preEvolution.fromSpecies &&
+                    it.forms.any {form -> form.displayForm.equals(preEvolution.fromForm, ignoreCase = true)}} ?: break
+            val preEvolutionForm = preEvolutionSpecies.forms.firstOrNull { it.displayForm.equals(preEvolution.fromForm, ignoreCase = true) } ?: break
+            if (!visited.add(preEvolutionSpecies.speciesId to preEvolutionForm.displayForm)) break
+            rootSpecies = preEvolutionSpecies
+            rootForm = preEvolutionForm
+            preEvolution = findPreEvolution(rootSpecies, rootForm)
+        }
 
-        val (rootPokedexEntry, rootPokedexForm) = Dexes.findRootDexEntryBySpeciesId(pokedexEntry.speciesId, pokedexForm.displayForm)
-        val rootEvolutionNode = buildEvolutionTree(rootPokedexEntry, rootPokedexForm, null)
+        val viewedFormEquivalents = Dexes.getFormEquivalents(pokedexForm.displayForm)
+        viewedForm = PokemonSpecies.getByIdentifier(pokedexEntry.speciesId)
+            ?.forms?.firstOrNull { viewedFormEquivalents.contains(it.name.lowercase()) }
+
+        val formEquivalents = Dexes.getFormEquivalents(rootForm.displayForm)
+        val form =
+            rootSpecies.forms.firstOrNull { formEquivalents.contains(it.displayForm.lowercase()) } ?:
+            rootSpecies.forms.first { it.displayForm.equals("Normal", ignoreCase = true) }
+
+        val rootEvolutionNode = buildEvolutionTree(rootSpecies, form)
 
 //        val isSameEntry = previousRootPokedexEntry != null && pokedexEntry?.id == previousRootPokedexEntry?.id
 //        val isSameForm =
@@ -172,6 +201,13 @@ class EvolutionTreeWidget(
         panningY = 0.0
     }
 
+    /** The evolution leading to [form]; the standard form falls back to any form of the species (no evolution leads to regular Vivillon). */
+    private fun findPreEvolution(entry: PokedexEntry, form: PokedexForm): DexEvolutionDisplay? {
+        return DexEntries.evolutionDisplays.firstOrNull { it.toSpecies == entry.speciesId && form.displayForm.equals(it.toForm, ignoreCase = true) }
+            ?: DexEntries.evolutionDisplays.takeIf { form.displayForm.equals("Normal", ignoreCase = true) }
+                ?.firstOrNull { it.toSpecies == entry.speciesId }
+    }
+
     fun updatePositioning() {
         x = pX + X_MARGIN
         y = pY + if (parent.evolutionTreeExpanded) Y_MARGIN_EXPANDED else Y_MARGIN_MINIMIZED
@@ -180,6 +216,7 @@ class EvolutionTreeWidget(
         panningX = 0.0
         panningY = 0.0
 
+        expandButton.resource = if (parent.evolutionTreeExpanded) minimizeResource else expandResource
         expandButton.buttonX = x + EXPAND_BUTTON_X_MARGIN
         expandButton.buttonY = y + EXPAND_BUTTON_Y_MARGIN
     }
@@ -187,61 +224,62 @@ class EvolutionTreeWidget(
     private fun buildEvolutionTree(
         pokedexEntry: PokedexEntry,
         pokedexForm: PokedexForm,
-        evolution: Evolution? = null,
-        resultProperties: PokemonProperties? = evolution?.result,
-        renderData: RenderEvolutionData? = evolution?.let { renderEvolutionData(it) }
+        aspects: Set<String> = emptySet(),
+        ancestors: Set<Pair<ResourceLocation, String>> = emptySet(),
     ): EvolutionNode {
-        val species = PokemonSpecies.getByIdentifier(pokedexEntry.speciesId)!!
+        // Datapack evolutions can loop back (A -> B -> A), so stop at anything already on this branch
+        val path = ancestors + (pokedexEntry.speciesId to pokedexForm.displayForm.lowercase())
+        val discoveryLevel = CobblemonClient.clientPokedexData.getHighestKnowledgeFor(pokedexEntry, pokedexForm, aspects.toMutableSet())
 
         val formEquivalents = Dexes.getFormEquivalents(pokedexForm.displayForm)
-        val form = species.forms.firstOrNull { formEquivalents.contains(it.name.lowercase()) }
-        val parentSpecies = Dexes.findDexEntryBySpeciesId(species.resourceIdentifier)!!
-        val parentPokedexForm = parentSpecies.forms.first { formEquivalents.contains(it.displayForm.lowercase()) }
+        val evolutions = DexEntries.evolutionDisplays.filter { it.fromSpecies == pokedexEntry.speciesId && formEquivalents.contains(it.fromForm.lowercase()) }
 
-        val aspects = resultProperties?.aspects?.toMutableSet() ?: mutableSetOf()
-        form?.aspects?.let { aspects.addAll(it) }
-
-        val discoveryLevel = CobblemonClient.clientPokedexData.getHighestKnowledgeFor(pokedexEntry, pokedexForm, aspects)
-
-        val evolutions = form?.evolutions ?: species.evolutions
-
-        // Avoid evolution.result.create() here: it builds a full battle-ready Pokemon (initializeMovesetFromDefault
-        // etc.) which relies on server-only data like CobblemonMovesetBuilders and crashes on the client
-        val children = evolutions.flatMap { evolution ->
-            val baseRenderData = renderEvolutionData(evolution)
-
-            listOfNotNull(evolution.result, evolution.shedder).mapNotNull { resultProperties ->
-                val resultSpecies = resultProperties.species
-                    ?.let { PokemonSpecies.getByIdentifier(it.asIdentifierDefaultingNamespace()) }
-                    ?: return@mapNotNull null
-                
-                val resultForm = resultSpecies.getForm(aspects + resultProperties.aspects)
-
-                val speciesId = resultSpecies.resourceIdentifier
-                val childPokedexEntry = Dexes.findDexEntryBySpeciesId(speciesId)
-
-                if (childPokedexEntry == null) {
-                    Cobblemon.LOGGER.warn("Dex entry not found for species: $speciesId")
-                    return@mapNotNull null
-                }
-
-                val formEquivalents = Dexes.getFormEquivalents(resultForm.name.lowercase())
-                val childPokedexForm = childPokedexEntry.forms.first { formEquivalents.contains(it.displayForm.lowercase()) }
-
-                val childRenderData = if (resultProperties === evolution.shedder) {
-                    RenderEvolutionData(
-                        icons = (baseRenderData?.icons ?: emptyList()) + CobblemonItems.POKE_BALL,
-                        tooltips = (baseRenderData?.tooltips ?: emptyList()) + lang("ui.pokedex.evolution.shedder.tooltip"),
-                    )
-                } else {
-                    baseRenderData
-                }
-
-                return@mapNotNull buildEvolutionTree(childPokedexEntry, childPokedexForm, evolution, resultProperties, childRenderData)
+        val children = evolutions.mapNotNull {
+            val childPokedexEntry = DexEntries.entries.values.firstOrNull { entry -> entry.speciesId == it.toSpecies &&
+                    entry.forms.any {form -> form.displayForm.equals(it.toForm, ignoreCase = true)}}
+            if (childPokedexEntry == null) {
+                Cobblemon.LOGGER.warn("Dex entry not found for species: ${it.toSpecies}")
+                return@mapNotNull null
             }
+            val formEquivalents = Dexes.getFormEquivalents(it.toForm.lowercase())
+            val childPokedexForm = childPokedexEntry.forms.firstOrNull { formEquivalents.contains(it.displayForm.lowercase()) }
+            if (childPokedexForm == null) {
+                Cobblemon.LOGGER.warn("Dex form ${it.toForm} not found for species: ${it.toSpecies}")
+                return@mapNotNull null
+            }
+            if ((childPokedexEntry.speciesId to childPokedexForm.displayForm.lowercase()) in path) {
+                Cobblemon.LOGGER.warn("Evolution loop found at species: ${it.toSpecies} form: ${it.toForm}")
+                return@mapNotNull null
+            }
+            buildEvolutionTree(childPokedexEntry, childPokedexForm, it.toAspects, path)
         }
 
-        return EvolutionNode(pokedexEntry, parentPokedexForm, aspects, discoveryLevel, children, renderData)
+        return EvolutionNode(
+            pokedexEntry = pokedexEntry,
+            pokedexForm = pokedexForm,
+            aspects = aspects,
+            pokedexEntryProgress = discoveryLevel,
+            children = mergeEquivalentChildren(children),
+            renderDataAlternatives = evolutions,
+        )
+    }
+
+    private fun mergeEquivalentChildren(children: List<EvolutionNode>): List<EvolutionNode> {
+        return children
+            .groupBy { Triple(it.pokedexEntry.speciesId, it.pokedexForm.displayForm.lowercase(), it.aspects) }
+            .values
+            .map { group ->
+                if (group.size == 1) return@map group.first()
+                val first = group.first()
+                EvolutionNode(
+                    first.pokedexEntry,
+                    first.pokedexForm,
+                    first.aspects,
+                    first.pokedexEntryProgress,
+                    first.children,
+                    group.flatMap { it.renderDataAlternatives }
+                )
+            }
     }
 
     private fun renderTreeDrawingNode(
@@ -258,15 +296,19 @@ class EvolutionTreeWidget(
             val (childX, _) = getDrawingCoordinates(child)
 
             val lineStartX = treeX + SCROLL_SLOT_SIZE
-            val lineEndX = childX
             val lineY = treeY + SCROLL_SLOT_SIZE / 2
 
-            child.value.renderData?.let { renderData ->
+            val formEquivalents = Dexes.getFormEquivalents(child.value.pokedexForm.displayForm)
+            val alternatives = treeDrawingNode.value.renderDataAlternatives.filter {
+                it.toSpecies == child.value.pokedexEntry.speciesId && formEquivalents.contains(it.toForm.lowercase()) && it.toAspects == child.value.aspects
+            }
+
+            alternatives.takeIf { it.isNotEmpty() }?.let {
                 drawEvolutionInfo(
                     guiGraphics,
-                    renderData,
+                    it,
                     lineStartX,
-                    lineEndX,
+                    childX,
                     lineY,
                     mouseX,
                     mouseY,
@@ -298,16 +340,19 @@ class EvolutionTreeWidget(
             treeDrawingNode.children.forEach { child ->
                 val (childX, childY) = getDrawingCoordinates(child)
 
-                val lineStartX = treeForkEnd
-                val lineEndX = childX
                 val lineY = childY + SCROLL_SLOT_SIZE / 2
 
-                child.value.renderData?.let { renderData ->
+                val formEquivalents = Dexes.getFormEquivalents(child.value.pokedexForm.displayForm)
+                val alternatives = treeDrawingNode.value.renderDataAlternatives.filter {
+                    it.toSpecies == child.value.pokedexEntry.speciesId && formEquivalents.contains(it.toForm.lowercase()) && it.toAspects == child.value.aspects
+                }
+
+                alternatives.takeIf { it.isNotEmpty() }?.let {
                     drawEvolutionInfo(
                         guiGraphics,
-                        renderData,
-                        lineStartX,
-                        lineEndX,
+                        it,
+                        treeForkEnd,
+                        childX,
                         lineY,
                         mouseX,
                         mouseY,
@@ -346,7 +391,7 @@ class EvolutionTreeWidget(
                         if (formName == "normal") null
                         else lang("ui.pokedex.info.form.${species}-${formName.replace("-", "")}")
 
-                    formComponent?.add(" ")?.add(speciesComponent) ?: speciesComponent
+                    formComponent?.let { speciesComponent.copy().add(" (").add(it).add(")") } ?: speciesComponent
                 }
 
             guiGraphics.disableScissor()
@@ -408,7 +453,7 @@ class EvolutionTreeWidget(
 
     private fun drawEvolutionInfo(
         guiGraphics: GuiGraphics,
-        renderData: RenderEvolutionData,
+        renderDataAlternatives: List<DexEvolutionDisplay>,
         lineStartX: Int,
         lineEndX: Int,
         lineY: Int,
@@ -416,6 +461,26 @@ class EvolutionTreeWidget(
         mouseY: Int,
         delta: Float,
     ) {
+        val icons = renderDataAlternatives.flatMap { it.requirements.filter(::isDisplayable).map { req -> req.icon } }.distinct()
+        val playerBiome = Minecraft.getInstance().player?.let { it.level().getBiome(it.blockPosition()) }
+        val alternativeTooltips = renderDataAlternatives.map { alternative ->
+            alternative.requirements.filter(::isDisplayable).map { req ->
+                if (req is CobblemonBiomeDexEvolutionRequirementDisplay) {
+                    val tooltip = req.tooltip.copy()
+                    if (playerBiome != null) {
+                        val conditionFits = req.condition?.let { if (it.tag) playerBiome.`is`(TagKey.create(Registries.BIOME, it.id)) else playerBiome.`is`(it.id) } ?: true
+                        val antiConditionFits = req.antiCondition?.let { if (it.tag) playerBiome.`is`(TagKey.create(Registries.BIOME, it.id)) else playerBiome.`is`(it.id) } ?: false
+                        val isMet = conditionFits && !antiConditionFits
+                        tooltip.add(if (isMet) Component.literal(" ✔").green() else Component.literal(" ✘").red())
+                    }
+                    tooltip
+                } else {
+                    req.tooltip
+                }
+            }
+        }
+        val tooltips = combineAlternativeTooltips(alternativeTooltips)
+
         val lineXMiddle = (lineStartX + lineEndX) / 2
         val iconX = (lineXMiddle + ICON_X_PADDING - ICON_SLOT_HALF_PADDING).toInt()
         val iconY = (lineY + ICON_Y_PADDING - ICON_SLOT_HALF_PADDING).toInt()
@@ -431,7 +496,7 @@ class EvolutionTreeWidget(
             return
         }
 
-        if (renderData.icons.isEmpty()) {
+        if (icons.isEmpty()) {
             guiGraphics.hLine(
                 lineStartX,
                 lineEndX,
@@ -462,8 +527,8 @@ class EvolutionTreeWidget(
                 height = iconSize,
             )
 
-            val index = (System.currentTimeMillis() / MILLIS_BETWEEN_ICONS_CYCLE) % renderData.icons.size
-            val item = renderData.icons[index.toInt()]
+            val index = (System.currentTimeMillis() / MILLIS_BETWEEN_ICONS_CYCLE) % icons.size
+            val item = icons[index.toInt()]
 
             renderScaledGuiItemIcon(
                 itemStack = item.defaultInstance,
@@ -478,17 +543,49 @@ class EvolutionTreeWidget(
         val isIconHovered = isElementHovered(
             mouseX,
             mouseY,
-            iconX.toInt(),
-            iconX.toInt() + iconSize,
-            iconY.toInt(),
-            iconY.toInt() + iconSize,
+            iconX,
+            iconX + iconSize,
+            iconY,
+            iconY + iconSize,
         )
 
-        if (renderData.tooltips.isNotEmpty() &&
+        if (tooltips.isNotEmpty() &&
             (isLineHovered || isIconHovered) &&
             this.isHovered(mouseX.toDouble(), mouseY.toDouble())
         ) {
-            hoveredTooltips = renderData.tooltips
+            hoveredTooltips = tooltips.map { it.copy() }
+        }
+    }
+
+    /** Hides biome requirements naming untranslated biomes, e.g. from mods that aren't installed (aether:skyroot_forest) */
+    private fun isDisplayable(requirement: DexEvolutionRequirementDisplay): Boolean {
+        if (requirement !is CobblemonBiomeDexEvolutionRequirementDisplay) return true
+        return listOfNotNull(requirement.condition, requirement.antiCondition).all {
+            it.tag || Language.getInstance().has("biome.${it.id.namespace}.${it.id.path}")
+        }
+    }
+
+    private fun combineAlternativeTooltips(alternatives: List<List<Component>>): List<Component> {
+        val groups = alternatives.filter { it.isNotEmpty() }
+        if (groups.size <= 1) return groups.firstOrNull() ?: emptyList()
+
+        val sharedStrings = groups.map { group -> group.map { it.string }.toSet() }.reduce { acc, strings -> acc intersect strings }
+        val shared = groups.first().filter { it.string in sharedStrings }.distinctBy { it.string }
+        val remainders = groups
+            .map { group -> group.filter { it.string !in sharedStrings } }
+            .distinctBy { group -> group.map { it.string } }
+
+        // An alternative needing nothing beyond the shared lines makes the others irrelevant
+        if (remainders.any { it.isEmpty() }) return shared
+        if (remainders.size == 1) return shared + remainders.first()
+
+        return if (remainders.size >= 3 && remainders.all { it.size == 1 }) {
+            shared + lang("ui.pokedex.evolution.one_of").bold() + remainders.map { it.first() }
+        } else {
+            // Show each alternative in full, otherwise it's unclear where the first one starts
+            groups.distinctBy { group -> group.map { it.string } }.flatMapIndexed { index, group ->
+                if (index == 0) group else listOf(lang("ui.pokedex.evolution.or").bold()) + group
+            }
         }
     }
 
@@ -566,6 +663,6 @@ class EvolutionTreeWidget(
         val aspects: Set<String>,
         val pokedexEntryProgress: PokedexEntryProgress,
         override val children: List<EvolutionNode>,
-        val renderData: RenderEvolutionData?,
+        val renderDataAlternatives: List<DexEvolutionDisplay>,
     ) : TreeNode<EvolutionNode>
 }
