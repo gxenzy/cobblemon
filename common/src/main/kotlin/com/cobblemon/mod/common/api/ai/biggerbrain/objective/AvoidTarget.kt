@@ -43,8 +43,6 @@ class AvoidTarget(
     private var movementTask: EntityFixation? = null
     private var remainingCooldownTicks = 0
 
-    override val observedMemories = listOf(MemoryModuleType.AVOID_TARGET)
-
     override fun getDescription(entity: LivingEntity) = "Avoiding target"
 
     override fun perform(

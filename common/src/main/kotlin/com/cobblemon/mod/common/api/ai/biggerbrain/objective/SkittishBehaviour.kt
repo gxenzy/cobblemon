@@ -38,7 +38,6 @@ class SkittishBehaviour(
     description = description,
 ) {
     private var remainingCooldownTicks = 0
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY, CobblemonMemories.ATTACK_TARGET_DATA)
 
     override fun perform(
         entity: LivingEntity,

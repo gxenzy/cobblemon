@@ -58,7 +58,6 @@ class TerritorialBehaviour(
 
     private var remainingCooldownTicks = 0
     private val objectiveDescription: String = mainThreadRuntime.resolveString(description)
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY, CobblemonMemories.ATTACK_TARGET_DATA)
     private var cryCooldownTicks = 0
     private var proximityAttackCooldown = 0
     private var satiationHitCount = 999

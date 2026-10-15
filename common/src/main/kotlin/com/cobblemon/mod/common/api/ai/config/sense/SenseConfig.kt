@@ -52,13 +52,12 @@ interface SenseConfig {
             cobblemonResource("nest_sensor") to NestSense.Config::class.java,
             cobblemonResource("egg_sensor") to EggSense.Config::class.java,
             cobblemonResource("ideal_nest_location_sensor") to IdealNestPlacementSense.Config::class.java,
-            cobblemonResource("pokemon_adult") to PokemonAdultSense.Config::class.java,
             cobblemonResource("nearby_sweet_berry_bush") to SweetBerryBushSense.Config::class.java,
             cobblemonResource("pokemon_nearby_wanted_item") to PokemonItemSense.Config::class.java,
             cobblemonResource("flower_sense") to FlowerSense.Config::class.java,
             cobblemonResource("beehive_sense") to BeeHiveSense.Config::class.java,
             cobblemonResource("sacc_leaf_sense") to SaccLeafSense.Config::class.java,
-            )
+        )
     }
 
     /** The variables that this sense config uses. These are used to declare variables on the entity cleanly. */

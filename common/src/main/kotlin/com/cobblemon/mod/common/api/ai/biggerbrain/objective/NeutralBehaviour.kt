@@ -51,7 +51,6 @@ class NeutralBehaviour(
     targetCondition = targetCondition, // target condition (will be checked on entity interaction)
     description = description,
 ) {
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY, CobblemonMemories.ATTACK_TARGET_DATA)
     private var fixation: EntityFixation? = null
 
     override fun perform(

@@ -43,7 +43,6 @@ class Defensive(
 ) : Objective {
     private var remainingCooldownTicks = 0
     private var trackedEntity: LivingEntity? = null
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY, CobblemonMemories.ATTACK_TARGET_DATA)
 
     override fun getDescription(entity: LivingEntity) = "Defensive Behavior"
 

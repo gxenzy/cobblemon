@@ -55,8 +55,6 @@ class AttackTargetMelee(
     /** Ticks until the chase may plan again after failing, so an unreachable target doesn't get re-pathed every tick. */
     private var remainingRepathTicks = 0
 
-    override val observedMemories = listOf(MemoryModuleType.ATTACK_TARGET)
-
     override fun getDescription(entity: LivingEntity) = "Attack target melee"
 
     override fun perform(

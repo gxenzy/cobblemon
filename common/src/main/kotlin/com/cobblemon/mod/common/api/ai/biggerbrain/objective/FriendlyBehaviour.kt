@@ -55,7 +55,6 @@ class FriendlyBehaviour(
 ) {
     private var remainingCooldownTicks = 0
     private var fixation: EntityFixation? = null
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY)
     private val closeEnoughDistance = 1.5
     private var remainingTicks = 0
 

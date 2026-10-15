@@ -9,7 +9,6 @@
 package com.cobblemon.mod.common.api.ai.biggerbrain.sense
 
 import com.cobblemon.mod.common.api.ai.biggerbrain.BiggerBrain
-import com.cobblemon.mod.common.util.cobblemonResource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 
@@ -23,30 +22,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType
  * @since December 29th, 2025
  */
 interface Sense {
-    companion object {
-        val types = mutableMapOf(
-            cobblemonResource("battling_pokemon") to BattlingPokemonSense::class.java,
-            cobblemonResource("drowsy") to DrowsySense::class.java,
-            cobblemonResource("nearby_entities") to NearbyEntitiesSense::class.java,
-            cobblemonResource("npc_battling") to NPCBattlingSense::class.java,
-            cobblemonResource("pokemon_adult") to PokemonAdultSense::class.java,
-            cobblemonResource("hurt_by") to HurtBySense::class.java,
-            cobblemonResource("mate_sensor") to MateSense::class.java,
-            cobblemonResource("nest_sensor") to NestSense::class.java,
-            cobblemonResource("egg_sensor") to EggSense::class.java,
-            cobblemonResource("ideal_nest_location_sensor") to IdealNestPlacementSense::class.java,
-            cobblemonResource("hurt_by") to HurtBySense::class.java,
-            cobblemonResource("nearby_sweet_berry_bush") to SweetBerryBushSense::class.java,
-            cobblemonResource("jukebox_playing") to JukeboxSense::class.java,
-            cobblemonResource("nearby_sweet_berry_bush") to SweetBerryBushSense::class.java,
-            cobblemonResource("pokemon_nearby_wanted_item") to PokemonItemSense.Config::class.java,
-            cobblemonResource("flower_sense") to FlowerSense.Config::class.java,
-            cobblemonResource("beehive_sense") to BeeHiveSense.Config::class.java,
-            cobblemonResource("sacc_leaf_sense") to SaccLeafSense.Config::class.java,
-
-            )
-    }
-
     /** The ticks until it will next be ticked. This is also displayed in the debug overlay. */
     var ticksUntilNextExecution: Int
 

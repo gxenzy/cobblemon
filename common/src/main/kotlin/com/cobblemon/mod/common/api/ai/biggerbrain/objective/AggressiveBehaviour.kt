@@ -52,7 +52,6 @@ class AggressiveBehaviour(
 
     private var remainingCooldownTicks = 0
     private var attackFixation : EntityFixation? = null
-    override val observedMemories = listOf(MemoryModuleType.HURT_BY_ENTITY, CobblemonMemories.ATTACK_TARGET_DATA)
 
 
     override fun perform(

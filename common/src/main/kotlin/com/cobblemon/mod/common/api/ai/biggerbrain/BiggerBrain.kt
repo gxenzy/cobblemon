@@ -110,7 +110,8 @@ class BiggerBrain(val entity: LivingEntity) {
             }
         }
 
-        if (fixation?.tick(entity, this) == false) {
+        val f = fixation
+        if (f?.tick(entity, this) == false && fixation === f) {
             fixation = null
         }
 
