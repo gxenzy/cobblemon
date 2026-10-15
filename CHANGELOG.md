@@ -73,6 +73,7 @@
 - Bees now grow Apricorns and the Galarica Nut Bush, which were in the bee growables tag but never handled, and correctly spend their nectar when they do
 - Saccharine Leaves can now be bone mealed
 - Fixed party overlay not hiding when player opens the pokedex scanner 
+- Added compat for AppleSkin
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation

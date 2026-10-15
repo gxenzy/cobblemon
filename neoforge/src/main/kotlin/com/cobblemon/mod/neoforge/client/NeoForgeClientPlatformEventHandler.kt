@@ -8,11 +8,13 @@
 
 package com.cobblemon.mod.neoforge.client
 
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.platform.events.ClientEntityEvent
 import com.cobblemon.mod.common.platform.events.ClientPlayerEvent
 import com.cobblemon.mod.common.platform.events.ClientTickEvent
 import com.cobblemon.mod.common.platform.events.PlatformEvents
 import com.cobblemon.mod.common.platform.events.RenderEvent
+import com.cobblemon.mod.neoforge.client.integration.appleskin.AppleSkinClientEventHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.neoforged.api.distmarker.Dist
@@ -31,6 +33,10 @@ object NeoForgeClientPlatformEventHandler {
 
     fun register() {
         NeoForge.EVENT_BUS.register(this)
+
+        if (Cobblemon.implementation.isModInstalled("appleskin")) {
+            AppleSkinClientEventHandler.register()
+        }
     }
 
     @SubscribeEvent
