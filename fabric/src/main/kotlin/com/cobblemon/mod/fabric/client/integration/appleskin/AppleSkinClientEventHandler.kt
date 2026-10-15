@@ -12,7 +12,7 @@ import com.cobblemon.mod.common.client.CobblemonClient
 import squeek.appleskin.api.AppleSkinApi
 import squeek.appleskin.api.event.HUDOverlayEvent
 
-object AppleSkinClientEventHandler: AppleSkinApi {
+class AppleSkinClientEventHandler: AppleSkinApi {
     override fun registerEvents() {
         HUDOverlayEvent.Exhaustion.EVENT.register(::checkIsScanning)
         HUDOverlayEvent.Saturation.EVENT.register(::checkIsScanning)

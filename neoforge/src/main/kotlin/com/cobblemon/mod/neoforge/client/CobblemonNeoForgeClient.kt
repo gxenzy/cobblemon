@@ -237,10 +237,8 @@ object CobblemonNeoForgeClient : CobblemonClientImplementation {
         }
     }
 
-    fun isModInstalled(id: String): Boolean = ModList.get().isLoaded(id)
-
     private fun attemptClientModCompat() {
-        if (this.isModInstalled("appleskin")) {
+        if (Cobblemon.implementation.isModInstalled("appleskin")) {
             AppleSkinClientEventHandler.register()
         }
     }
