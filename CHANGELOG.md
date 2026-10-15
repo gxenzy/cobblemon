@@ -37,6 +37,7 @@
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
 - Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
+- Fixed all pots of mod on NeoForge
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
