@@ -81,8 +81,8 @@ class PartyOverlay : Gui(Minecraft.getInstance()) {
             if (minecraft.options.hideGui || minecraft.debugOverlay.showDebugScreen()) {
                 return false
             }
-            // Hiding if toggled via Keybind or if scanning gui is open
-            if (HidePartyBinding.shouldHide || CobblemonClient.pokedexUsageContext.scanningGuiOpen) {
+            // Hiding if toggled via Keybind
+            if (HidePartyBinding.shouldHide) {
                 return false
             }
 

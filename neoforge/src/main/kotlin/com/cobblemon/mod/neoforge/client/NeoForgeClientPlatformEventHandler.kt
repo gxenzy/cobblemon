@@ -33,10 +33,6 @@ object NeoForgeClientPlatformEventHandler {
 
     fun register() {
         NeoForge.EVENT_BUS.register(this)
-
-        if (Cobblemon.implementation.isModInstalled("appleskin")) {
-            AppleSkinClientEventHandler.register()
-        }
     }
 
     @SubscribeEvent
