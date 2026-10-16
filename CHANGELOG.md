@@ -3,18 +3,16 @@
 
 ### Additions
 
-### Pokémon Added
-#### Generation 4
-
-#### Generation 5
-
-#### Generation 6
-
-#### Generation 7
-
-#### Generation 8
-
-#### Generation 9
+### Cries added/updated for the following Pokémon
+- Houndour
+- Houndoom
+- Starly
+- Staravia
+- Staraptor
+- Applin (update)
+- Flapple (update)
+- Appletun
+- Dipplin
 
 ### Model updates for the following Pokémon
 
