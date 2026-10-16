@@ -23,6 +23,7 @@
 ### Changes
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
 - Moved EXP Candies from the Medicine recipe book category to the Misc category
+- Removed Dynamic Lights data from the Magmarizer item for consistency with the block
 
 ### Fixes
 - Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
