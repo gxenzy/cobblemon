@@ -2,7 +2,6 @@ package com.cobblemon.mod.common.client.gui.trainercard
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.badges.Badges
-import com.cobblemon.mod.common.api.gui.blitk
 import com.cobblemon.mod.common.api.pokedex.CaughtCount
 import com.cobblemon.mod.common.api.stats.CobblemonStats.getStat
 import com.cobblemon.mod.common.client.CobblemonClient
@@ -17,25 +16,53 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.game.ServerboundClientCommandPacket
 import net.minecraft.stats.Stats
-import org.joml.Quaternionf
-import kotlin.math.atan
+import kotlin.math.ceil
 
-class TrainerCardMenu() : Screen(
+class TrainerCardMenu : Screen(
     Component.translatable("cobblemon.ui.trainercard.title")
 ), CobblemonRenderable {
 
     private var elapsedTicks = 0
     private var lastSyncedTimePlayed = 0
+    private var panelLeft = 0
+    private var panelTop = 0
+    private lateinit var badgeScrollList: BadgesScrollingWidget
 
     override fun isPauseScreen(): Boolean = false
 
     override fun init() {
+        super.init()
         elapsedTicks = 0
         lastSyncedTimePlayed = getTimePlayed()
         // stats need to update when we open the menu, otherwise time played only updates when stats menu is opened
         Minecraft.getInstance().connection?.send(
             ServerboundClientCommandPacket(ServerboundClientCommandPacket.Action.REQUEST_STATS)
         )
+
+        val badges = Badges.all().sortedBy { it.order }
+        val panelWidth = minOf(220, (width - 16).coerceAtLeast(1))
+        panelLeft = (width - panelWidth) / 2
+        val leftColumnWidth = panelWidth / 2
+        val badgeAreaWidth = panelWidth - leftColumnWidth - 8
+        val columns = ((badgeAreaWidth + BadgesScrollingWidget.SLOT_SPACING) /
+            (BadgesScrollingWidget.SLOT_SIZE + BadgesScrollingWidget.SLOT_SPACING)).coerceIn(1, 4)
+        val badgeWidth = columns * BadgesScrollingWidget.SLOT_SIZE +
+            (columns - 1) * BadgesScrollingWidget.SLOT_SPACING + 4
+        val rowCount = ceil(badges.size.toDouble() / columns).toInt().coerceAtLeast(1)
+        val rowHeight = BadgesScrollingWidget.SLOT_SIZE + BadgesScrollingWidget.SLOT_SPACING
+        val badgeHeight = minOf(rowCount, BadgesScrollingWidget.MAX_VISIBLE_ROWS) * rowHeight
+        val panelHeight = maxOf(92, badgeHeight + 20)
+        panelTop = ((height - panelHeight) / 2).coerceAtLeast(8)
+
+        badgeScrollList = BadgesScrollingWidget(
+            x = panelLeft + panelWidth - badgeWidth,
+            y = panelTop + 10,
+            width = badgeWidth,
+            height = badgeHeight,
+            columns = columns
+        )
+        badgeScrollList.createEntries(badges)
+        addRenderableWidget(badgeScrollList)
     }
 
     override fun tick() {
@@ -49,34 +76,17 @@ class TrainerCardMenu() : Screen(
     }
 
     override fun render(context: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        val matrices = context.pose()
-
-        val portraitX = 60
-        val portaitY = 60
+        val portraitX = panelLeft
+        val portraitY = minOf(panelTop + 48, (height - 32).coerceAtLeast(0))
         val portraitSize = 30
-
-        context.enableScissor(portraitX, portaitY, portraitX + (portraitSize * 2), portaitY + portraitSize)
+        val statsTextWidth = (badgeScrollList.x - panelLeft - 8).coerceAtLeast(1)
 
         val player = Minecraft.getInstance().player ?: return // unsure of why this would ever not return a player but if you're here maybe it's because it did
         val entity = Minecraft.getInstance().level?.getPlayerByUUID(player.uuid) ?: return
 
-        val f = atan((-40 / 40.0f).toDouble()).toFloat()
-        val g = atan((-10 / 40.0f).toDouble()).toFloat()
-        val quaternionf = Quaternionf().rotateZ(Math.PI.toFloat())
-        val quaternionf2 = Quaternionf().rotateX(g * 20.0f * (Math.PI.toFloat() / 180))
-
-//        entity.yBodyRot = 180.0F + f * 20.0F
-//        entity.yRot = (180.0F + f * 40.0F) * 1
-//        entity.xRot = 0F
-//        entity.yHeadRot = entity.yRot
-//        entity.yHeadRotO = entity.yRot
-
-//        InventoryScreen.renderEntityInInventory(context,
-//            portraitX.toFloat() + 15, portaitY.toFloat() + 55, 28f, Vector3f(), quaternionf, quaternionf2,
-//            entity
-//        )
+        context.enableScissor(portraitX, portraitY, portraitX + portraitSize, portraitY + portraitSize)
         InventoryScreen.renderEntityInInventoryFollowsMouse(context,
-            portraitX, portaitY, portraitX + portraitSize, portaitY + portraitSize, 28, 0.5f, mouseX.toFloat(), mouseY.toFloat(),
+            portraitX, portraitY, portraitX + portraitSize, portraitY + portraitSize, 28, 0.5f, mouseX.toFloat(), mouseY.toFloat(),
             entity
         )
 
@@ -93,39 +103,37 @@ class TrainerCardMenu() : Screen(
         drawScaledText(
             context = context,
             text = lang("ui.trainermenu.timeplayed", timePlayed),
-            x = 20,
-            y = 20,
+            x = panelLeft,
+            y = panelTop + 4,
+            maxCharacterWidth = statsTextWidth
         )
 
         drawScaledText(
             context = context,
             text = lang("ui.trainermenu.pokemon_registered",
                 CobblemonClient.clientPokedexData.getDexCalculatedValue(cobblemonResource("national"), CaughtCount)),
-            x = 20,
-            y = 30,
+            x = panelLeft,
+            y = panelTop + 14,
+            maxCharacterWidth = statsTextWidth
         )
 
-        drawScaledText(
-            context = context,
-            text = lang("ui.trainermenu.battle_stats",
-                player.stats.getValue(Stats.CUSTOM.get(getStat(Cobblemon.statistics.PVP_BATTLES_WON))),
-                player.stats.getValue(Stats.CUSTOM.get(getStat(Cobblemon.statistics.PVP_BATTLES_LOST)))
-            ),
-            x = 20,
-            y = 40
-        )
+        val playerBattlesWon = player.stats.getValue(Stats.CUSTOM.get(getStat(Cobblemon.statistics.PVP_BATTLES_WON)))
+        val playerBattlesLost = player.stats.getValue(Stats.CUSTOM.get(getStat(Cobblemon.statistics.PVP_BATTLES_LOST)))
 
-        CobblemonClient.clientBadgeData.obtainedBadges.forEach {
-            val badge = Badges.getByIdentifier(it) ?: return@forEach
-            blitk(
-                matrixStack = matrices,
-                texture = badge.texture,
-                x = 100 + ((badge.order - 1) % 4) * 20,
-                y = 100 + ((badge.order - 1) / 4) * 20,
-                width = 16,
-                height = 16
+        if (playerBattlesWon > 0 || playerBattlesLost > 0) {
+            drawScaledText(
+                context = context,
+                text = lang("ui.trainermenu.battle_stats",
+                    playerBattlesWon,
+                    playerBattlesLost
+                ),
+                x = panelLeft,
+                y = panelTop + 24,
+                maxCharacterWidth = statsTextWidth
             )
         }
+
+        badgeScrollList.render(context, mouseX, mouseY, partialTick)
     }
 
     private fun getTimePlayed(): Int =
