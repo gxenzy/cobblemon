@@ -844,6 +844,9 @@
   "cobblemon.fossil.root": "Root",
   "cobblemon.fossil.sail": "Sail",
   "cobblemon.fossil.skull": "Skull",
+
+  "cobblemon.badge.awesome_badge": "Awesome Badge",
+
   "cobblemon.gender.female": "Female",
   "cobblemon.gender.male": "Male",
   "cobblemon.gender.genderless": "Genderless",
@@ -1204,6 +1207,7 @@
 
   "cobblemon.ui.trainermenu.timeplayed": "Time played: %1$s",
   "cobblemon.ui.trainermenu.pokemon_registered": "Pokémon registered: %1$s",
+  "cobblemon.ui.trainermenu.battle_stats": "Win/loss rate: %1$s/%2$s",
 
   "cobblemon.ui.summary.title": "Summary",
   "cobblemon.ui.starter.title": "Starter Selection",
@@ -2389,6 +2393,7 @@
   "cobblemon.command.takemark": "%1$s was taken from %2$s's %3$s.",
   "cobblemon.command.takemark.does_not_have": "%1$s's %2$s does not have a %3$s!",
   "cobblemon.command.mark.invalid": "Invalid mark name.",
+  "cobblemon.command.badge.invalid": "Invalid badge identifier.",
   "cobblemon.command.molang.out": "MoLang output: %1$s",
   "cobblemon.command.pokeheal.in_battle": "You cannot heal your party while in a battle!",
   "cobblemon.command.spawnpokemonfrompool": "A %1$s has spawned in the area.",
@@ -9586,8 +9591,10 @@
   "cobblemon.snapshots.warning.dont_show_again_tip": "This setting may be ignored on newer Cobblemon snapshots (e.g. 1.7.0 vs 1.8.0)",
   "stat.cobblemon.battles_fled": "Pokémon Battles Fled",
   "stat.cobblemon.battles_lost": "Pokémon Battles Lost",
+  "stat.cobblemon.pvp_battles_lost": "Trainer Battles Lost",
   "stat.cobblemon.battles_total": "Pokémon Total Battles",
   "stat.cobblemon.battles_won": "Pokémon Battles Won",
+  "stat.cobblemon.pvp_battles_won": "Trainer Battles Won",
   "stat.cobblemon.captured": "Pokémon Captured",
   "stat.cobblemon.dex_entries": "Pokémon Pokédex Entries",
   "stat.cobblemon.eggs_collected": "Pokémon Eggs Collected",

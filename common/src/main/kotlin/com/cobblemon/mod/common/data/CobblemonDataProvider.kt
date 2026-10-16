@@ -11,6 +11,7 @@ package com.cobblemon.mod.common.data
 import com.cobblemon.mod.common.*
 import com.cobblemon.mod.common.Cobblemon.LOGGER
 import com.cobblemon.mod.common.api.abilities.Abilities
+import com.cobblemon.mod.common.api.badges.Badges
 import com.cobblemon.mod.common.api.berry.Berries
 import com.cobblemon.mod.common.api.cooking.Seasonings
 import com.cobblemon.mod.common.api.data.DataProvider
@@ -120,6 +121,7 @@ object CobblemonDataProvider : DataProvider {
         this.register(SpawnBaitEffects, reloadable = false)
         this.register(CobblemonRideSettings, reloadable = true)
         this.register(TechnicalMachines, reloadable = false)
+        this.register(Badges, reloadable = true)
         SpawnBait.Effects.setupEffects()
 
         PlatformEvents.SERVER_PLAYER_LOGOUT.subscribe {

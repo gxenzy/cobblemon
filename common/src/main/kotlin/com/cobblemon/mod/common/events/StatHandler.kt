@@ -78,10 +78,21 @@ object StatHandler : EventHandler {
 
     fun onWinBattle(event : BattleVictoryEvent) {
         if (!event.wasWildCapture) {
+            if(event.battle.isPvP) {
+                event.winners
+                    .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
+                    .forEach { player -> player.awardStat(getStat(Cobblemon.statistics.PVP_BATTLES_WON)) }
+                event.losers
+                    .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
+                    .forEach { player -> player.awardStat(getStat(Cobblemon.statistics.PVP_BATTLES_LOST)) }
+            }
             if (event.battle.isPvW) {
                 event.winners
                     .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
                     .forEach { player -> player.awardStat(getStat(Cobblemon.statistics.BATTLES_WON)) }
+                event.losers
+                    .flatMap { it.getPlayerUUIDs().mapNotNull(UUID::getPlayer) }
+                    .forEach { player -> player.awardStat(getStat(Cobblemon.statistics.BATTLES_LOST)) }
             }
         }
     }

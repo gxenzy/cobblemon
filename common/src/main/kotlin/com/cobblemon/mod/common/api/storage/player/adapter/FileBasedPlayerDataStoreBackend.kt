@@ -52,7 +52,7 @@ abstract class FileBasedPlayerDataStoreBackend<T : InstancedPlayerData>(
         val playerFile = filePath(uuid)
         val playerFileOld = filePath(uuid, OLD_FILE_EXTENSION)
         playerFile.parentFile.mkdirs()
-        val loadFallback: () -> T = {
+        val loadFallback: (Boolean) -> T = { primaryFileCorrupt ->
             playerFile.delete()
             if (playerFileOld.exists() && playerFileOld.length() > 0L) {
                 try {
@@ -68,7 +68,9 @@ abstract class FileBasedPlayerDataStoreBackend<T : InstancedPlayerData>(
                 }
             }
             else {
-                Cobblemon.LOGGER.error(".old File $subfolder for $uuid is corrupt or missing. Data is lost")
+                if (primaryFileCorrupt) {
+                    Cobblemon.LOGGER.error(".old File $subfolder for $uuid is corrupt or missing. Data is lost")
+                }
                 playerFileOld.delete()
                 defaultData.invoke(uuid).also(::save)
             }
@@ -80,10 +82,10 @@ abstract class FileBasedPlayerDataStoreBackend<T : InstancedPlayerData>(
             catch (e: Exception) {
                 Cobblemon.LOGGER.warn("Failed to load $subfolder for $uuid due to ${e.message}")
                 Cobblemon.LOGGER.warn(e)
-                loadFallback()
+                loadFallback(true)
             }
         } else {
-            loadFallback()
+            loadFallback(false)
         }.also { it.initialize() }
     }
 

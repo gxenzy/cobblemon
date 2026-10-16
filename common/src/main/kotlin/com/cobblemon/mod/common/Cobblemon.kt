@@ -60,6 +60,8 @@ import com.cobblemon.mod.common.api.storage.pc.PCStore
 import com.cobblemon.mod.common.api.storage.pc.link.PCLinkManager
 import com.cobblemon.mod.common.api.storage.player.PlayerInstancedDataStoreManager
 import com.cobblemon.mod.common.api.storage.player.PlayerInstancedDataStoreTypes
+import com.cobblemon.mod.common.api.storage.player.adapter.BadgeMongoBackend
+import com.cobblemon.mod.common.api.storage.player.adapter.BadgeNbtBackend
 import com.cobblemon.mod.common.api.storage.player.adapter.DexDataMongoBackend
 import com.cobblemon.mod.common.api.storage.player.adapter.DexDataNbtBackend
 import com.cobblemon.mod.common.api.storage.player.adapter.PlayerDataJsonBackend
@@ -391,10 +393,13 @@ object Cobblemon {
 
                     val tmMoveFactory = CachedPlayerDataStoreFactory(TMMoveNbtBackend())
                     tmMoveFactory.setup(server)
+                    val badgeFactory = CachedPlayerDataStoreFactory(BadgeNbtBackend())
+                    badgeFactory.setup(server)
 
                     playerDataManager.setFactory(generalJsonFactory, PlayerInstancedDataStoreTypes.GENERAL)
                     playerDataManager.setFactory(pokedexNbtFactory, PlayerInstancedDataStoreTypes.POKEDEX)
                     playerDataManager.setFactory(tmMoveFactory, PlayerInstancedDataStoreTypes.TM_MOVES)
+                    playerDataManager.setFactory(badgeFactory, PlayerInstancedDataStoreTypes.BADGES)
 
                     if (config.storageFormat == "nbt") {
                         NBTStoreAdapter(pokemonStoreRoot.absolutePath, useNestedFolders = true, folderPerClass = true)
@@ -425,10 +430,15 @@ object Cobblemon {
                                 TMMoveMongoBackend(mongoClient, config.mongoDBDatabaseName, "TMMovesCollection")
                         )
                         tmMovesMongoFactory.setup(server)
+                        val badgesMongoFactory = CachedPlayerDataStoreFactory(
+                            BadgeMongoBackend(mongoClient, config.mongoDBDatabaseName, "BadgesCollection")
+                        )
+                        badgesMongoFactory.setup(server)
 
                         playerDataManager.setFactory(generalMongoFactory, PlayerInstancedDataStoreTypes.GENERAL)
                         playerDataManager.setFactory(pokedexMongoFactory, PlayerInstancedDataStoreTypes.POKEDEX)
                         playerDataManager.setFactory(tmMovesMongoFactory, PlayerInstancedDataStoreTypes.TM_MOVES)
+                        playerDataManager.setFactory(badgesMongoFactory, PlayerInstancedDataStoreTypes.BADGES)
                         MongoDBStoreAdapter(mongoClient, config.mongoDBDatabaseName)
                     } catch (e: ClassNotFoundException) {
                         LOGGER.error("MongoDB driver not found.")
@@ -613,6 +623,7 @@ object Cobblemon {
         this.implementation.registerCommandArgument(cobblemonResource("transform_type"), TransformTypeArgumentType::class, SingletonArgumentInfo.contextFree(TransformTypeArgumentType::transformType))
         this.implementation.registerCommandArgument(cobblemonResource("model_part"), ModelPartArgumentType::class, SingletonArgumentInfo.contextFree(ModelPartArgumentType::modelPart))
         this.implementation.registerCommandArgument(cobblemonResource("tm"), TmArgumentType::class, SingletonArgumentInfo.contextFree(TmArgumentType::tm))
+        this.implementation.registerCommandArgument(cobblemonResource("badge"), BadgeArgumentType::class, SingletonArgumentInfo.contextFree(BadgeArgumentType::badge))
     }
 
 }

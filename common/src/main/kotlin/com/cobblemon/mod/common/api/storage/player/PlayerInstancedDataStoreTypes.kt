@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.storage.player
 
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.api.storage.player.client.ClientBadgeManager
 import com.cobblemon.mod.common.api.storage.player.client.ClientPokedexManager
 import com.cobblemon.mod.common.api.storage.player.client.ClientGeneralPlayerData
 import com.cobblemon.mod.common.api.storage.player.client.ClientTMMoveManager
@@ -34,6 +35,12 @@ object PlayerInstancedDataStoreTypes {
         ClientTMMoveManager::decode,
         ClientTMMoveManager::runAction,
         ClientTMMoveManager::runIncremental
+    ))
+    val BADGES = register(PlayerInstancedDataStoreType(
+        cobblemonResource("badge_collection"),
+        ClientBadgeManager::decode,
+        ClientBadgeManager::runAction,
+        ClientBadgeManager::runIncremental
     ))
 
     fun register(type: PlayerInstancedDataStoreType): PlayerInstancedDataStoreType {

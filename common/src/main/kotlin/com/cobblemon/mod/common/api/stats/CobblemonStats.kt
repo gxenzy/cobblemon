@@ -29,7 +29,11 @@ object CobblemonStats {
     @JvmField
     val BATTLES_WON: CobblemonStat = CobblemonStat("battles_won")
     @JvmField
+    val PVP_BATTLES_WON: CobblemonStat = CobblemonStat("pvp_battles_won")
+    @JvmField
     val BATTLES_LOST: CobblemonStat = CobblemonStat("battles_lost")
+    @JvmField
+    val PVP_BATTLES_LOST: CobblemonStat = CobblemonStat("pvp_battles_lost")
     @JvmField
     val BATTLES_FLED: CobblemonStat = CobblemonStat("battles_fled")
     @JvmField
@@ -68,7 +72,9 @@ object CobblemonStats {
         stats["evolved"] = EVOLVED
         stats["level_up"] = LEVEL_UP
         stats["battles_won"] = BATTLES_WON
+        stats["pvp_battles_won"] = PVP_BATTLES_WON
         stats["battles_lost"] = BATTLES_LOST
+        stats["pvp_battles_lost"] = PVP_BATTLES_LOST
         stats["battles_fled"] = BATTLES_FLED
         stats["battles_total"] = BATTLES_TOTAL
         stats["dex_entries"] = DEX_ENTRIES

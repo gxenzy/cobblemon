@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.api.storage.player
 
 import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.Cobblemon.MODID
+import com.cobblemon.mod.common.api.badges.BadgeManager
 import com.cobblemon.mod.common.api.pokedex.PokedexManager
 import com.cobblemon.mod.common.api.scheduling.ScheduledTask
 import com.cobblemon.mod.common.api.scheduling.ServerTaskTracker
@@ -76,6 +77,14 @@ open class PlayerInstancedDataStoreManager {
                 .infiniteIterations()
                 .tracker(ServerTaskTracker)
                 .build()
+
+        saveTasks[PlayerInstancedDataStoreTypes.BADGES] = ScheduledTask.Builder()
+            .execute { saveAllOfOneType(PlayerInstancedDataStoreTypes.BADGES) }
+            .delay(30F)
+            .interval(120F)
+            .infiniteIterations()
+            .tracker(ServerTaskTracker)
+            .build()
     }
 
     open fun get(playerId: UUID, dataType: PlayerInstancedDataStoreType): InstancedPlayerData {
@@ -148,4 +157,9 @@ open class PlayerInstancedDataStoreManager {
         }
         return data as TMMoveManager
     }
+
+    fun getBadgeData(player: ServerPlayer): BadgeManager = getBadgeData(player.uuid)
+
+    fun getBadgeData(playerId: UUID): BadgeManager =
+        get(playerId, PlayerInstancedDataStoreTypes.BADGES) as BadgeManager
 }

@@ -145,6 +145,8 @@ object CobblemonPermissions {
     val SPECTATE_BATTLE = this.create("${COMMAND_PREFIX}spectatebattle", PermissionLevel.ALL_COMMANDS)
     @JvmStatic
     val TECHNICAL_MACHINE = this.create("${COMMAND_PREFIX}technicalmachine", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS)
+    @JvmStatic
+    val BADGE = this.create("${COMMAND_PREFIX}badge", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS)
 
     @JvmStatic
     val SEE_HIDDEN_NPCS = this.create("seehiddennpcs", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS)

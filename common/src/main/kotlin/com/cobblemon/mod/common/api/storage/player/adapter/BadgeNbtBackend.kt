@@ -1,0 +1,22 @@
+/*
+ * Copyright (C) 2023 Cobblemon Contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+package com.cobblemon.mod.common.api.storage.player.adapter
+
+import com.cobblemon.mod.common.api.badges.BadgeManager
+import com.cobblemon.mod.common.api.storage.player.PlayerInstancedDataStoreTypes
+import java.util.UUID
+
+class BadgeNbtBackend : NbtBackedPlayerData<BadgeManager>("badges", PlayerInstancedDataStoreTypes.BADGES) {
+    override val codec = BadgeManager.CODEC
+    override val defaultData = defaultDataFunc
+
+    companion object {
+        val defaultDataFunc = { uuid: UUID -> BadgeManager(uuid) }
+    }
+}
