@@ -1199,9 +1199,11 @@
   "cobblemon.ui.edit.habitat.validation.min_light": "Min Light must be between 0 and 15.",
   "cobblemon.ui.edit.habitat.validation.max_light": "Max Light must be between 0 and 15.",
 
-
   "cobblemon.ui.pokenav.title": "PokéNav",
   "cobblemon.ui.pokenav.narrator.backbutton": "PokéNav button pressed",
+
+  "cobblemon.ui.trainermenu.timeplayed": "Time played: %1$s",
+  "cobblemon.ui.trainermenu.pokemon_registered": "Pokémon registered: %1$s",
 
   "cobblemon.ui.summary.title": "Summary",
   "cobblemon.ui.starter.title": "Starter Selection",
