@@ -4,6 +4,9 @@
 ### Additions
 
 ### Cries added/updated for the following Pokémon
+- Hoppip
+- Skiploom
+- Jumpluff
 - Houndour
 - Houndoom
 - Starly
