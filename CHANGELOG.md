@@ -9,6 +9,9 @@
 - Jumpluff
 - Houndour
 - Houndoom
+- Surskit
+- Masquerain
+- Torkoal
 - Starly
 - Staravia
 - Staraptor
