@@ -75,7 +75,7 @@ class HateEntityTaskConfig : SingleTaskConfig {
                                 true
                             }
                             // roll the dice in other way
-                            coercedChance != 1f && world.random.nextFloat() > coercedChance -> {
+                            coercedChance != 1f && world.random.nextFloat() < coercedChance -> {
                                 angryAt.set(target.uuid)
                                 attackTarget.set(target)
                                 true
