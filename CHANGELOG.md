@@ -15,12 +15,14 @@
 - Starly
 - Staravia
 - Staraptor
+- Dusknoir
 - Grubbin
 - Charjabug
 - Vikavolt
 - Applin (updated)
 - Flapple (updated)
 - Appletun
+- Runerigus
 - Dipplin
 
 ### Model updates for the following Pokémon
