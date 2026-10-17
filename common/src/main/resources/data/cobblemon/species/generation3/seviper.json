@@ -85,7 +85,8 @@
         "7": [
           {
             "type": "cobblemon:hate_entity",
-            "entityCondition": "q.entity.is_pokemon && q.entity.species.identifier == 'cobblemon:zangoose'"
+            "entityCondition": "q.entity.is_pokemon && q.entity.species.identifier == 'cobblemon:zangoose'",
+            "chance": 1.0
           }
         ],
         "8": [
