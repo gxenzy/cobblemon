@@ -22,6 +22,8 @@
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
 - Moved EXP Candies from the Medicine recipe book category to the Misc category
 - Removed Dynamic Lights data from the Magmarizer item for consistency with the block
+- Added `doPokemonPredation` gamerule, which controls aggressiveness of pokemon with `hate_entity` brain task defined
+- Added `predation_chance` server config value, which controls the possibility of attacking the hated entity found by `hate_entity` brain task 
 
 ### Fixes
 - Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
@@ -51,6 +53,7 @@
 ### Molang & Datapacks
 - Fixed `q.pokemon.nature` returning class instance instead of proper string value (`cobblemon:adamant`)
 - Fixed `q.entity.is_looking_at` result being always `1` for whatever entity passed as target
+- Added hate chance optional parameter to `hate_entity` task. `1.0` will make entity always attack the target 
 
 ### Localization
 - Updated translations for:
