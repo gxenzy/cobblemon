@@ -7,7 +7,7 @@
   "animations": {
     "faint": "q.bedrock_primary('brionne', 'faint', q.curve('one'))",
     "cry": "q.bedrock_stateful('brionne', 'cry')",
-    "recoil": "q.bedrock_stateful('brionne', 'battle_idle')"
+    "recoil": "q.bedrock_stateful('brionne', 'hurt')"
   },
   "poses": {
     "battle-standing": {
