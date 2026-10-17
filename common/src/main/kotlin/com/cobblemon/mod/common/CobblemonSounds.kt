@@ -319,6 +319,19 @@ object CobblemonSounds : PlatformRegistry<Registry<SoundEvent>, ResourceKey<Regi
     val MEDICINAL_LEEK_PLACE = this.create("block.medicinal_leek.plant")
 
     @JvmField
+    val ITEM_BAG_OPEN = this.create("item.bag.open")
+    @JvmField
+    val ITEM_BAG_CLOSE = this.create("item.bag.close")
+    @JvmField
+    val ITEM_BAG_CLICK = this.create("item.bag.click")
+    @JvmField
+    val ITEM_BAG_ITEM_IN = this.create("item.bag.item_in")
+    @JvmField
+    val ITEM_BAG_ITEM_OUT = this.create("item.bag.item_out")
+    @JvmField
+    val ITEM_BAG_EQUIP = this.create("item.bag.equip")
+
+    @JvmField
     val GILDED_CHEST_OPEN = this.create("block.gilded_chest.open")
     @JvmField
     val GILDED_CHEST_CLOSE = this.create("block.gilded_chest.close")
