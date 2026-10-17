@@ -21,10 +21,12 @@ import com.cobblemon.mod.common.client.CobblemonClient
 import com.cobblemon.mod.common.util.isInBattle
 import net.minecraft.CrashReport
 import net.minecraft.ReportedException
+import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.core.NonNullList
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.sounds.SoundSource
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
@@ -255,6 +257,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
                         getAndReduceCategoryCount(removedItemStack)
                     }
 
+                    playSound(CobblemonSounds.ITEM_BAG_ITEM_OUT)
                     setupSlotsBasedOnContent()
                 }
             } else {
@@ -269,6 +272,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
                         slotStack.grow(transferCount)
                         carriedStack.shrink(transferCount)
                         categoryItemCounts[categoryId] += transferCount
+                        playSound(CobblemonSounds.ITEM_BAG_ITEM_IN)
                         setupSlotsBasedOnContent()
                         return
                     }
@@ -277,6 +281,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
                 val transferItem = carriedStack.split(transferCount)
                 bagContainer.items.add(transferItem)
                 categoryItemCounts[categoryId] += transferCount
+                playSound(CobblemonSounds.ITEM_BAG_ITEM_IN)
                 setupSlotsBasedOnContent()
             }
         } else if (clickType == ClickType.QUICK_MOVE && (button == 0 || button == 1)) {
@@ -288,6 +293,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
             val bagSize = bagContainer.items.size
             val removedItemStack = slot.remove(throwCount)
             player.drop(removedItemStack, true)
+            playSound(CobblemonSounds.ITEM_BAG_ITEM_OUT)
             getAndReduceCategoryCount(removedItemStack)
 
             if (bagSize != bagContainer.items.size) {
@@ -363,6 +369,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
                     slotStack.grow(transferCount)
                     itemStack.shrink(transferCount)
                     categoryItemCounts[categoryId] += transferCount
+                    playSound(CobblemonSounds.ITEM_BAG_ITEM_IN)
                     setupSlotsBasedOnContent()
                     return ItemStack.EMPTY
                 }
@@ -370,6 +377,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
 
             bagContainer.items.add(itemStack.split(transferCount))
             categoryItemCounts[categoryId] += transferCount
+            playSound(CobblemonSounds.ITEM_BAG_ITEM_IN)
             setupSlotsBasedOnContent()
         }
         return ItemStack.EMPTY
@@ -382,6 +390,7 @@ class CobblemonBagMenu: AbstractContainerMenu {
         if (moveItemStackTo(transferStack, INVENTORY_SLOTS.first, HOTBAR_SLOTS.last + 1, false)) {
             val itemsMoved = startingCount - transferStack.count
             getAndReduceCategoryCount(slot.remove(itemsMoved))
+            playSound(CobblemonSounds.ITEM_BAG_ITEM_OUT)
             setupSlotsBasedOnContent()
         }
     }
@@ -411,5 +420,9 @@ class CobblemonBagMenu: AbstractContainerMenu {
 
     override fun canTakeItemForPickAll(stack: ItemStack, slot: Slot): Boolean {
         return slot.index !in BAG_SLOTS
+    }
+
+    fun playSound(soundEvent: SoundEvent) {
+        Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(soundEvent, 1.0F))
     }
 }

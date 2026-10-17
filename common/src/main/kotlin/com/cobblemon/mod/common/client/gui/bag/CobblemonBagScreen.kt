@@ -21,7 +21,6 @@ import com.cobblemon.mod.common.client.render.drawScaledTextJustifiedRight
 import com.cobblemon.mod.common.client.render.getDepletableRedGreen
 import com.cobblemon.mod.common.client.render.models.blockbench.FloatingState
 import com.cobblemon.mod.common.item.bag.CobblemonBagMenu
-import com.cobblemon.mod.common.item.bag.CobblemonBagSlot
 import com.cobblemon.mod.common.item.battle.BagItem
 import com.cobblemon.mod.common.net.messages.client.bag.UpdateBagMenuDataPacket
 import com.cobblemon.mod.common.net.messages.client.bag.UseItemOnPokemonFromBagPacket
@@ -38,7 +37,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvent
-import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.ClickType
 import net.minecraft.world.inventory.Slot
@@ -96,7 +94,7 @@ class CobblemonBagScreen(
                     BagCategoryButton(leftPos + 76 + i * 33, topPos, this, i) {
                         if (menu.currentlySelectedCategory != i) {
                             menu.changeCategory(i)
-                            playSound(CobblemonSounds.GUI_CLICK)
+                            playSound(CobblemonSounds.ITEM_BAG_CLICK)
                         }
                     }.also { addRenderableWidget(it) }
                 )
@@ -106,24 +104,24 @@ class CobblemonBagScreen(
         allItemsCategoryWidget = BagCategoryButton(leftPos + 214, topPos, this, -1) {
             if (menu.currentlySelectedCategory != -1) {
                 menu.changeCategory(-1)
-                playSound(CobblemonSounds.GUI_CLICK)
+                playSound(CobblemonSounds.ITEM_BAG_CLICK)
             }
         }.also { addRenderableWidget(it) }
 
         leftCategoryPageButton = BagCategoryPageButton(leftPos + 218, topPos + 32, this, true) {
             if (leftCategoryPageButton.enabled) {
                 cycleCategoryPage(false)
-                playSound(CobblemonSounds.GUI_CLICK)
+                playSound(CobblemonSounds.ITEM_BAG_CLICK)
             }
         }.also { addRenderableWidget(it) }
         rightCategoryPageButton = BagCategoryPageButton(leftPos + 229, topPos + 32, this, false) {
             if (rightCategoryPageButton.enabled) {
                 cycleCategoryPage(true)
-                playSound(CobblemonSounds.GUI_CLICK)
+                playSound(CobblemonSounds.ITEM_BAG_CLICK)
             }
         }.also { addRenderableWidget(it) }
 
-        playSound(SoundEvents.ARMOR_EQUIP_GENERIC.value())
+        playSound(CobblemonSounds.ITEM_BAG_OPEN)
     }
 
     override fun renderBg(context: GuiGraphics, partialTick: Float, mouseX: Int, mouseY: Int) {}
@@ -334,6 +332,7 @@ class CobblemonBagScreen(
             if (adjustedIndex < orderedCategories.size) {
                 categoriesWidgets.add(
                     BagCategoryButton(leftPos + 76 + i * 33, topPos, this, adjustedIndex) {
+                        playSound(CobblemonSounds.ITEM_BAG_CLICK)
                         menu.changeCategory(adjustedIndex)
                     }.also { addRenderableWidget(it) }
                 )
@@ -408,5 +407,10 @@ class CobblemonBagScreen(
 
     fun playSound(soundEvent: SoundEvent) {
         Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(soundEvent, 1.0F))
+    }
+
+    override fun onClose() {
+        Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(CobblemonSounds.ITEM_BAG_CLOSE, 1.0F))
+        super.onClose()
     }
 }

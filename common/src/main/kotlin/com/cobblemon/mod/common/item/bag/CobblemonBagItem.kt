@@ -8,9 +8,14 @@
 
 package com.cobblemon.mod.common.item.bag
 
+import com.cobblemon.mod.common.CobblemonSounds
 import com.cobblemon.mod.common.item.CobblemonItem
 import com.cobblemon.mod.common.bag.BagEntity
+import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.sounds.SimpleSoundInstance
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.MenuProvider
@@ -42,4 +47,8 @@ class CobblemonBagItem: CobblemonItem(Properties().stacksTo(1)), MenuProvider, E
 
     override fun getEquipmentSlot(): EquipmentSlot = EquipmentSlot.CHEST
 
+    override fun getEquipSound(): Holder<SoundEvent?>? {
+        Minecraft.getInstance().soundManager.play(SimpleSoundInstance.forUI(CobblemonSounds.ITEM_BAG_EQUIP, 1.0F))
+        return null
+    }
 }
