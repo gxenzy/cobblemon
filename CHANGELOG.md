@@ -4,19 +4,40 @@
 ### Additions
 
 ### Cries added/updated for the following Pokémon
+- Hoppip
+- Skiploom
+- Jumpluff
 - Houndour
 - Houndoom
+- Wurmple
+- Silcoon
+- Beautifly
+- Cascoon
+- Dustox
+- Surskit
+- Masquerain
+- Torkoal
 - Starly
 - Staravia
 - Staraptor
-- Applin (update)
-- Flapple (update)
+- Combee
+- Vespiquen
+- Dusknoir
+- Helioptile
+- Heliolisk
+- Grubbin
+- Charjabug
+- Vikavolt
+- Applin (updated)
+- Flapple (updated)
 - Appletun
+- Runerigus
 - Dipplin
 
 ### Model updates for the following Pokémon
 
 ### Animation updates for the following Pokémon
+- Vikavolt
 
 ### Changes
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
@@ -24,6 +45,7 @@
 - Removed Dynamic Lights data from the Magmarizer item for consistency with the block
 - Added `doPokemonPredation` gamerule, which controls aggressiveness of Pokémon with `hate_entity` brain task defined
 - Added `predation_chance` server config value, which controls the possibility of attacking the hated entity found by `hate_entity` brain task 
+- Prehistoric Eroded Pillar generates slightly more frequently
 
 ### Fixes
 - Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
@@ -44,6 +66,7 @@
 - Fixed some display names having unintended font colours
 - Fixed `hate_entity` task focusing on its own entity
   - Thus enabled deadly warfare between Zangoose and Seviper
+- Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
