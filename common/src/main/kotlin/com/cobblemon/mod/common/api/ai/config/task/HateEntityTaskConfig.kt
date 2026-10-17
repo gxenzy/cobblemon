@@ -13,6 +13,7 @@ import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.ai.ExpressionOrEntityVariable
 import com.cobblemon.mod.common.api.molang.MoLangFunctions.asMostSpecificMoLangValue
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.asExpression
 import com.cobblemon.mod.common.util.mainThreadRuntime
 import com.cobblemon.mod.common.util.resolveBoolean
@@ -43,22 +44,25 @@ class HateEntityTaskConfig : SingleTaskConfig {
         val range = range.resolveFloat(behaviourConfigurationContext.runtime)
         behaviourConfigurationContext.addMemories(
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-            MemoryModuleType.ANGRY_AT
+            MemoryModuleType.ANGRY_AT,
+            MemoryModuleType.ATTACK_TARGET
         )
         behaviourConfigurationContext.addSensors(SensorType.NEAREST_LIVING_ENTITIES)
         return BehaviorBuilder.create { instance ->
             instance.group(
                 instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES),
-                instance.registered(MemoryModuleType.ANGRY_AT)
-            ).apply(instance) { entities, angryAt ->
+                instance.registered(MemoryModuleType.ANGRY_AT),
+                instance.registered(MemoryModuleType.ATTACK_TARGET),
+            ).apply(instance) { entities, angryAt, attackTarget ->
                 Trigger { world, entity, _ ->
-                    val target = instance.get(entities).findClosest {
-                        mainThreadRuntime.withQueryValue("entity", entity.asMostSpecificMoLangValue())
+                    val target = instance.get(entities).findClosest { hated ->
+                        mainThreadRuntime.withQueryValue("entity", hated.asMostSpecificMoLangValue())
                         return@findClosest mainThreadRuntime.resolveBoolean(entityCondition)
                     }.orElse(null)
 
                     if (target != null && target.distanceTo(entity) <= range) {
                         angryAt.set(target.uuid)
+                        attackTarget.set(target)
                     }
                     return@Trigger true
                 }
