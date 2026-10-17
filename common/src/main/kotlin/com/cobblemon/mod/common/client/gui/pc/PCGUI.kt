@@ -153,7 +153,7 @@ class PCGUI(
         )
     }
 
-    internal fun getSelectionArea(): SelectionArea? {
+    fun getSelectionArea(): SelectionArea? {
         if (!selectionDragActive) return null
         val startX = dragStartX ?: return null
         val startY = dragStartY ?: return null
@@ -162,26 +162,21 @@ class PCGUI(
         val bounds = getBoxGridBounds()
         if (!bounds.contains(startX, startY)) return null
 
-        val clippedEndX = endX.coerceIn(bounds.left, bounds.right - 1)
-        val clippedEndY = endY.coerceIn(bounds.top, bounds.bottom - 1)
         val columns = 6
         val rows = 5
         val slotPitch = StorageSlot.SIZE + StorageWidget.BOX_SLOT_PADDING
         val gridLeft = bounds.left + StorageWidget.BOX_SLOT_START_OFFSET_X
         val gridTop = bounds.top + StorageWidget.BOX_SLOT_START_OFFSET_Y + if (displayOptions) 5 else 0
         val startColumn = ((startX - gridLeft) / slotPitch).coerceIn(0, columns - 1)
-        val endColumn = ((clippedEndX - gridLeft) / slotPitch).coerceIn(0, columns - 1)
+        val endColumn = (((endX.coerceIn(bounds.left, bounds.right - 1)) - gridLeft) / slotPitch).coerceIn(0, columns - 1)
         val startRow = ((startY - gridTop) / slotPitch).coerceIn(0, rows - 1)
-        val endRow = ((clippedEndY - gridTop) / slotPitch).coerceIn(0, rows - 1)
-        val startSlotLeft = gridLeft + startColumn * slotPitch
-        val endSlotLeft = gridLeft + endColumn * slotPitch
-        val startSlotTop = gridTop + startRow * slotPitch
-        val endSlotTop = gridTop + endRow * slotPitch
-        val left = if (endX < startX) endSlotLeft else startSlotLeft
-        val top = if (endY < startY) endSlotTop else startSlotTop
-        val right = (if (endX > startX) endSlotLeft else startSlotLeft) + StorageSlot.SIZE
-        val bottom = (if (endY > startY) endSlotTop else startSlotTop) + StorageSlot.SIZE
-        return SelectionArea(left, top, right, bottom)
+        val endRow = (((endY.coerceIn(bounds.top, bounds.bottom - 1)) - gridTop) / slotPitch).coerceIn(0, rows - 1)
+        return SelectionArea(
+            gridLeft + minOf(startColumn, endColumn) * slotPitch, // left
+            gridTop + minOf(startRow, endRow) * slotPitch, // top
+            gridLeft + (maxOf(startColumn, endColumn) * slotPitch) + StorageSlot.SIZE, // right
+            gridTop + (maxOf(startRow, endRow) * slotPitch) + StorageSlot.SIZE // bottom
+        )
     }
 
     override fun renderBlurredBackground(delta: Float) {}
@@ -305,7 +300,7 @@ class PCGUI(
                 configuration.showParty = isVisible
                 wallpaperWidget.visible = !isVisible
                 (it as IconButton).highlighted = !isVisible
-                if (!unseenWallpapers.isEmpty()) MarkPCBoxWallpapersSeenPacket(unseenWallpapers).sendToServer()
+                if (unseenWallpapers.isNotEmpty()) MarkPCBoxWallpapersSeenPacket(unseenWallpapers).sendToServer()
             }.also {
                 it.visible = displayOptions
                 optionButtons.add(it)
@@ -754,7 +749,7 @@ class PCGUI(
             scale = SCALE
         )
 
-        if (!optionButtons.isEmpty() && displayOptions) {
+        if (optionButtons.isNotEmpty() && displayOptions) {
             for (button in optionButtons) button.showAlt = hasShiftDown()
         }
 
@@ -787,12 +782,9 @@ class PCGUI(
         selectionDragActive = false
         val clickX = mouseX.toInt()
         val clickY = mouseY.toInt()
-        if (
-            storageWidget.multiSelection == null &&
-            button == 0 &&
+        if (storageWidget.multiSelection == null && button == 0 &&
             getBoxGridBounds().contains(clickX, clickY) &&
-            storageWidget.pastureWidget == null
-            ) {
+            storageWidget.pastureWidget == null) {
             dragStartX = clickX
             dragStartY = clickY
         } else {
