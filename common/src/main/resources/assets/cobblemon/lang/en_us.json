@@ -2514,6 +2514,8 @@
   "cobblemon.config.ui.allow_spectating.tooltip": "Whether to allow battles to be spectated.",
   "cobblemon.config.ui.experience_multiplier": "Experience Multiplier",
   "cobblemon.config.ui.experience_multiplier.tooltip": "Additional Exp. multiplier for Exp. calculation.",
+  "cobblemon.config.ui.predation_chance": "Pokémon predation chance",
+  "cobblemon.config.ui.predation_chance.tooltip": "Chance of Pokémon predating the enemy",
   "cobblemon.config.ui.pokemon_per_chunk": "Pokémon per Chunk",
   "cobblemon.config.ui.pokemon_per_chunk.tooltip": "The amount of Pokémon allowed within a Chunk when spawning.",
   "cobblemon.config.ui.poke_snack_pokemon_per_chunk": "Poké Snack Pokémon per Chunk",
