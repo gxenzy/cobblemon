@@ -261,6 +261,24 @@
   "fishing.bait_detach": {
     "sounds": [ { "name": "cobblemon:fishing/fishing_rod_remove_bait", "volume": 0.8 } ]
   },
+  "item.bag.open": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_open", "volume": 0.5 } ]
+  },
+  "item.bag.close": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_close", "volume": 0.5 } ]
+  },
+  "item.bag.click": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_click", "volume": 0.3 } ]
+  },
+  "item.bag.item_in": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_item_in", "volume": 0.3 } ]
+  },
+  "item.bag.item_out": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_item_out", "volume": 0.3 } ]
+  },
+  "item.bag.equip": {
+    "sounds": [ { "name":  "cobblemon:item/bag/bag_equip", "volume": 0.4 } ]
+  },
   "block.healing_machine.active": {
     "sounds": [ { "name": "cobblemon:block/healing_machine/healing_machine_active", "volume": 0.7 } ]
   },
