@@ -847,6 +847,15 @@
 
   "cobblemon.badge.unobtained": "?????",
   "cobblemon.badge.awesome_badge": "Awesome Badge",
+  "cobblemon.badge.awesome_badge2": "Awesome Badge 2",
+  "cobblemon.badge.dummy_badge": "Dummy Badge",
+  "cobblemon.badge.dummy_badge2": "Dummy Badge 2",
+  "cobblemon.badge.funny_badge": "Funny Badge",
+  "cobblemon.badge.funny_badge2": "Funny Badge 2",
+  "cobblemon.badge.interesting_badge": "Interesting Badge",
+  "cobblemon.badge.interesting_badge2": "Interesting Badge 2",
+  "cobblemon.badge.weird_badge": "Weird Badge",
+  "cobblemon.badge.weird_badge2": "Weird Badge 2",
 
   "cobblemon.gender.female": "Female",
   "cobblemon.gender.male": "Male",

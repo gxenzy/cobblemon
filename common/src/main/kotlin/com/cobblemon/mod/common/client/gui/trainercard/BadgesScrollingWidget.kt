@@ -36,8 +36,15 @@ class BadgesScrollingWidget(
         const val MAX_VISIBLE_ROWS = 2
     }
 
-    fun createEntries(badges: List<Badge?>) {
-        badges.chunked(columns).forEach { listChunk ->
+    fun createEntries(badges: List<Badge>) {
+
+        val obtainedBadgeList = badges.filter { CobblemonClient.clientBadgeData.obtainedBadges.contains(it.identifier) }
+            .sortedBy { it.order }
+        val unobtainedBadgesList = badges.filter { !obtainedBadgeList.contains(it) }
+            .sortedBy { it.order }
+        val sortedBadgeList = obtainedBadgeList.plus(unobtainedBadgesList)
+
+        sortedBadgeList.chunked(columns).forEach { listChunk ->
             addEntry(BadgeRow(this, listChunk))
         }
     }
@@ -59,8 +66,8 @@ class BadgesScrollingWidget(
     fun setTooltip(text: MutableComponent, mouseX: Int, mouseY: Int) {
         if (mouseX in left until left + width && mouseY in this.y until bottom) {
             tooltip = text
-            tooltipX = mouseX + 5
-            tooltipY = mouseY
+            tooltipX = mouseX + 20
+            tooltipY = mouseY - 10
         }
     }
 
@@ -132,7 +139,7 @@ class BadgesScrollingWidget(
                         mouseY in startPosY until startPosY + SLOT_SIZE
                     ) {
                         parent.setTooltip(
-                            if (obtained) lang("badge.${badge.identifier.path}") else lang("badge.unobtained"),
+                            if (obtained) Component.translatable(badge.name) else lang("badge.unobtained"),
                             mouseX, mouseY
                         )
                     }
@@ -141,7 +148,7 @@ class BadgesScrollingWidget(
         }
 
         override fun getNarration(): Component? {
-            return badgeList.firstOrNull()?.let { Component.translatable("cobblemon.badge.${it.identifier.path}") }
+            return badgeList.firstOrNull()?.let { Component.translatable(it.name) }
         }
 
         override fun render(
