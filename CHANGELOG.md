@@ -22,7 +22,7 @@
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
 - Moved EXP Candies from the Medicine recipe book category to the Misc category
 - Removed Dynamic Lights data from the Magmarizer item for consistency with the block
-- Added `doPokemonPredation` gamerule, which controls aggressiveness of pokemon with `hate_entity` brain task defined
+- Added `doPokemonPredation` gamerule, which controls aggressiveness of Pokémon with `hate_entity` brain task defined
 - Added `predation_chance` server config value, which controls the possibility of attacking the hated entity found by `hate_entity` brain task 
 
 ### Fixes
@@ -30,7 +30,7 @@
 - Fixed the Pokédex evolution tree crashing when a datapack's dex entry is missing an evolution's form.
 - Fixed the Pokédex evolution tree crashing with a stack overflow on evolutions that loop back on themselves.
 - Fixed the Pokédex evolution tree crashing when looking at a dex that is not part of the "National Dex" aggregate.
-- Fixed evolution trees not building properly when a pokemon has several pokedex entries for different regions.
+- Fixed evolution trees not building properly when a Pokémon has several Pokédex entries for different regions.
 - Fixed form-changing evolutions sometimes resolving to the source form in the Pokédex evolution tree.
 - Broken datapack evolutions are now logged and skipped in the Pokédex evolution tree instead of crashing.
 - Fixed friendship booster items not being recognised as such
@@ -38,8 +38,8 @@
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
 - Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
-- Fixed all pots of mod on NeoForge
-- Fixed party overlay not hiding when player opens the pokedex scanner 
+- Fixed a NeoForge bug where none of the Cobblemon plants/berries could be placed into pots
+- Fixed party overlay not hiding when the player opens the Pokédex scanner 
 - Added compat for AppleSkin
 - Fixed some display names having unintended font colours
 - Fixed `hate_entity` task focusing on its own entity
@@ -54,7 +54,7 @@
 ### Molang & Datapacks
 - Fixed `q.pokemon.nature` returning class instance instead of proper string value (`cobblemon:adamant`)
 - Fixed `q.entity.is_looking_at` result being always `1` for whatever entity passed as target
-- Added hate chance optional parameter to `hate_entity` task. `1.0` will make entity always attack the target 
+- Added hate chance optional parameter to `hate_entity` task. `1.0` will make an entity always attack the target 
 
 ### Localization
 - Updated translations for:
