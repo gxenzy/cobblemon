@@ -39,6 +39,7 @@
 - Fixed all pots of mod on NeoForge
 - Fixed party overlay not hiding when player opens the pokedex scanner 
 - Added compat for AppleSkin
+- Fixed some display names having unintended font colours
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
