@@ -36,13 +36,6 @@
       "poseTypes": ["SWIM"],
       "animations": ["q.look('head')", "q.bedrock('brionne', 'water_swim')"],
       "quirks": ["q.bedrock_quirk('brionne', 'blink')"]
-    },
-    "sleep": {
-      "poseTypes": ["SLEEP"],
-      "namedAnimations": {
-        "cry": "q.bedrock_stateful('dummy', 'cry')"
-      },
-      "animations": ["q.bedrock('brionne', 'sleep')"]
     }
   }
 }
