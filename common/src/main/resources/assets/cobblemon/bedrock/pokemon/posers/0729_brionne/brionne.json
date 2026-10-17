@@ -6,8 +6,7 @@
   "rootBone": "brionne",
   "animations": {
     "faint": "q.bedrock_primary('brionne', 'faint', q.curve('one'))",
-    "cry": "q.bedrock_stateful('brionne', 'cry')",
-    "recoil": "q.bedrock_stateful('brionne', 'hurt')"
+    "cry": "q.bedrock_stateful('brionne', 'cry')"
   },
   "poses": {
     "battle-standing": {
