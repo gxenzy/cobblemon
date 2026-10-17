@@ -37,6 +37,7 @@ class HateEntityTaskConfig : SingleTaskConfig {
     val entityCondition: Expression = "true".asExpression()
     val range: ExpressionOrEntityVariable = Either.left("24".asExpression())
     val chance: Float = Cobblemon.config.predationChance
+    private val coercedChance = chance.coerceIn(0f, 1f)
 
     override fun getVariables(entity: LivingEntity, behaviourConfigurationContext: BehaviourConfigurationContext) = emptyList<MoLangConfigVariable>()
     override fun createTask(
@@ -66,7 +67,6 @@ class HateEntityTaskConfig : SingleTaskConfig {
 
                     var shouldTrigger = false
                     if (target != null && target.distanceTo(entity) <= range) {
-                        val coercedChance = chance.coerceIn(0f, 1f)
                         shouldTrigger = when {
                             // set always attacking if activity chance is equal to 1.0
                             coercedChance == 1f -> {
