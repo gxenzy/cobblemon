@@ -9,14 +9,18 @@
 - Starly
 - Staravia
 - Staraptor
-- Applin (update)
-- Flapple (update)
+- Grubbin
+- Charjabug
+- Vikavolt
+- Applin (updated)
+- Flapple (updated)
 - Appletun
 - Dipplin
 
 ### Model updates for the following Pokémon
 
 ### Animation updates for the following Pokémon
+- Vikavolt
 
 ### Changes
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
