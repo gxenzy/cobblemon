@@ -55,6 +55,7 @@
 - Fixed evolution trees not building properly when a Pokémon has several Pokédex entries for different regions.
 - Fixed form-changing evolutions sometimes resolving to the source form in the Pokédex evolution tree.
 - Broken datapack evolutions are now logged and skipped in the Pokédex evolution tree instead of crashing.
+- Fixed the `alpha` property having no tab completion in commands such as `/pokespawn`, `/pokegive` and `/pokeedit`, and added the missing `dmax_level`, `gmax_factor` and `tradable` aliases to tab completion
 - Fixed friendship booster items not being recognised as such
 - Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
