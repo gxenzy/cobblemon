@@ -1610,7 +1610,6 @@ open class PokemonEntity(
 
     fun tryRidingPokemon(player: ServerPlayer): Boolean {
         if (!isRideableFor(player)) return false
-        if (pokemon.effectiveScale < Cobblemon.config.minimumRidingScale) return false
 
         val event = RidePokemonEvent.Pre(player, this)
         CobblemonEvents.RIDE_EVENT_PRE.post(event)
