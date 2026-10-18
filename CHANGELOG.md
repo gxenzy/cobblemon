@@ -69,6 +69,7 @@
 - Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
 - Fixed Frogadier floating in its battle_idle animation
 - Fixed absence or incorrect mergers in spawning conditions, making max height/depth of conditions to use the min value instead
+- Added stricter riding checks on server side to prevent possible packet forgery when player tries to ride pokemon
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
