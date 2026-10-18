@@ -3,24 +3,50 @@
 
 ### Additions
 
+### Particles
+## New Move Animations
+- Water Shuriken
+
 ### Cries added/updated for the following Pokémon
+- Hoppip
+- Skiploom
+- Jumpluff
 - Houndour
 - Houndoom
+- Wurmple
+- Silcoon
+- Beautifly
+- Cascoon
+- Dustox
+- Surskit
+- Masquerain
+- Torkoal
 - Starly
 - Staravia
 - Staraptor
-- Applin (update)
-- Flapple (update)
+- Combee
+- Vespiquen
+- Dusknoir
+- Helioptile
+- Heliolisk
+- Grubbin
+- Charjabug
+- Vikavolt
+- Applin (updated)
+- Flapple (updated)
 - Appletun
+- Runerigus
 - Dipplin
 
 ### Model updates for the following Pokémon
 
 ### Animation updates for the following Pokémon
+- Vikavolt
 
 ### Changes
 - Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
 - Moved EXP Candies from the Medicine recipe book category to the Misc category
+- Prehistoric Eroded Pillar generates slightly more frequently
 
 ### Fixes
 - Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
@@ -35,6 +61,9 @@
 - Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
 - Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
 - Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
+- Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
+- Fixed Frogadier floating in its battle_idle animation
+- Fixed Archeops T-posing during its air_cry animation
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
