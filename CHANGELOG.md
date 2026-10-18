@@ -68,6 +68,7 @@
   - Thus enabled deadly warfare between Zangoose and Seviper
 - Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
 - Fixed Frogadier floating in its battle_idle animation
+- Added stricter riding checks on server side to prevent possible packet forgery when player tries to ride pokemon
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
