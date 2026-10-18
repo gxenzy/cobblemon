@@ -59,6 +59,7 @@
 - Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
 - Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
 - Fixed Frogadier floating in its battle_idle animation
+- Fixed Archeops T-posing during its air_cry animation
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
