@@ -43,7 +43,7 @@
       "poseTypes": ["WALK"],
       "animations": [
         "q.look('head_ai')",
-        "q.bedrock('wartortle', 'surfacewater_swim')"
+        "q.bedrock('wartortle', 'ground_walk')"
       ],
       "quirks": [
         "q.bedrock_quirk('wartortle', 'blink')"
