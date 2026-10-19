@@ -4,6 +4,9 @@
   "profileScale": 0.8,
   "profileTranslation": [-0.1, 0.9, 0],
   "rootBone": "beedrill",
+  "animations": {
+    "cry": "q.bedrock_stateful('beedrill', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT"],

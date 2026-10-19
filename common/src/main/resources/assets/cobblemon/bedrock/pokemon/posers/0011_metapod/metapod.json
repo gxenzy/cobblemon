@@ -4,6 +4,9 @@
   "profileScale": 1.1,
   "profileTranslation": [0, 0.1, 0],
   "rootBone": "metapod",
+  "animations": {
+    "cry": "q.bedrock_stateful('metapod', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "PROFILE", "PORTRAIT"],

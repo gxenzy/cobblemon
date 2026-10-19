@@ -4,6 +4,9 @@
   "profileScale": 0.7,
   "profileTranslation": [0, 0.6, 0],
   "rootBone": "paras",
+  "animations": {
+    "cry": "q.bedrock_stateful('paras', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT", "SHOULDER_LEFT", "SHOULDER_RIGHT"],

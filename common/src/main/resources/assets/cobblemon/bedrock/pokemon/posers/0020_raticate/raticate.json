@@ -4,6 +4,9 @@
   "profileScale": 1,
   "profileTranslation": [0, 0.22, 0],
   "rootBone": "raticate",
+  "animations": {
+    "cry": "q.bedrock_stateful('raticate', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT"],

@@ -4,6 +4,9 @@
   "profileScale": 0.7,
   "profileTranslation": [0.1, 0.8, 0],
   "rootBone": "butterfree",
+  "animations": {
+    "cry": "q.bedrock_stateful('butterfree', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT"],

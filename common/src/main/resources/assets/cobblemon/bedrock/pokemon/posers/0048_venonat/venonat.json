@@ -4,6 +4,9 @@
   "profileScale": 0.86,
   "profileTranslation": [0, 0.43, 0],
   "rootBone": "venonat",
+  "animations": {
+    "cry": "q.bedrock_stateful('venonat', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT"],

@@ -4,6 +4,9 @@
   "profileScale": 1,
   "profileTranslation": [0, 0.22, 0],
   "rootBone": "raticate_alolan",
+  "animations": {
+    "cry": "q.bedrock_stateful('raticate_alolan', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseName": "standing",

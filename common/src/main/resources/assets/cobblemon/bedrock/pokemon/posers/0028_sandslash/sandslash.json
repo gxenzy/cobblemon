@@ -4,6 +4,9 @@
   "profileScale": 0.8,
   "profileTranslation": [0, 0.55, 0],
   "rootBone": "sandslash",
+  "animations": {
+    "cry": "q.bedrock_stateful('sandslash', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseTypes": ["STAND", "FLOAT", "HOVER", "PROFILE", "PORTRAIT"],

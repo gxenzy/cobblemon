@@ -4,6 +4,9 @@
   "profileScale": 1,
   "profileTranslation": [-0.1, 0.21, 0],
   "rootBone": "nidorino",
+  "animations": {
+    "cry": "q.bedrock_stateful('nidorino', 'cry')"
+  },
   "poses": {
     "standing": {
       "poseName": "standing",
