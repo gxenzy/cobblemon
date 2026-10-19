@@ -1,0 +1,128 @@
+{
+  "portraitScale": 1.57,
+  "portraitTranslation": [-0.17, 0.54, 0],
+  "profileScale": 0.69,
+  "profileTranslation": [0, 0.69, 0],
+  "rootBone": "wartortle",
+  "animations": {
+    "physical": "q.bedrock_primary('wartortle', 'physical', 'look', q.curve('symmetrical_wide'))",
+    "special": "q.bedrock_primary('wartortle', 'special', 'look', q.curve('symmetrical_wide'))",
+    "status": "q.bedrock_primary('wartortle', 'status', 'look', q.curve('symmetrical_wide'))",
+    "faint": "q.bedrock_primary('wartortle', 'faint', q.curve('one'))",
+    "recoil": "q.bedrock_stateful('wartortle', 'recoil')",
+    "cry": "q.bedrock_stateful('wartortle', 'cry')"
+  },
+  "poses": {
+    "standing": {
+      "poseName": "standing",
+      "poseTypes": ["STAND", "PROFILE", "PORTRAIT"],
+      "isBattle": false,
+      "isUnderWater": false,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'ground_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')",
+        "q.bedrock_quirk('wartortle', 'quirk_idle')"
+      ]
+    },
+    "battle-standing": {
+      "poseTypes": ["STAND"],
+      "isBattle": true,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'battle_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')",
+        "q.bedrock_quirk('wartortle', 'quirk_idle')"
+      ]
+    },
+    "walking": {
+      "poseTypes": ["WALK"],
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'surfacewater_swim')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ]
+    },
+    "water-float": {
+      "poseTypes": ["FLOAT"],
+      "isUnderWater": true,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'water_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ],
+      "transformTicks": 10
+    },
+    "water-swim": {
+      "poseTypes": ["SWIM"],
+      "isUnderWater": true,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'water_swim')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ],
+      "transformTicks": 10
+    },
+    "surfacewater-float": {
+      "poseTypes": [
+        "STAND"
+      ],
+      "isTouchingWater": true,
+      "isUnderWater": false,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'surfacewater_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ],
+      "transformedParts": [
+        {
+          "part":"wartortle",
+          "position":[0,-10,0]
+        }
+      ]
+    },
+    "surfacewater-swim": {
+      "poseTypes": [
+        "SWIM"
+      ],
+      "isTouchingWater": true,
+      "isUnderWater": false,
+      "animations": [
+        "q.look('head_ai')",
+        "q.bedrock('wartortle', 'surfacewater_swim')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ],
+      "transformedParts": [
+        {
+          "part":"wartortle",
+          "position":[0,-10,0]
+        }
+      ]
+    },
+    "sleep": {
+      "poseTypes": [
+        "SLEEP"
+      ],
+      "animations": [
+        "q.bedrock('wartortle', 'sleep')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('wartortle', 'blink')"
+      ]
+    }
+  }
+}

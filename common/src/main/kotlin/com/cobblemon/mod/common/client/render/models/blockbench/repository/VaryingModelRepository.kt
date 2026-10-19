@@ -218,7 +218,6 @@ object VaryingModelRepository {
         inbuilt("ancient_leaden_ball", ::AncientPokeBallModel)
         inbuilt("ancient_gigaton_ball", ::AncientPokeBallModel)
 
-        inbuilt("wartortle", ::WartortleModel)
         inbuilt("metapod", ::MetapodModel)
         inbuilt("butterfree", ::ButterfreeModel)
         inbuilt("beedrill", ::BeedrillModel)
