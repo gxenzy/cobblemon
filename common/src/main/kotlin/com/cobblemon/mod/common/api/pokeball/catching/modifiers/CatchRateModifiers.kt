@@ -82,7 +82,7 @@ object CatchRateModifiers {
      * 1× otherwise.
      */
     val MOON_PHASES: CatchRateModifier = WorldStateModifier { _, entity ->
-        if (entity.level().dayTime % 24000 < 12000)
+        if (entity.level().overworldClockTime % 24000 < 12000)
             return@WorldStateModifier 1F
         when (entity.level().environmentAttributes().getValue(EnvironmentAttributes.MOON_PHASE, entity.position())) {
             MoonPhase.THIRD_QUARTER, MoonPhase.FIRST_QUARTER -> 1.5F

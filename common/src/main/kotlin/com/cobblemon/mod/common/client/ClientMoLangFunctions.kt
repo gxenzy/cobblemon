@@ -32,7 +32,6 @@ import com.cobblemon.mod.common.client.render.models.blockbench.pose.ModelPartTr
 import com.cobblemon.mod.common.client.render.models.blockbench.wavefunction.WaveFunction
 import com.cobblemon.mod.common.client.render.models.blockbench.wavefunction.sineFunction
 import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
-import com.cobblemon.mod.common.util.dayTime
 import com.cobblemon.mod.common.util.displayClientMessage
 import com.cobblemon.mod.common.util.getBooleanOrNull
 import com.cobblemon.mod.common.util.getDoubleOrNull
@@ -59,7 +58,7 @@ object ClientMoLangFunctions {
             }
         },
         "is_time" to Function { params ->
-            val time = (Minecraft.getInstance().level?.dayTime ?: 0L) % 24000L
+            val time = (Minecraft.getInstance().level?.overworldClockTime ?: 0L) % 24000L
             val min = params.getInt(0)
             val max = params.getInt(1)
             time in min.toLong()..max.toLong()

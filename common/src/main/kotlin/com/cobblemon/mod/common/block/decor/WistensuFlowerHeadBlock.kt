@@ -19,6 +19,7 @@ import net.minecraft.util.RandomSource
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.GrowingPlantHeadBlock
 import net.minecraft.world.level.block.state.BlockState
@@ -28,7 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.math.min
 
 //TODO: Root/connection shit
-class WistensuFlowerHeadBlock(properties: Properties?) : GrowingPlantHeadBlock(properties, Direction.DOWN, SHAPE, false, 0.1), WistensuFlowerBlock {
+class WistensuFlowerHeadBlock(properties: Properties) : GrowingPlantHeadBlock(properties, Direction.DOWN, SHAPE, false, 0.1), WistensuFlowerBlock {
     companion object {
         val CODEC: MapCodec<WistensuFlowerHeadBlock> = RecordCodecBuilder.mapCodec {
             it.group(propertiesCodec()).apply(it, ::WistensuFlowerHeadBlock)
@@ -62,13 +63,15 @@ class WistensuFlowerHeadBlock(properties: Properties?) : GrowingPlantHeadBlock(p
 
     override fun updateShape(
         state: BlockState,
-        direction: Direction,
-        neighborState: BlockState,
-        level: LevelAccessor,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
         pos: BlockPos,
-        neighborPos: BlockPos
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
     ): BlockState {
-        val updateState = wisternUpdateShape(state, direction, neighborState, level, pos, neighborPos, this)
+        val updateState = wisternUpdateShape(state, direction, neighborState, level, ticks, pos, neighborPos, this)
         if (updateState != null) return updateState
 
         if (direction == Direction.DOWN &&

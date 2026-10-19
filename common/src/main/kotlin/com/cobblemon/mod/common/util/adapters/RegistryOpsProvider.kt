@@ -13,7 +13,6 @@ import com.cobblemon.mod.common.Environment
 import com.cobblemon.mod.common.util.server
 import net.minecraft.client.Minecraft
 import net.minecraft.core.RegistryAccess
-import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 
 /**

@@ -39,7 +39,7 @@ object CobblemonGameRules  : PlatformRegistry<Registry<GameRule<*>>, ResourceKey
     @JvmField
     val HEALERS_HEAL_PC: GameRule<Boolean> = create("healers_heal_pc", registerBoolean(GameRuleCategory.MISC, false))
     @JvmField
-    val DO_POKEMON_PREDATION: GameRule<Boolean> = create("doPokemonPredation", registerBoolean(GameRules.Category.MOBS, true))
+    val DO_POKEMON_PREDATION: GameRule<Boolean> = create("doPokemonPredation", registerBoolean(GameRuleCategory.MOBS, true))
 
     private fun registerBoolean(gameRuleCategory: GameRuleCategory, initialValue: Boolean): GameRule<Boolean> {
         return GameRule(

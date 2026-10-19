@@ -11,6 +11,7 @@ package com.cobblemon.mod.common.block.decor
 import com.cobblemon.mod.common.CobblemonBlockEntities
 import com.cobblemon.mod.common.block.entity.MistleafFlowerBlockEntity
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelReader
@@ -38,7 +39,7 @@ class MistleafFlowerBlock(lightLevel: (BlockState) -> Int) :
     TallFlowerBlock(
         Properties.of()
             .mapColor(MapColor.PLANT)
-            .noCollission()
+            .noCollision()
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(OffsetType.XZ)
@@ -66,13 +67,13 @@ class MistleafFlowerBlock(lightLevel: (BlockState) -> Int) :
         return MistleafFlowerBlockEntity(pos, state)
     }
 
-    override fun <T : BlockEntity?> getTicker(
+    override fun <T : BlockEntity> getTicker(
         level: Level,
         state: BlockState,
-        blockEntityType: BlockEntityType<T?>
-    ): BlockEntityTicker<T?>? {
-        return if (level.isClientSide) null else BaseEntityBlock.createTickerHelper(blockEntityType as BlockEntityType<*>,
-            CobblemonBlockEntities.MISTLEAF_FLOWER, MistleafFlowerBlockEntity::serverTick) as BlockEntityTicker<T?>?
+        type: BlockEntityType<T>
+    ): BlockEntityTicker<T>? {
+        return if (level.isClientSide) null else BaseEntityBlock.createTickerHelper(type,
+            CobblemonBlockEntities.MISTLEAF_FLOWER, MistleafFlowerBlockEntity::serverTick)
     }
 
     companion object {
@@ -81,7 +82,7 @@ class MistleafFlowerBlock(lightLevel: (BlockState) -> Int) :
     }
 
     override fun hasAnalogOutputSignal(state: BlockState): Boolean { return true }
-    override fun getAnalogOutputSignal(state: BlockState, level: Level, pos: BlockPos): Int {
+    override fun getAnalogOutputSignal(state: BlockState, level: Level, pos: BlockPos, direction: Direction): Int {
         return state.getValue(GLOWING) as Int
     }
 }

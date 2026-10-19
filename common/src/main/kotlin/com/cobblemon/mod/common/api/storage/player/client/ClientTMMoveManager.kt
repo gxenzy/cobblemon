@@ -28,7 +28,7 @@ class ClientTMMoveManager(
         fun decode(buf: RegistryFriendlyByteBuf): SetClientPlayerDataPacket {
             val tms = buf.readCollection(
                 { mutableSetOf<Identifier>() },
-                { buf.readString().let(Identifier::tryParse) ?: Identifier("minecraft", "empty") }
+                { buf.readString().let(Identifier::tryParse) ?: Identifier.fromNamespaceAndPath("minecraft", "empty") }
             )
             return SetClientPlayerDataPacket(
                 PlayerInstancedDataStoreTypes.TM_MOVES,

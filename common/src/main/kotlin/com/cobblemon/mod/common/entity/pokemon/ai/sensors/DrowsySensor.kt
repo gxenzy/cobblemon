@@ -12,7 +12,6 @@ import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.pokemon.status.Statuses
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.getMemorySafely
-import com.cobblemon.mod.common.util.dayTime
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.ai.memory.MemoryModuleType
 import net.minecraft.world.entity.ai.sensing.Sensor
@@ -36,7 +35,7 @@ class DrowsySensor : Sensor<PokemonEntity>(20) {
             val rest = entity.behaviour.resting
             val isDrowsy = entity.brain.getMemorySafely(CobblemonMemories.POKEMON_DROWSY).orElse(false)
             val hurtLately = entity.brain.hasMemoryValue(MemoryModuleType.HURT_BY)
-            val shouldBeDrowsy = rest.canSleep && !hurtLately && (world.dayTime.toInt() % 24000) in rest.times && !entity.brain.hasMemoryValue(MemoryModuleType.ANGRY_AT)
+            val shouldBeDrowsy = rest.canSleep && !hurtLately && (world.overworldClockTime.toInt() % 24000) in rest.times && !entity.brain.hasMemoryValue(MemoryModuleType.ANGRY_AT)
             val forcedAsleep = entity.pokemon.status?.status == Statuses.SLEEP
 
             if (entity.isBattling) {

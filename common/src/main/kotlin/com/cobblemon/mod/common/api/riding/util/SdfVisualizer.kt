@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.api.riding.util
 
 import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.util.ARGB
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
@@ -100,6 +101,6 @@ private fun crossedTarget(previous: Float, current: Float, target: Float): Boole
     (previous - target) * (current - target) < 0f
 
 private fun spawnLayerParticle(level: ServerLevel, pos: Vec3, layer: DistanceFieldLayer) {
-    val particle = DustParticleOptions(layer.color, layer.particleSize)
+    val particle = DustParticleOptions(ARGB.color(layer.color.x.toInt(), layer.color.y.toInt(), layer.color.z.toInt()), layer.particleSize)
     level.sendParticles(particle, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0)
 }

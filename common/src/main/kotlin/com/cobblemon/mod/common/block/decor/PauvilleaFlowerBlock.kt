@@ -20,6 +20,7 @@ import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.BonemealableBlock
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class PauvilleaFlowerBlock(properties: Properties?) : DirectionalBlock(properties), BonemealableBlock {
+class PauvilleaFlowerBlock(properties: Properties) : DirectionalBlock(properties), BonemealableBlock {
     init {
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.DOWN))
@@ -51,12 +52,21 @@ class PauvilleaFlowerBlock(properties: Properties?) : DirectionalBlock(propertie
         return null
     }
 
-    override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, level: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+    override fun updateShape(
+        state: BlockState,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
+        pos: BlockPos,
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
+    ): BlockState {
         val facing = state.getValue(FACING)
         if (direction == facing.opposite && !canSurvive(state, level, pos)) {
             return Blocks.AIR.defaultBlockState()
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos)
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random)
     }
 
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
@@ -90,15 +100,15 @@ class PauvilleaFlowerBlock(properties: Properties?) : DirectionalBlock(propertie
         val CEILING = Shapes.box(0.075, 0.0, 0.075, 0.925, 1.0, 0.925)
     }
 
-    override fun isValidBonemealTarget(level: LevelReader?, pos: BlockPos?, state: BlockState?): Boolean {
+    override fun isValidBonemealTarget(level: LevelReader, pos: BlockPos, state: BlockState): Boolean {
         return true
     }
 
-    override fun isBonemealSuccess(level: Level?, random: RandomSource?, pos: BlockPos?, state: BlockState?): Boolean {
+    override fun isBonemealSuccess(level: Level, random: RandomSource, pos: BlockPos, state: BlockState): Boolean {
         return true
     }
 
-    override fun performBonemeal(level: ServerLevel, random: RandomSource?, pos: BlockPos, state: BlockState?) {
+    override fun performBonemeal(level: ServerLevel, random: RandomSource, pos: BlockPos, state: BlockState) {
         popResource(level, pos, ItemStack(this))
     }
 }

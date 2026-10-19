@@ -226,7 +226,7 @@ interface Spawner {
             }
         }
         val targetY = validY ?: return null
-        val newBaseY = (targetY - (area.height / 2)).coerceIn(world.minBuildHeight, world.maxBuildHeight)
+        val newBaseY = (targetY - (area.height / 2)).coerceIn(world.minY, world.maxY)
         val minPos = world.squeezeWithinBounds(BlockPos(area.baseX, newBaseY, area.baseZ))
         val maxPos = world.squeezeWithinBounds(BlockPos(area.baseX + area.length, newBaseY + area.height, area.baseZ + area.width))
 

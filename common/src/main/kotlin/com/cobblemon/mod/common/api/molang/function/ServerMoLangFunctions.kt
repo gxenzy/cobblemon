@@ -38,7 +38,7 @@ object ServerMoLangFunctions : AbstractMoLangFunctionHolder<MinecraftServer>() {
 
             world
                 .registryAccess()
-                .registryOrThrow(Registries.DIMENSION)
+                .getOrThrow(Registries.DIMENSION).value()
                 .wrapAsHolder(world)
                 .asWorldMoLangValue()
         }

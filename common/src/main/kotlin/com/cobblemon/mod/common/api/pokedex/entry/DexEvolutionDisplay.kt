@@ -35,6 +35,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.Identifier
 import net.minecraft.util.ExtraCodecs
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.biome.Biome
 import net.minecraft.world.level.levelgen.structure.Structure
@@ -79,7 +80,8 @@ fun getToolTipHeaderIcon(evolution: Evolution): DexEvolutionRequirementDisplay? 
 
 fun getToolTipHeaderIcon(itemInteractionEvolution: ItemInteractionEvolution): CobblemonDexEvolutionRequirementDisplay? {
     val item = itemInteractionEvolution.requiredContext.items.orElse(null)?.firstOrNull()?.value() ?: return null
-    return CobblemonDexEvolutionRequirementDisplay(item, lang("ui.pokedex.evolution.item_interact.tooltip", item.description.plainCopy().green()))
+    return CobblemonDexEvolutionRequirementDisplay(item, lang("ui.pokedex.evolution.item_interact.tooltip", item.getName(
+        ItemStack(item)).plainCopy().green()))
 }
 
 fun getToolTipHeaderIcon(tradeEvolution: TradeEvolution): CobblemonDexEvolutionRequirementDisplay {
@@ -96,7 +98,7 @@ fun getToolTipHeaderIcon(tradeEvolution: TradeEvolution): CobblemonDexEvolutionR
 
 fun resolveRequirementData(requirement: Requirement): DexEvolutionRequirementDisplay? {
     val icon = requirement.pokedexIcon?.let {
-        RegistryAccessResolver.getAccess().registryOrThrow(Registries.ITEM).get(it)
+        RegistryAccessResolver.getAccess().getOrThrow(Registries.ITEM).value().get(it).get().value()
     }
 
     val tooltip = requirement.pokedexTooltip?.let {
@@ -189,7 +191,7 @@ fun buildBiomeRequirement(biomeRequirement: BiomeRequirement, negated: Boolean =
     val icon = Items.COMPASS
     val displayName: (RegistryLikeCondition<Biome>) -> MutableComponent = {
         when (it) {
-            is RegistryLikeTagCondition -> tagDisplayName("worldgen.biome", it.tag.identifier())
+            is RegistryLikeTagCondition -> tagDisplayName("worldgen.biome", it.tag.location())
             is RegistryLikeIdentifierCondition -> Component.translatable("biome.${it.identifier.namespace}.${it.identifier.path}")
             else -> Component.literal(it.toString())
         }
@@ -257,10 +259,10 @@ fun buildHeldItemRequirement(heldItemRequirement: HeldItemRequirement): DexEvolu
     val items = heldItemRequirement.itemCondition.items.getOrNull() ?: return null
     val item = items.firstOrNull()?.value() ?: return null
     val itemComponent = items.unwrapKey().map { tag ->
-        val id = tag.identifier()
+        val id = tag.location()
         val fallback = id.path.substringAfterLast('/').split('_').joinToString(" ") { part -> part.replaceFirstChar(Char::titlecase) }
         Component.translatableWithFallback("tag.item.${id.namespace}.${id.path.replace('/', '.')}", fallback)
-    }.orElseGet { item.description.plainCopy() }
+    }.orElseGet { item.getName(ItemStack(item)).plainCopy() }
     val tooltip = lang("ui.pokedex.requirement.held_item.tooltip", itemComponent.green())
 
     return CobblemonDexEvolutionRequirementDisplay(item, tooltip)
@@ -282,7 +284,7 @@ fun buildLevelRequirement(levelRequirement: LevelRequirement): DexEvolutionRequi
 
 fun buildMoonPhaseRequirement(moonPhaseRequirement: MoonPhaseRequirement): DexEvolutionRequirementDisplay {
     val icon = Items.CLOCK
-    val moonPhaseComponent = moonPhaseRequirement.moonPhase.displayName().plainCopy().green()
+    val moonPhaseComponent = moonPhaseRequirement.moonPhase.name.green()
     val tooltip = lang("ui.pokedex.requirement.moon_phase.tooltip", moonPhaseComponent)
 
     return CobblemonDexEvolutionRequirementDisplay(icon, tooltip)
@@ -326,7 +328,7 @@ fun buildMoveTypeRequirement(moveTypeRequirement: MoveTypeRequirement): DexEvolu
 
 fun buildOwnerHoldsItemRequirement(ownerHoldsItemRequirement: OwnerHoldsItemRequirement): DexEvolutionRequirementDisplay? {
     val item = ownerHoldsItemRequirement.itemCondition.items.orElse(null)?.firstOrNull()?.value() ?: return null
-    val tooltip = lang("ui.pokedex.requirement.owner_held_item.tooltip", item.description.plainCopy().green())
+    val tooltip = lang("ui.pokedex.requirement.owner_held_item.tooltip", item.getName(ItemStack(item)).plainCopy().green())
 
     return CobblemonDexEvolutionRequirementDisplay(item, tooltip)
 }
@@ -354,7 +356,7 @@ fun buildPokemonPropertiesRequirement(pokemonPropertiesRequirement: PokemonPrope
 fun buildPropertyRangeRequirement(propertyRangeRequirement: PropertyRangeRequirement): DexEvolutionRequirementDisplay? {
     val provider = SpeciesFeatures.getFeature(propertyRangeRequirement.feature) as? IntSpeciesFeatureProvider ?: return null
     val displayName = provider.display?.name?.takeIf { it.isNotBlank() }?.asTranslated()?.green() ?: return null
-    val icon = provider.itemPoints.keys.firstOrNull()?.let { BuiltInRegistries.ITEM.get(it) } ?: Items.NAME_TAG
+    val icon = provider.itemPoints.keys.firstOrNull()?.let { BuiltInRegistries.ITEM.get(it).get().value() } ?: Items.NAME_TAG
 
     val range = propertyRangeRequirement.range
     val tooltip = lang(
@@ -419,7 +421,7 @@ fun buildStructureRequirement(structureRequirement: StructureRequirement, negate
     val icon = Items.FILLED_MAP
     val displayName: (RegistryLikeCondition<Structure>) -> MutableComponent = {
         when (it) {
-            is RegistryLikeTagCondition -> tagDisplayName("worldgen.structure", it.tag.identifier())
+            is RegistryLikeTagCondition -> tagDisplayName("worldgen.structure", it.tag.location())
             is RegistryLikeIdentifierCondition -> Component.literal(prettifyPath(it.identifier.path))
             else -> Component.literal(it.toString())
         }

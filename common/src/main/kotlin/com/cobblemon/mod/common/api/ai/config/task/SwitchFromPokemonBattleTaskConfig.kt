@@ -11,7 +11,6 @@ package com.cobblemon.mod.common.api.ai.config.task
 import com.cobblemon.mod.common.CobblemonMemories
 import com.cobblemon.mod.common.api.ai.BehaviourConfigurationContext
 import com.cobblemon.mod.common.api.npc.configuration.MoLangConfigVariable
-import com.cobblemon.mod.common.util.dayTime
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.behavior.BehaviorControl
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder
@@ -27,7 +26,7 @@ class SwitchFromPokemonBattleTaskConfig : SingleTaskConfig {
         return BehaviorBuilder.create {
             it.group(it.absent(CobblemonMemories.POKEMON_BATTLE)).apply(it) { _ ->
                 Trigger { level, entity, _ ->
-                    entity.brain.updateActivityFromSchedule(level.environmentAttributes(), level.dayTime, entity.position())
+                    entity.brain.updateActivityFromSchedule(level.environmentAttributes(), level.overworldClockTime, entity.position())
                     true
                 }
             }

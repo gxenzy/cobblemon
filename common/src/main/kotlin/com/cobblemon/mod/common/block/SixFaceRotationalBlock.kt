@@ -11,9 +11,11 @@ package com.cobblemon.mod.common.block
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.util.RandomSource
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock
@@ -36,7 +38,7 @@ open class SixFaceRotationalBlock(properties : Properties) : FaceAttachedHorizon
         builder.add(FACING, FACE, WATERLOGGED)
     }
 
-    override fun getFluidState(blockState: BlockState): FluidState? {
+    override fun getFluidState(blockState: BlockState): FluidState {
         return if (blockState.getValue(WATERLOGGED)) Fluids.WATER.getSource(false) else super.getFluidState(blockState);
     }
 
@@ -66,12 +68,21 @@ open class SixFaceRotationalBlock(properties : Properties) : FaceAttachedHorizon
         return null
     }
 
-    override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, world: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+    override fun updateShape(
+        state: BlockState,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
+        pos: BlockPos,
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
+    ): BlockState {
         if (state.getValue(WATERLOGGED)) {
-            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world))
+            ticks.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level))
         }
-        return if (getConnectedDirection(state).opposite == direction && !state.canSurvive(world, pos)) Blocks.AIR.defaultBlockState()
-        else super.updateShape(state, direction, neighborState, world, pos, neighborPos)
+        return if (getConnectedDirection(state).opposite == direction && !state.canSurvive(level, pos)) Blocks.AIR.defaultBlockState()
+        else super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random)
     }
 
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {

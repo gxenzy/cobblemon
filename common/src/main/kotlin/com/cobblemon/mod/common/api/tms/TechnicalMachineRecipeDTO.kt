@@ -30,12 +30,12 @@ data class TechnicalMachineRecipeDTO(
         val ingredient = when {
             item != null ->
                 Ingredient.of(
-                    BuiltInRegistries.ITEM.get(item)
+                    BuiltInRegistries.ITEM.get(item).get().value()
                 )
 
             tag != null ->
                 Ingredient.of(
-                    TagKey.create(Registries.ITEM, tag)
+                    BuiltInRegistries.ITEM.get(TagKey.create(Registries.ITEM, tag)).get().stream().map { it.value() }
                 )
 
             else ->

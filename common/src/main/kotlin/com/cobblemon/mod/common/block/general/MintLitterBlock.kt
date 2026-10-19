@@ -13,10 +13,12 @@ import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.util.RandomSource
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
@@ -28,7 +30,7 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.math.min
 
-class MintLitterBlock(properties: Properties?) : Block(properties) {
+class MintLitterBlock(properties: Properties) : Block(properties) {
     init {
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.NORTH)
@@ -36,14 +38,14 @@ class MintLitterBlock(properties: Properties?) : Block(properties) {
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
-        val blockState = context.getLevel().getBlockState(context.getClickedPos())
-        return if (blockState.`is`(this)) blockState.setValue<Int?, Int?>(
+        val blockState = context.level.getBlockState(context.clickedPos)
+        return if (blockState.`is`(this)) blockState.setValue(
             AMOUNT,
-            min(4, blockState.getValue<Int?>(AMOUNT) as Int + 1)
-        ) as BlockState else this.defaultBlockState().setValue<Direction?, Direction?>(
+            min(4, blockState.getValue(AMOUNT) + 1)
+        ) else this.defaultBlockState().setValue(
             FACING,
-            context.getHorizontalDirection().getOpposite()
-        ) as BlockState
+            context.horizontalDirection.opposite
+        )
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -53,29 +55,26 @@ class MintLitterBlock(properties: Properties?) : Block(properties) {
 
     override fun updateShape(
         state: BlockState,
-        direction: Direction?,
-        neighborState: BlockState?,
-        level: LevelAccessor?,
-        pos: BlockPos?,
-        neighborPos: BlockPos?
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
+        pos: BlockPos,
+        directionToNeighbour: Direction,
+        neighbourPos: BlockPos,
+        neighbourState: BlockState,
+        random: RandomSource
     ): BlockState {
         return if (!state.canSurvive(level, pos)) Blocks.AIR.defaultBlockState() else super.updateShape(
-            state,
-            direction,
-            neighborState,
-            level,
-            pos,
-            neighborPos
+            state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random
         )
     }
 
-    override fun canSurvive(state: BlockState?, level: LevelReader, pos: BlockPos): Boolean {
+    override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
         val posBelow = pos.below()
         return level.getBlockState(posBelow).isFaceSturdy(level, posBelow, Direction.UP)
     }
 
-    override fun propagatesSkylightDown(state: BlockState, level: BlockGetter?, pos: BlockPos?): Boolean {
-        return state.getFluidState().isEmpty()
+    override fun propagatesSkylightDown(state: BlockState): Boolean {
+        return state.fluidState.isEmpty
     }
 
     public override fun canBeReplaced(state: BlockState, useContext: BlockPlaceContext): Boolean {
@@ -90,7 +89,7 @@ class MintLitterBlock(properties: Properties?) : Block(properties) {
         return state.setValue(HORIZONTAL_FACING, rotation.rotate(state.getValue(HORIZONTAL_FACING)))
     }
 
-    override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape? {
+    override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
         val litterBoxes = when (state.getValue(FACING)) {
             Direction.SOUTH -> SOUTH_SHAPES
             Direction.WEST -> WEST_SHAPES
@@ -98,7 +97,7 @@ class MintLitterBlock(properties: Properties?) : Block(properties) {
             else -> NORTH_SHAPES
         }
 
-        var litterBox = litterBoxes[state.getValue(AMOUNT)]
+        val litterBox = litterBoxes[state.getValue(AMOUNT)]
         return litterBox
     }
 

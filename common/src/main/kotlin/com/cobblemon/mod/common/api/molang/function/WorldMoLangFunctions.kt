@@ -46,6 +46,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import java.util.UUID
+import kotlin.jvm.optionals.getOrNull
 
 object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
     override fun Holder<Level>.moLangFunctions(): MutableMap<String, (MoParams) -> Any> {
@@ -56,12 +57,12 @@ object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
             val timeOfDay =
                 TimeRange.timeRanges[params.getString(0).lowercase()]
                     ?: return@isTimeOfDay DoubleValue.ZERO
-            val time = world.dayTime % 24000
+            val time = world.overworldClockTime % 24000
 
             DoubleValue(timeOfDay.contains(time.toInt()))
         }
         functions["game_time"] = { DoubleValue(world.gameTime.toDouble()) }
-        functions["time_of_day"] = { DoubleValue((world.dayTime % 24000).toDouble()) }
+        functions["time_of_day"] = { DoubleValue((world.overworldClockTime % 24000).toDouble()) }
         functions["server"] = { server()?.asMoLangValue() ?: DoubleValue.ZERO }
         functions["is_raining_at"] = { params ->
             val x = params.getInt(0)
@@ -89,7 +90,7 @@ object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
 
                 else -> {
                     val biome = world.getBiome(blockPos).value() as Biome
-                    DoubleValue(biome.getPrecipitationAt(blockPos) == Biome.Precipitation.SNOW)
+                    DoubleValue(biome.getPrecipitationAt(blockPos, world.seaLevel) == Biome.Precipitation.SNOW)
                 }
             }
         }
@@ -106,7 +107,7 @@ object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
             val y = params.getInt(1)
             val z = params.getInt(2)
             val block =
-                world.blockRegistry.get(params.getString(3).asIdentifierDefaultingNamespace())
+                world.blockRegistry.get(params.getString(3).asIdentifierDefaultingNamespace()).getOrNull()?.value()
                     ?: run {
                         Cobblemon.LOGGER.error("Unknown block: ${params.getString(3)}")
                         return@setBlock DoubleValue.ZERO
@@ -186,7 +187,7 @@ object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
             if (!Level.isInSpawnableBounds(pos)) return@spawnPokemon DoubleValue.ZERO
 
             val pokemon = props.createEntity(world)
-            pokemon.moveTo(pos, pokemon.yRot, pokemon.xRot)
+            pokemon.moveOrInterpolateTo(pos.toVec3d(), pokemon.yRot, pokemon.xRot)
 
             if (world.addFreshEntity(pokemon)) return@spawnPokemon pokemon.struct
 
@@ -205,7 +206,7 @@ object WorldMoLangFunctions : AbstractMoLangFunctionHolder<Holder<Level>>() {
             if (npcClass == null) return@spawnNpc DoubleValue.ZERO
 
             val npc = NPCEntity(world)
-            npc.moveTo(x, y, z, npc.yRot, npc.xRot)
+            npc.moveOrInterpolateTo(Vec3(x, y, z), npc.yRot, npc.xRot)
             npc.npc = npcClass
             npc.initialize(level)
 

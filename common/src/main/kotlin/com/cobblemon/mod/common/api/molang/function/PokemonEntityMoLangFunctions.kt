@@ -81,7 +81,7 @@ object PokemonEntityMoLangFunctions : AbstractMoLangFunctionHolder<PokemonEntity
                     ?: DoubleValue.ZERO
             }
         }
-        functions["is_wild"] = { DoubleValue(pokemonEntity.ownerUUID == null) }
+        functions["is_wild"] = { DoubleValue(pokemonEntity.ownerReference == null) }
         functions["is_in_party"] = {
             DoubleValue(
                 pokemonEntity.pokemon.storeCoordinates

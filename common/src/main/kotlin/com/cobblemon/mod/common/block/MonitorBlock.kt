@@ -13,18 +13,19 @@ import com.cobblemon.mod.common.api.multiblock.MultiblockBlock
 import com.cobblemon.mod.common.api.multiblock.MultiblockEntity
 import com.cobblemon.mod.common.block.entity.FossilMultiblockEntity
 import com.cobblemon.mod.common.block.multiblock.FossilMultiblockBuilder
+import com.cobblemon.mod.common.util.sidedSuccess
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.StringRepresentable
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.HorizontalDirectionalBlock
@@ -85,26 +86,23 @@ class MonitorBlock(settings: Properties) : MultiblockBlock(settings) {
         player: Player,
         hand: InteractionHand,
         hit: BlockHitResult
-    ): ItemInteractionResult {
+    ): InteractionResult {
         val entity = level.getBlockEntity(pos) as? FossilMultiblockEntity
-            ?: return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION
+            ?: return InteractionResult.PASS
         val result = entity.handleUseItem(stack, state, level, pos, player, hand)
-        if (result == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION) {
+        if (result == InteractionResult.PASS) {
             return if (entity.handleUseWithoutItem(state, level, pos, player).consumesAction()) {
-                ItemInteractionResult.sidedSuccess(level.isClientSide)
+                sidedSuccess(level.isClientSide)
             } else {
-                ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+                InteractionResult.PASS
             }
         }
         return result
     }
 
-    override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-        if (state.block != newState.block && !level.isClientSide && !movedByPiston) {
-            val entity = level.getBlockEntity(pos) as? FossilMultiblockEntity
-            entity?.dropDisk(level, pos, state)
-        }
-        super.onRemove(state, level, pos, newState, movedByPiston)
+    override fun destroy(level: LevelAccessor, pos: BlockPos, state: BlockState) {
+        val entity = level.getBlockEntity(pos) as? FossilMultiblockEntity
+        entity?.dropDisk(level, pos, state)
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -140,7 +138,11 @@ class MonitorBlock(settings: Properties) : MultiblockBlock(settings) {
         }
     }
 
-    override fun <T: BlockEntity?> getTicker(level: Level, state: BlockState, type: BlockEntityType<T>): BlockEntityTicker<T>? {
+    override fun <T : BlockEntity> getTicker(
+        level: Level,
+        state: BlockState,
+        type: BlockEntityType<T>
+    ): BlockEntityTicker<T>? {
         return if (type == CobblemonBlockEntities.FOSSIL_MULTIBLOCK) {
             FossilMultiblockEntity.TICKER as BlockEntityTicker<T>
         } else {

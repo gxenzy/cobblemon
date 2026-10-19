@@ -34,6 +34,7 @@ import com.cobblemon.mod.common.util.activeDialogue
 import com.cobblemon.mod.common.util.asBlockPos
 import com.cobblemon.mod.common.util.asResource
 import com.cobblemon.mod.common.util.asUUID
+import com.cobblemon.mod.common.util.displayClientMessage
 import com.cobblemon.mod.common.util.getBattleState
 import com.cobblemon.mod.common.util.getBooleanOrNull
 import com.cobblemon.mod.common.util.getDoubleOrNull
@@ -56,6 +57,7 @@ import net.minecraft.stats.Stats
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.GameType
+import kotlin.jvm.optionals.getOrNull
 
 object PlayerMoLangFunctions : AbstractMoLangFunctionHolder<Player>() {
     override fun Player.moLangFunctions(): MutableMap<String, (MoParams) -> Any> {
@@ -94,7 +96,7 @@ object PlayerMoLangFunctions : AbstractMoLangFunctionHolder<Player>() {
                     is StringValue -> {
                         val id = Identifier.parse(value.value)
                         val item =
-                            player.registryAccess().registryOrThrow(Registries.ITEM).get(id)
+                            player.registryAccess().getOrThrow(Registries.ITEM).value().get(id).getOrNull()
                                 ?: return@setInvSlot DoubleValue.ZERO
                         ItemStack(item)
                     }
@@ -124,7 +126,7 @@ object PlayerMoLangFunctions : AbstractMoLangFunctionHolder<Player>() {
                     is StringValue -> {
                         val id = Identifier.parse(value.value)
                         val item =
-                            player.registryAccess().registryOrThrow(Registries.ITEM).get(id)
+                            player.registryAccess().getOrThrow(Registries.ITEM).value().get(id).getOrNull()
                                 ?: return@giveItem DoubleValue.ZERO
                         ItemStack(item)
                     }
@@ -412,7 +414,7 @@ object PlayerMoLangFunctions : AbstractMoLangFunctionHolder<Player>() {
 
                     val identifier = Identifier.tryParse(statName) ?: return@getCustomStat DoubleValue.ZERO
                     val statIdentifier =
-                        BuiltInRegistries.CUSTOM_STAT.get(identifier) ?: return@getCustomStat DoubleValue.ZERO
+                        BuiltInRegistries.CUSTOM_STAT.get(identifier).getOrNull()?.value() ?: return@getCustomStat DoubleValue.ZERO
 
                     val exists = Stats.CUSTOM.contains(statIdentifier)
                     if (!exists) return@getCustomStat DoubleValue.ZERO

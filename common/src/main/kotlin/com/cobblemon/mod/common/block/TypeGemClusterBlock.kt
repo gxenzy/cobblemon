@@ -27,6 +27,7 @@ import net.minecraft.world.item.component.CustomModelData
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.DirectionalBlock
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.Mirror
 import net.minecraft.world.level.block.Rotation
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
-import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.level.block.state.properties.IntegerProperty
 import net.minecraft.world.level.material.PushReaction
@@ -62,7 +62,7 @@ class TypeGemClusterBlock(
         }
         val gemToClusterMap: MutableMap<Block, TypeGemClusterBlock> = mutableMapOf()
 
-        val FACING: DirectionProperty = DirectionalBlock.FACING
+        val FACING: EnumProperty<Direction> = DirectionalBlock.FACING
         val STAGE: IntegerProperty = IntegerProperty.create("stage", 0, 3)
         val GROWTH_TYPE: EnumProperty<GrowthType> = EnumProperty.create("growth_type", GrowthType::class.java)
 
@@ -216,12 +216,21 @@ class TypeGemClusterBlock(
         }
     }
 
-    override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, level: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+    override fun updateShape(
+        state: BlockState,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
+        pos: BlockPos,
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
+    ): BlockState {
         val facing = state.getValue(FACING)
         if (direction == facing.opposite && !canSurvive(state, level, pos)) {
             return Blocks.AIR.defaultBlockState()
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos)
+        return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random)
     }
 
     override fun rotate(state: BlockState, rotation: Rotation): BlockState {
@@ -238,7 +247,7 @@ class TypeGemClusterBlock(
         return level.getBlockState(supportPos).isFaceSturdy(level, supportPos, direction)
     }
 
-    override fun propagatesSkylightDown(state: BlockState, level: net.minecraft.world.level.BlockGetter, pos: BlockPos): Boolean = true
+    override fun propagatesSkylightDown(state: BlockState): Boolean = true
 
     override fun getShadeBrightness(state: BlockState, level: net.minecraft.world.level.BlockGetter, pos: BlockPos): Float = 1.0F
 
@@ -252,8 +261,13 @@ class TypeGemClusterBlock(
         builder.add(FACING, STAGE, GROWTH_TYPE)
     }
 
-    override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
-        val stack = super.getCloneItemStack(level, pos, state)
+    override fun getCloneItemStack(
+        level: LevelReader,
+        pos: BlockPos,
+        state: BlockState,
+        includeData: Boolean
+    ): ItemStack {
+        val stack = super.getCloneItemStack(level, pos, state, includeData)
         val itemPath = BuiltInRegistries.ITEM.getKey(stack.item).path
         if (itemPath.endsWith("_gem_cluster")) {
             stack.set(

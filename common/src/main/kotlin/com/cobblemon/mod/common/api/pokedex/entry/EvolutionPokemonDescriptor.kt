@@ -26,6 +26,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.locale.Language
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
 fun describePokemonProperties(properties: PokemonProperties): MutableComponent? {
@@ -58,8 +59,8 @@ fun describePokemonProperties(properties: PokemonProperties): MutableComponent? 
 
     val heldItemDescriptor = properties.heldItem?.let { heldItem ->
         val itemId = heldItem.substringBefore('[').trim().asIdentifierDefaultingNamespace()
-        val item = BuiltInRegistries.ITEM.get(itemId)
-        if (item == Items.AIR) null else lang("ui.pokedex.requirement.properties.held_item", item.description.plainCopy().green())
+        val item = BuiltInRegistries.ITEM.get(itemId).get().value()
+        if (item == Items.AIR) null else lang("ui.pokedex.requirement.properties.held_item", item.getName(ItemStack(item)).plainCopy().green())
     }
 
     if (descriptors.isEmpty() && heldItemDescriptor == null) {

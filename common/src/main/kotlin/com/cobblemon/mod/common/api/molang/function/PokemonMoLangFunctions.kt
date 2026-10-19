@@ -213,7 +213,7 @@ object PokemonMoLangFunctions : AbstractMoLangFunctionHolder<Pokemon>() {
         // TO-DO: Subscribe to [PokemonSpecies.observable].
         functions["pre_evolution"] = { pokemon.species.preEvolution ?: DoubleValue.ZERO }
         functions["nature"] = { StringValue(pokemon.nature.name.toString()) }
-        functions["is_wild"] = { DoubleValue(pokemon.entity?.let { it.ownerUUID == null } == true) }
+        functions["is_wild"] = { DoubleValue(pokemon.entity?.let { it.ownerReference == null } == true) }
         functions["is_shiny"] = { DoubleValue(pokemon.shiny) }
         functions["is_in_party"] = { DoubleValue(pokemon.storeCoordinates.get()?.store is PartyStore) }
         functions["species"] = { pokemon.species.struct }

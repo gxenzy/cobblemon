@@ -24,7 +24,7 @@ object SpawnablePositionMoLangFunctions : AbstractMoLangFunctionHolder<Spawnable
             spawningContext
                 .world
                 .registryAccess()
-                .registryOrThrow(Registries.DIMENSION)
+                .getOrThrow(Registries.DIMENSION).value()
                 .wrapAsHolder(spawningContext.world)
                 .asWorldMoLangValue()
         val biomeValue =
@@ -39,7 +39,7 @@ object SpawnablePositionMoLangFunctions : AbstractMoLangFunctionHolder<Spawnable
         functions["x"] = { DoubleValue(spawningContext.position.x.toDouble()) }
         functions["y"] = { DoubleValue(spawningContext.position.y.toDouble()) }
         functions["z"] = { DoubleValue(spawningContext.position.z.toDouble()) }
-        functions["moon_phase"] = { DoubleValue(spawningContext.moonPhase.toDouble()) }
+        functions["moon_phase"] = { DoubleValue(spawningContext.moonPhase.index()) }
         functions["can_see_sky"] = { DoubleValue(spawningContext.canSeeSky) }
         functions["sky_light"] = { DoubleValue(spawningContext.skyLight.toDouble()) }
         functions["player"] = player@{

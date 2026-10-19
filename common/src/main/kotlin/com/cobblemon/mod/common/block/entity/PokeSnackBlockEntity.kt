@@ -244,7 +244,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
     override fun saveAdditional(valueOutput: ValueOutput) {
         super.saveAdditional(valueOutput)
 
-        saveTint(tag)
+        saveTint(valueOutput)
 
         valueOutput.putInt(DataKeys.AMOUNT_SPAWNED, amountSpawned)
 
@@ -276,7 +276,7 @@ open class PokeSnackBlockEntity(pos: BlockPos, state: BlockState) :
     override fun loadAdditional(input: ValueInput) {
         super.loadAdditional(input)
 
-        loadTint(tag)
+        loadTint(input)
 
         amountSpawned = input.getIntOr(DataKeys.AMOUNT_SPAWNED, 0)
 

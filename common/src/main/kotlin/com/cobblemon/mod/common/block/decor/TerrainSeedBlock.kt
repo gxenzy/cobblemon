@@ -104,11 +104,20 @@ class TerrainSeedBlock(private val terrainSeedType: TerrainSeedType, settings: P
         return blockState.isAir || blockState.`is`(this.terrainSeedType.getCropBlock())
     }
 
-    override fun updateShape(state: BlockState, direction: Direction, neighborState: BlockState, world: LevelAccessor, pos: BlockPos, neighborPos: BlockPos): BlockState {
+    override fun updateShape(
+        state: BlockState,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
+        pos: BlockPos,
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
+    ): BlockState {
         return if (state.getValue(AGE) >= 2) {
-            super.updateShape(state, direction, neighborState, world, pos, neighborPos)
+            super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random)
         } else {
-            if (state.canSurvive(world, pos)) state else Blocks.AIR.defaultBlockState()
+            if (state.canSurvive(level, pos)) state else Blocks.AIR.defaultBlockState()
         }
     }
 
@@ -257,12 +266,12 @@ class TerrainSeedBlock(private val terrainSeedType: TerrainSeedType, settings: P
     }
 
     fun preventDropFromBottomPart(level: Level, pos: BlockPos, state: BlockState, player: Player?) {
-        val doubleblockhalf = state.getValue<DoubleBlockHalf?>(DoublePlantBlock.HALF) as DoubleBlockHalf
+        val doubleblockhalf = state.getValue(DoublePlantBlock.HALF)
         if (doubleblockhalf == DoubleBlockHalf.UPPER) {
             val blockpos = pos.below()
             val blockstate = level.getBlockState(blockpos)
-            if (blockstate.`is`(state.getBlock()) && blockstate.getValue<DoubleBlockHalf?>(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
-                val blockstate1 = if (blockstate.getFluidState()
+            if (blockstate.`is`(state.block) && blockstate.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
+                val blockstate1 = if (blockstate.fluidState
                         .`is`(Fluids.WATER)
                 ) Blocks.WATER.defaultBlockState() else Blocks.AIR.defaultBlockState()
                 level.setBlock(blockpos, blockstate1, 35)

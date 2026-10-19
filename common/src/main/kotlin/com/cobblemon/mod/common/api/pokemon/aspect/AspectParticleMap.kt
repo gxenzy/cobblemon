@@ -16,11 +16,11 @@ import com.cobblemon.mod.common.client.entity.PokemonClientDelegate
 import com.cobblemon.mod.common.client.render.MatrixWrapper
 import com.cobblemon.mod.common.util.cobblemonResource
 import net.minecraft.client.Minecraft
-import net.minecraft.client.ParticleStatus
 import net.minecraft.core.particles.BlockParticleOption
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.resources.Identifier
+import net.minecraft.server.level.ParticleStatus
 
 /**
  * Used by [PokemonClientDelegate.spawnAspectParticle] to spawn associated particles for aspects

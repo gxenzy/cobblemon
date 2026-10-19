@@ -13,19 +13,19 @@ import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.util.RandomSource
 import net.minecraft.world.item.context.BlockPlaceContext
-import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
+import net.minecraft.world.level.ScheduledTickAccess
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.GrowingPlantBodyBlock
 import net.minecraft.world.level.block.GrowingPlantHeadBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
-import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.phys.shapes.VoxelShape
 
 //TODO: Root/connection shit
-class WistensuFlowerVineBlock(properties: Properties?) : GrowingPlantBodyBlock(properties, Direction.DOWN, SHAPE, false), WistensuFlowerBlock
+class WistensuFlowerVineBlock(properties: Properties) : GrowingPlantBodyBlock(properties, Direction.DOWN, SHAPE, false), WistensuFlowerBlock
 {
     companion object {
         val CODEC: MapCodec<WistensuFlowerVineBlock> = RecordCodecBuilder.mapCodec {
@@ -46,18 +46,20 @@ class WistensuFlowerVineBlock(properties: Properties?) : GrowingPlantBodyBlock(p
 
     override fun updateShape(
         state: BlockState,
-        direction: Direction,
-        neighborState: BlockState,
-        level: LevelAccessor,
+        level: LevelReader,
+        ticks: ScheduledTickAccess,
         pos: BlockPos,
-        neighborPos: BlockPos
+        direction: Direction,
+        neighborPos: BlockPos,
+        neighborState: BlockState,
+        random: RandomSource
     ): BlockState {
-        val updateState = wisternUpdateShape(state, direction, neighborState, level, pos, neighborPos, this)
+        val updateState = wisternUpdateShape(state, direction, neighborState, level, ticks, pos, neighborPos, this)
         if (updateState != null) return updateState
 
         if (direction == Direction.DOWN &&
                 !neighborState.`is`(CobblemonBlocks.WISTENSU) && !neighborState.`is`(CobblemonBlocks.WISTENSU_VINE)) {
-            return updateHeadAfterConvertedFromBody(state, headBlock.getStateForPlacement(level))
+            return updateHeadAfterConvertedFromBody(state, headBlock.getStateForPlacement(random))
         }
         return state
     }

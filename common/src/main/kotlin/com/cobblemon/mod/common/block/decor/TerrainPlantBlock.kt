@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.InsideBlockEffectApplier
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelReader
@@ -67,7 +68,14 @@ class TerrainPlantBlock(properties: Properties) : TallFlowerBlock(properties), E
         if (entityInside) level.scheduleTick(pos, this, 30) // tick occasionally to check if player inside
     }
 
-    override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
+    override fun entityInside(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        entity: Entity,
+        effectApplier: InsideBlockEffectApplier,
+        isPrecise: Boolean
+    ) {
         // Lucibell lower block will be our 'driver'
         if (!level.isClientSide && !state.getValue(GLOWING) && state.`is`(CobblemonBlocks.LUCIBELL)) {
             val halfState = state.getValue(HALF)
@@ -91,10 +99,10 @@ class TerrainPlantBlock(properties: Properties) : TallFlowerBlock(properties), E
     override fun <T : BlockEntity> getTicker(
         level: Level,
         state: BlockState,
-        blockEntityType: BlockEntityType<T?>
-    ): BlockEntityTicker<T?>? {
-        return if (level.isClientSide) null else BaseEntityBlock.createTickerHelper(blockEntityType as BlockEntityType<*>,
-            CobblemonBlockEntities.TERRAIN_PLANT, TerrainPlantBlockEntity::serverTick) as BlockEntityTicker<T?>?
+        type: BlockEntityType<T>
+    ): BlockEntityTicker<T>? {
+        return if (level.isClientSide) null else BaseEntityBlock.createTickerHelper(type,
+            CobblemonBlockEntities.TERRAIN_PLANT, TerrainPlantBlockEntity::serverTick)
     }
 
     companion object {

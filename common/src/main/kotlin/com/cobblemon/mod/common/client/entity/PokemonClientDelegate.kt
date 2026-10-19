@@ -322,7 +322,7 @@ class PokemonClientDelegate : PosableState(), PokemonSideDelegate {
                         ballOffset = 0f
                         ballRotOffset = 0f
                         sendOutPosition = null
-                        currentEntity.ownerUUID?.let { RecallArmAnimationTracker.start(it, currentEntity.exposedBall) }
+                        currentEntity.ownerReference?.let { RecallArmAnimationTracker.start(it.uuid, currentEntity.exposedBall) }
                         afterOnClient(seconds = BEAM_EXTEND_TIME) {
                             activeSendoutScale = 1F
 
