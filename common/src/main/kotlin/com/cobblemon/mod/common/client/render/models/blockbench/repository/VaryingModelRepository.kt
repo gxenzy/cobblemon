@@ -255,7 +255,6 @@ object VaryingModelRepository {
         inbuilt("rapidash", ::RapidashModel)
         inbuilt("tangela", ::TangelaModel)
         inbuilt("venomoth", ::VenomothModel)
-        inbuilt("venonat", ::VenonatModel)
         inbuilt("elekid", ::ElekidModel)
         inbuilt("hitmontop", ::HitmontopModel)
         inbuilt("electivire", ::ElectivireModel)
