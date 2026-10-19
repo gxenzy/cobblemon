@@ -1,25 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:light_blue_wool"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:colbur_berry",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.025
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/woobat"
 }

@@ -52,7 +52,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:never_melt_ice"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/regice"
       }
     ]
   },

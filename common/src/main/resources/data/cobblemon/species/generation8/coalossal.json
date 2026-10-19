@@ -81,19 +81,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:coal",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:black_augurite",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:passho_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/coalossal"
       }
     ]
   },

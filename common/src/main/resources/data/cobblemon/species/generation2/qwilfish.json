@@ -93,18 +93,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:pufferfish"
-      },
-      {
-        "item": "minecraft:prismarine_shard",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:poison_barb",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/qwilfish"
       }
     ]
   },
@@ -418,6 +414,18 @@
           "drowsyChance": 0.0333,
           "rouseChance": 0.0042
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/qwilfish_hisui"
+          }
+        ]
       }
     }
   ]

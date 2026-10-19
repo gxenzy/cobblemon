@@ -1,28 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 4,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:phantom_membrane",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 0,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:fairy_feather"
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/fluttermane"
 }

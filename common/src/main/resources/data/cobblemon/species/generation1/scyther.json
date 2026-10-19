@@ -93,8 +93,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:wepear_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/scyther"
       }
     ]
   },

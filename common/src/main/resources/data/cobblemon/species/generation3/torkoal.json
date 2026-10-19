@@ -78,23 +78,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:coal",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:smoke_ball",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:charti_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/torkoal"
       }
     ]
   },

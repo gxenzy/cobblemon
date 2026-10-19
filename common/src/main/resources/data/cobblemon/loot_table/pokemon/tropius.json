@@ -1,24 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:nanab_berry",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 0,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/tropius"
 }

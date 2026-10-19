@@ -91,8 +91,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:miracle_seed",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/floragato"
       }
     ]
   },

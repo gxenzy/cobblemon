@@ -1,31 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:muscle_band",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.025
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:payapa_berry",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.025
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/mankey"
 }

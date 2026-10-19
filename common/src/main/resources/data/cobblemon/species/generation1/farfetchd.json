@@ -95,22 +95,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:feather",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "minecraft:chicken"
-      },
-      {
-        "item": "cobblemon:medicinal_leek",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:chilan_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/farfetchd"
       }
     ]
   },
@@ -289,22 +281,14 @@
         "speed": 55
       },
       "drops": {
-        "amount": 4,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:feather",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "minecraft:chicken"
-          },
-          {
-            "item": "cobblemon:medicinal_leek",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:coba_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/farfetchd_galar"
           }
         ]
       },

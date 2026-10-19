@@ -50,19 +50,14 @@
   },
   "standingEyeHeight": 0.75,
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:bright_powder",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:shed_shell",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:pecha_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/beautifly"
       }
     ]
   },

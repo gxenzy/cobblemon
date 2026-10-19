@@ -100,15 +100,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:rocky_helmet",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dudunsparce"
       }
     ]
   },

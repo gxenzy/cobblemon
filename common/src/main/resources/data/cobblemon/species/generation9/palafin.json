@@ -86,11 +86,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:cod",
-        "quantityRange": "0-2"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/palafin"
       }
     ]
   },

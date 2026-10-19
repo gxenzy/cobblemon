@@ -158,19 +158,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:clay_ball",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:light_clay",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:colbur_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/golurk"
       }
     ]
   },

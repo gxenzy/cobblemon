@@ -84,15 +84,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:mystic_water",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:shell_bell",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dewott"
       }
     ]
   },

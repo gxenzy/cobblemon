@@ -50,15 +50,14 @@
   },
   "standingEyeHeight": 0.65,
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:wepear_berry",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:cell_battery",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/vikavolt"
       }
     ]
   },

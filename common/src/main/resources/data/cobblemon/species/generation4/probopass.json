@@ -88,23 +88,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:flint",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:hard_stone",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:magnet",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:chople_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/probopass"
       }
     ]
   },

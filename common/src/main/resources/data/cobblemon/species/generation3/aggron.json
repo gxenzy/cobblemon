@@ -80,19 +80,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:raw_iron",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:hard_stone",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:chople_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/aggron"
       }
     ]
   },

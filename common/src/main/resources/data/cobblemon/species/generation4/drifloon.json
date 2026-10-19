@@ -89,19 +89,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:phantom_membrane",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:kasib_berry",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:air_balloon",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/drifloon"
       }
     ]
   },

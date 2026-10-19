@@ -87,15 +87,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:clay_ball",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:rindo_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/shellos"
       }
     ]
   },
@@ -280,6 +279,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/shellos_east"
+          }
+        ]
       }
     }
   ]

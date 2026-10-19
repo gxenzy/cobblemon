@@ -1,31 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:kebia_berry",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:fairy_feather",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.05
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/aromatisse"
 }

@@ -90,15 +90,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:rotten_flesh",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:chilan_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/rattata"
       }
     ]
   },
@@ -260,15 +259,14 @@
         "h:thickfat"
       ],
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:rotten_flesh",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:pecha_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rattata_alola"
           }
         ]
       },

@@ -55,8 +55,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/toxtricity"
       }
     ]
   },
@@ -327,6 +330,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/toxtricity_low_key"
+          }
+        ]
       }
     },
     {

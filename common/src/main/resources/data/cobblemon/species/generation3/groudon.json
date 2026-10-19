@@ -76,7 +76,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "minecraft:nether_star"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/groudon"
       }
     ]
   },
@@ -292,6 +296,18 @@
           "maxSize": 4
         },
         "fireImmune": true
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/groudon_primal"
+          }
+        ]
       }
     }
   ]

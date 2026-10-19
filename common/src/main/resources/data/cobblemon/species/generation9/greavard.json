@@ -42,23 +42,14 @@
   "eggCycles": 20,
   "baseFriendship": 50,
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone",
-        "quantityRange": "1-2"
-      },
-      {
-        "item": "minecraft:rotten_flesh",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "minecraft:candle",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:kasib_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/greavard"
       }
     ]
   },

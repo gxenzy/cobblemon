@@ -53,14 +53,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone"
-      },
-      {
-        "item": "cobblemon:nanab_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/marowak"
       }
     ]
   },
@@ -286,7 +286,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "minecraft:bone"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/marowak_alola"
           }
         ]
       },

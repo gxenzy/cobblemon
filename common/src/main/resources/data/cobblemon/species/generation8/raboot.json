@@ -88,22 +88,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:rabbit_hide",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:rabbit"
-      },
-      {
-        "item": "minecraft:rabbit_foot",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/raboot"
       }
     ]
   },

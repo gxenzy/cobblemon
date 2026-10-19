@@ -96,23 +96,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:ender_pearl",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:dawn_stone",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:twisted_spoon",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:kasib_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/kirlia"
       }
     ]
   },

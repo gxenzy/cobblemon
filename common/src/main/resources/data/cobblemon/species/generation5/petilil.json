@@ -91,19 +91,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:revival_herb",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:persim_berry",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:absorb_bulb",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/petilil"
       }
     ]
   },

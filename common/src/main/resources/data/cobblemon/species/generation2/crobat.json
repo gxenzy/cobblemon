@@ -148,19 +148,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:phantom_membrane",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:razor_fang",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:persim_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/crobat"
       }
     ]
   },

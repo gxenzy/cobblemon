@@ -106,8 +106,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:chesto_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/slaking"
       }
     ]
   },

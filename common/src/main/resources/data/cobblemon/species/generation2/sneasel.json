@@ -94,23 +94,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:razor_claw",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:grip_claw",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:quick_claw",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:chople_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/sneasel"
       }
     ]
   },
@@ -312,19 +303,14 @@
         "hisuian"
       ],
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:razor_claw",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:poison_barb",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:payapa_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/sneasel_hisui"
           }
         ]
       },

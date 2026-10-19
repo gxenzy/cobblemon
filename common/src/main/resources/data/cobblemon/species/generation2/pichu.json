@@ -51,19 +51,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:light_ball",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:thunder_stone",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:oran_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/pichu"
       }
     ]
   },

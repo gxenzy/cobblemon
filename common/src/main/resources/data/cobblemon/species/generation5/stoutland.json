@@ -77,19 +77,14 @@
     }
   },
   "drops": {
-    "amount": 7,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "minecraft:blue_wool",
-        "quantityRange": "2-3"
-      },
-      {
-        "item": "cobblemon:chilan_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/stoutland"
       }
     ]
   },

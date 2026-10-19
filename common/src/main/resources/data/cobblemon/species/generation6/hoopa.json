@@ -394,6 +394,18 @@
           "drowsyChance": 0.0333,
           "rouseChance": 0.0042
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/hoopa_unbound"
+          }
+        ]
       }
     }
   ],
@@ -426,5 +438,17 @@
     "combat": {
       "willDefendOwner": true
     }
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/hoopa"
+      }
+    ]
   }
 }

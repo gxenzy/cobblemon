@@ -48,19 +48,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:redstone",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:electirizer",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/electivire"
       }
     ]
   },

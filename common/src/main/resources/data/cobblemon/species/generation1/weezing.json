@@ -87,15 +87,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:black_sludge",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:smoke_ball",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/weezing"
       }
     ]
   },
@@ -236,19 +235,14 @@
         "h:mistysurge"
       ],
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:black_sludge",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:payapa_berry",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:smoke_ball",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/weezing_galar"
           }
         ]
       },

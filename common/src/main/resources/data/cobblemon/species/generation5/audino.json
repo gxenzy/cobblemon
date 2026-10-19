@@ -50,15 +50,14 @@
   },
   "standingEyeHeight": 0.82,
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:oran_berry",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:fairy_feather",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/audino"
       }
     ]
   },

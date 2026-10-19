@@ -122,11 +122,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:raw_iron",
-        "quantityRange": "0-3"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/klinklang"
       }
     ]
   },

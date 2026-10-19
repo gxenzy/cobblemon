@@ -86,23 +86,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:dirt",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "minecraft:potato",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:big_root",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:soft_sand",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/diglett"
       }
     ]
   },
@@ -402,23 +393,14 @@
       ],
       "battleOnly": false,
       "drops": {
-        "amount": 4,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:coarse_dirt",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "minecraft:potato",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:big_root",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:soft_sand",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/diglett_alola"
           }
         ]
       },

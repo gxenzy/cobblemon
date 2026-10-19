@@ -76,19 +76,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:white_wool",
-        "quantityRange": "1-2"
-      },
-      {
-        "item": "cobblemon:silk_scarf",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/furfrou"
       }
     ]
   },

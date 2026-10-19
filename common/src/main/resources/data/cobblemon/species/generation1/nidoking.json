@@ -85,15 +85,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:poison_barb",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:pecha_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/nidoking"
       }
     ]
   },

@@ -91,19 +91,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:kings_rock",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:lagging_tail",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:chesto_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/slowbro"
       }
     ]
   },
@@ -580,19 +575,14 @@
       "evolutions": [],
       "battleOnly": false,
       "drops": {
-        "amount": 4,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:galarica_nuts",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:lagging_tail",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:chesto_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/slowbro_galar"
           }
         ]
       }

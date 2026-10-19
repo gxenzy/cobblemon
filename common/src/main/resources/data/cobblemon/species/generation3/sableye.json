@@ -96,27 +96,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:amethyst_shard",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:wide_lens",
-        "percentage": 5.0
-      },
-      {
-        "item": "minecraft:diamond",
-        "percentage": 5.0
-      },
-      {
-        "item": "minecraft:emerald",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:roseli_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/sableye"
       }
     ]
   },

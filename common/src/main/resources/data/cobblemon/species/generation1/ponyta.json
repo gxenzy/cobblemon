@@ -111,19 +111,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:leather",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "minecraft:blaze_powder",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/ponyta"
       }
     ]
   },
@@ -258,15 +253,14 @@
         "h:anticipation"
       ],
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:leather",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:razz_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/ponyta_galar"
           }
         ]
       },

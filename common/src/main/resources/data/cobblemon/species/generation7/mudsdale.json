@@ -115,23 +115,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:leather",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:clay_ball",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:light_clay",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:passho_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/mudsdale"
       }
     ]
   },

@@ -149,15 +149,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone_meal",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:prism_scale",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/milotic"
       }
     ]
   },

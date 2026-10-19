@@ -171,15 +171,14 @@
   ],
   "evolutions": [],
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:stone",
-        "quantityRange": "2"
-      },
-      {
-        "item": "cobblemon:luminous_moss",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/stonjourner"
       }
     ]
   }

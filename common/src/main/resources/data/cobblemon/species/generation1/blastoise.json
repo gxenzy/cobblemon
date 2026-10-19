@@ -167,15 +167,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:turtle_scute",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:mystic_water",
-        "percentage": 25.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/blastoise"
       }
     ]
   },

@@ -48,15 +48,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:thunder_stone",
-        "percentage": 25.0
-      },
-      {
-        "item": "cobblemon:magnet",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/jolteon"
       }
     ]
   },

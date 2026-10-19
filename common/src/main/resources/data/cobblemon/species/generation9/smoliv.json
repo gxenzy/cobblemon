@@ -83,15 +83,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:big_root",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:kebia_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/smoliv"
       }
     ]
   },

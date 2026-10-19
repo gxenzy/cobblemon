@@ -90,15 +90,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:magma_cream",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/numel"
       }
     ]
   },

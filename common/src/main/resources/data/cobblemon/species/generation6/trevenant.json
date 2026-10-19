@@ -84,18 +84,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:jack_o_lantern"
-      },
-      {
-        "item": "cobblemon:spell_tag",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/trevenant"
       }
     ]
   },

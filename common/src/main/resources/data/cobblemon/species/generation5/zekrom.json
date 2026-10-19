@@ -220,11 +220,14 @@
   ],
   "evolutions": [],
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:dragon_breath",
-        "quantityRange": "2-3"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/zekrom"
       }
     ]
   }

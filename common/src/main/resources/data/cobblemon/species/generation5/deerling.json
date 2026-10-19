@@ -55,15 +55,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:leather",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:yache_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/deerling"
       }
     ]
   },

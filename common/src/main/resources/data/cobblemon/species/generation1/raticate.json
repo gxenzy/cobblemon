@@ -83,15 +83,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:rotten_flesh",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:chilan_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/raticate"
       }
     ]
   },
@@ -263,15 +262,14 @@
         "speed": 77
       },
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:rotten_flesh",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:pecha_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/raticate_alola"
           }
         ]
       },

@@ -378,6 +378,18 @@
         "herd": {
           "maxSize": 4
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/necrozma_dusk_mane"
+          }
+        ]
       }
     },
     {
@@ -575,6 +587,18 @@
         "herd": {
           "maxSize": 4
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/necrozma_dawn_wings"
+          }
+        ]
       }
     },
     {
@@ -652,6 +676,18 @@
         "herd": {
           "maxSize": 5
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/necrozma_ultra"
+          }
+        ]
       }
     }
   ],
@@ -682,5 +718,17 @@
     "herd": {
       "maxSize": 3
     }
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/necrozma"
+      }
+    ]
   }
 }

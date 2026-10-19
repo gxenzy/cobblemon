@@ -85,15 +85,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:aspear_berry",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:shell_bell",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/shellder"
       }
     ]
   },

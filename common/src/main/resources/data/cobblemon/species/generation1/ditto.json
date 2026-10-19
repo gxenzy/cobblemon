@@ -83,15 +83,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:quick_powder",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:metal_powder",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/ditto"
       }
     ]
   },

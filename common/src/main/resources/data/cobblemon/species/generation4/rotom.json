@@ -308,6 +308,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rotom_heat"
+          }
+        ]
       }
     },
     {
@@ -463,6 +475,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rotom_wash"
+          }
+        ]
       }
     },
     {
@@ -618,6 +642,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rotom_frost"
+          }
+        ]
       }
     },
     {
@@ -773,6 +809,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rotom_fan"
+          }
+        ]
       }
     },
     {
@@ -928,6 +976,18 @@
       "lightingData": {
         "lightLevel": 8,
         "liquidGlowMode": "BOTH"
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rotom_mow"
+          }
+        ]
       }
     }
   ],
@@ -967,5 +1027,17 @@
   "lightingData": {
     "lightLevel": 8,
     "liquidGlowMode": "BOTH"
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/rotom"
+      }
+    ]
   }
 }

@@ -77,19 +77,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:sweet_berries",
-        "quantityRange": "2-4"
-      },
-      {
-        "item": "minecraft:emerald",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:roseli_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/thievul"
       }
     ]
   },

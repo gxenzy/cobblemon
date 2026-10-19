@@ -54,8 +54,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:soft_sand",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/sandaconda"
       }
     ]
   },

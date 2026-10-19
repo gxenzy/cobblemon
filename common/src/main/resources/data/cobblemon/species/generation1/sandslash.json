@@ -79,23 +79,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:armadillo_scute",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:grip_claw",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:quick_claw",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:soft_sand",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/sandslash"
       }
     ]
   },
@@ -469,23 +460,14 @@
         }
       },
       "drops": {
-        "amount": 5,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:armadillo_scute",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:grip_claw",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:quick_claw",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:chople_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/sandslash_alola"
           }
         ]
       }

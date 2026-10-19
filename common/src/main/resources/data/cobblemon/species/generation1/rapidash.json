@@ -99,19 +99,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:leather",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:blaze_powder",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/rapidash"
       }
     ]
   },
@@ -254,15 +249,14 @@
         "h:anticipation"
       ],
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:leather",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:razz_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/rapidash_galar"
           }
         ]
       },

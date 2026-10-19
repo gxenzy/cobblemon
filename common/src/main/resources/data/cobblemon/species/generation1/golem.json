@@ -89,23 +89,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:gravel",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:everstone",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:black_augurite",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:rindo_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/golem"
       }
     ]
   },
@@ -276,23 +267,14 @@
         "h:galvanize"
       ],
       "drops": {
-        "amount": 6,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:raw_copper",
-            "quantityRange": "0-3"
-          },
-          {
-            "item": "cobblemon:cell_battery",
-            "percentage": 10.0
-          },
-          {
-            "item": "cobblemon:magnet",
-            "percentage": 10.0
-          },
-          {
-            "item": "cobblemon:shuca_berry",
-            "percentage": 10.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/golem_alola"
           }
         ]
       },

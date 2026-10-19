@@ -96,23 +96,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:dragon_breath",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:dragon_fang",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:dragon_scale",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:yache_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dratini"
       }
     ]
   },

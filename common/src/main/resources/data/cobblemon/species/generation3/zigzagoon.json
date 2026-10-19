@@ -103,8 +103,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:oran_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/zigzagoon"
       }
     ]
   },
@@ -263,8 +266,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:chople_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/zigzagoon_galar"
           }
         ]
       },

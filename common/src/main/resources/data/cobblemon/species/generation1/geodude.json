@@ -94,23 +94,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:gravel",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:everstone",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:black_augurite",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:rindo_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/geodude"
       }
     ]
   },
@@ -279,23 +270,14 @@
         "h:galvanize"
       ],
       "drops": {
-        "amount": 4,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:raw_copper",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:cell_battery",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:magnet",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:shuca_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/geodude_alola"
           }
         ]
       },

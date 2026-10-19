@@ -373,7 +373,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:never_melt_ice"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/calyrex_ice"
           }
         ]
       }
@@ -588,7 +592,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:spell_tag"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/calyrex_shadow"
           }
         ]
       }
@@ -612,5 +620,17 @@
       "drowsyChance": 0.0333,
       "rouseChance": 0.0042
     }
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/calyrex"
+      }
+    ]
   }
 }

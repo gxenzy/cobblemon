@@ -44,22 +44,14 @@
   "eggCycles": 20,
   "baseFriendship": 50,
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:feather",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:chicken"
-      },
-      {
-        "item": "minecraft:honey_bottle",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:pinap_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/oricorio"
       }
     ]
   },
@@ -204,6 +196,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/oricorio_pom_pom"
+          }
+        ]
       }
     },
     {
@@ -250,6 +254,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/oricorio_pa_u"
+          }
+        ]
       }
     },
     {
@@ -296,6 +312,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/oricorio_sensu"
+          }
+        ]
       }
     }
   ],

@@ -90,15 +90,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:expert_belt",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/torracat"
       }
     ]
   },

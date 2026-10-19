@@ -88,23 +88,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:charcoal",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:auspicious_armor",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/armarouge"
       }
     ]
   },

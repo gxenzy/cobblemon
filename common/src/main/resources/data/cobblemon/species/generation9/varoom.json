@@ -81,19 +81,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:iron_nugget",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:black_sludge",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/varoom"
       }
     ]
   },

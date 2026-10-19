@@ -106,8 +106,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/darmanitan"
       }
     ]
   },
@@ -449,7 +452,19 @@
         "tutor:zenheadbutt"
       ],
       "evolutions": [],
-      "battleOnly": true
+      "battleOnly": true,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/darmanitan_zen"
+          }
+        ]
+      }
     },
     {
       "name": "Galar",
@@ -498,15 +513,14 @@
         }
       },
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:ice_stone",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:occa_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/darmanitan_galar"
           }
         ]
       },
@@ -702,15 +716,14 @@
         }
       },
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:ice_stone",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:occa_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/darmanitan_galar_zen"
           }
         ]
       },

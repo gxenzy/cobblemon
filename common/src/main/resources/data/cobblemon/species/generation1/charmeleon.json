@@ -89,15 +89,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:blaze_powder",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/charmeleon"
       }
     ]
   },

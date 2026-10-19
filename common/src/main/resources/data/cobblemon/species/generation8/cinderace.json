@@ -81,22 +81,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:rabbit_hide",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "minecraft:rabbit"
-      },
-      {
-        "item": "minecraft:rabbit_foot",
-        "percentage": 25.0
-      },
-      {
-        "item": "cobblemon:charcoal_stick",
-        "percentage": 25.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/cinderace"
       }
     ]
   },

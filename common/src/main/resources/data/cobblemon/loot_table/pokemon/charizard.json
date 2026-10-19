@@ -2,7 +2,7 @@
   "type": "minecraft:generic",
   "pools": [
     {
-      "rolls": 4,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
@@ -12,14 +12,19 @@
               "function": "set_count",
               "count": {
                 "min": 0,
-                "max": 3
+                "max": 4
               }
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
-          "name": "cobblemon:charcoal_stick",
+          "name": "cobblemon:miracle_seed",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

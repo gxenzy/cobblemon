@@ -77,19 +77,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:sand",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:soft_sand",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:chesto_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/hippowdon"
       }
     ]
   },

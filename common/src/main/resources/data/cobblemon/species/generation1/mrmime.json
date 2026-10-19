@@ -94,15 +94,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:light_clay",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:babiri_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/mrmime"
       }
     ]
   },
@@ -350,8 +349,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:aspear_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/mrmime_galar"
           }
         ]
       },

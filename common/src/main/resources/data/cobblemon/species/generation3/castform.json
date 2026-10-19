@@ -83,8 +83,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:mystic_water",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/castform"
       }
     ]
   },
@@ -204,8 +207,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:heat_rock",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/castform_sunny"
           }
         ]
       },
@@ -263,8 +269,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:damp_rock",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/castform_rainy"
           }
         ]
       },
@@ -290,8 +299,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:icy_rock",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/castform_snowy"
           }
         ]
       },

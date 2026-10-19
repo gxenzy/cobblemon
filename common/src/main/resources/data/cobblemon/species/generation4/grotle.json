@@ -81,15 +81,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:sweet_berries",
-        "quantityRange": "2-4"
-      },
-      {
-        "item": "cobblemon:miracle_seed",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/grotle"
       }
     ]
   },

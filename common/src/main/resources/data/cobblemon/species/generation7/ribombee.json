@@ -83,15 +83,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:honey_bottle",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/ribombee"
       }
     ]
   },

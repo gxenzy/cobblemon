@@ -52,15 +52,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:terracotta",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:hard_stone",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dwebble"
       }
     ]
   },

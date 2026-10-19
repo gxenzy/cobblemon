@@ -227,7 +227,19 @@
       ],
       "preEvolution": "floette",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/florges_yellow"
+          }
+        ]
+      }
     },
     {
       "name": "Orange",
@@ -246,7 +258,19 @@
       ],
       "preEvolution": "floette",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/florges_orange"
+          }
+        ]
+      }
     },
     {
       "name": "Blue",
@@ -265,7 +289,19 @@
       ],
       "preEvolution": "floette",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/florges_blue"
+          }
+        ]
+      }
     },
     {
       "name": "White",
@@ -284,7 +320,19 @@
       ],
       "preEvolution": "floette",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/florges_white"
+          }
+        ]
+      }
     }
   ]
 }

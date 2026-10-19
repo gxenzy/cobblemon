@@ -82,15 +82,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:honey_bottle",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:wacan_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/surskit"
       }
     ]
   },

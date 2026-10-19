@@ -154,15 +154,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:phantom_membrane",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:haban_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dragapult"
       }
     ]
   },

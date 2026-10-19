@@ -108,19 +108,14 @@
     }
   ],
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:mutton",
-        "quantityRange": "1-2"
-      },
-      {
-        "item": "minecraft:white_wool",
-        "quantityRange": "1-2"
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/mareep"
       }
     ]
   },

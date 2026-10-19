@@ -49,19 +49,14 @@
   },
   "standingEyeHeight": 0.6,
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:leaf_stone",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:miracle_seed",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:occa_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/pansage"
       }
     ]
   },

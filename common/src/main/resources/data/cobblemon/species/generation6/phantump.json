@@ -90,19 +90,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:jack_o_lantern",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:spell_tag",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/phantump"
       }
     ]
   },

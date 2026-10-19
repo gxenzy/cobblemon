@@ -86,23 +86,14 @@
     }
   },
   "drops": {
-    "amount": 7,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:string",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:spider_eye",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:rotten_flesh",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:nanab_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/galvantula"
       }
     ]
   },

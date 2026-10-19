@@ -91,19 +91,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:gold_nugget",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:quick_claw",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:pinap_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/meowth"
       }
     ]
   },
@@ -307,19 +302,14 @@
         "speed": 90
       },
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:gold_nugget",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:quick_claw",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:bluk_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/meowth_alola"
           }
         ]
       },
@@ -583,15 +573,14 @@
         }
       },
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:razor_claw",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:wepear_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/meowth_galar"
           }
         ]
       },

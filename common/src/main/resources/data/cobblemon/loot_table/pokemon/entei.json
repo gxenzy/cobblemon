@@ -1,19 +1,5 @@
 {
   "type": "minecraft:generic",
-  "pools": [
-    {
-      "rolls": 2,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:charcoal_stick"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "cobblemon:sacred_ash"
-        }
-      ]
-    }
-  ],
+  "pools": [],
   "random_sequence": "cobblemon:pokemon/entei"
 }

@@ -80,15 +80,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:razor_claw",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:wepear_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/perrserker"
       }
     ]
   },

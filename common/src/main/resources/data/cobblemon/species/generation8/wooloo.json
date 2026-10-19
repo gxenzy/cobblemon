@@ -61,14 +61,14 @@
   ],
   "standingEyeHeight": 0.6,
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:mutton",
-        "quantityRange": "1-2"
-      },
-      {
-        "item": "minecraft:white_wool"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/wooloo"
       }
     ]
   },

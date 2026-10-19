@@ -93,19 +93,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:amethyst_shard",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:float_stone",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/glimmet"
       }
     ]
   },

@@ -89,18 +89,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:mutton",
-        "quantityRange": "1-3"
-      },
-      {
-        "item": "minecraft:white_wool"
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/flaaffy"
       }
     ]
   },

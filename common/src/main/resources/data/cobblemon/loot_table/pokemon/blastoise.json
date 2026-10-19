@@ -2,24 +2,29 @@
   "type": "minecraft:generic",
   "pools": [
     {
-      "rolls": 4,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:turtle_scute",
+          "name": "minecraft:scute",
           "functions": [
             {
               "function": "set_count",
               "count": {
                 "min": 0,
-                "max": 3
+                "max": 4
               }
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
-          "name": "cobblemon:mystic_water",
+          "name": "cobblemon:miracle_seed",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

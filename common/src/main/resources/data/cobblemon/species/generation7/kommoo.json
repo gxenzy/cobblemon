@@ -51,19 +51,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:dragon_scale",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:razor_claw",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:roseli_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/kommoo"
       }
     ]
   },

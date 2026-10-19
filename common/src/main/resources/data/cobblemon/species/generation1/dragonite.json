@@ -193,23 +193,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:dragon_breath",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:dragon_fang",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:dragon_scale",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:yache_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/dragonite"
       }
     ]
   },

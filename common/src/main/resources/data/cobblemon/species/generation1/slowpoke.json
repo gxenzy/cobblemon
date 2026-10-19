@@ -97,19 +97,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:kings_rock",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:lagging_tail",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:chesto_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/slowpoke"
       }
     ]
   },
@@ -501,19 +496,14 @@
       ],
       "battleOnly": false,
       "drops": {
-        "amount": 3,
+        "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:galarica_nuts",
-            "quantityRange": "0-1"
-          },
-          {
-            "item": "cobblemon:lagging_tail",
-            "percentage": 2.5
-          },
-          {
-            "item": "cobblemon:chesto_berry",
-            "percentage": 2.5
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/slowpoke_galar"
           }
         ]
       }

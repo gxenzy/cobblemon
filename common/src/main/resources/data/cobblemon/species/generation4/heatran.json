@@ -198,15 +198,14 @@
     "liquidGlowMode": "LAND"
   },
   "drops": {
-    "amount": 8,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:magma_cream",
-        "quantityRange": "2-4"
-      },
-      {
-        "item": "minecraft:blaze_powder",
-        "quantityRange": "2-4"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/heatran"
       }
     ]
   }

@@ -93,23 +93,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:ender_pearl",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:dawn_stone",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:twisted_spoon",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:kasib_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/gardevoir"
       }
     ]
   },

@@ -79,23 +79,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:rotten_flesh",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:hard_stone",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:babiri_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/lycanroc"
       }
     ]
   },
@@ -433,6 +424,18 @@
           "willDefendOwner": true,
           "willFlee": false
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/lycanroc_midnight"
+          }
+        ]
       }
     },
     {
@@ -629,6 +632,18 @@
           "drowsyChance": 0.0021,
           "rouseChance": 0.0042
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/lycanroc_dusk"
+          }
+        ]
       }
     }
   ]

@@ -48,13 +48,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:charcoal_stick"
-      },
-      {
-        "item": "cobblemon:sacred_ash"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/entei"
       }
     ]
   },

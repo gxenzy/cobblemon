@@ -83,19 +83,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:slime_ball",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:black_sludge",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:toxic_orb",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/grimer"
       }
     ]
   },
@@ -451,6 +446,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/grimer_alola"
+          }
+        ]
       }
     }
   ]

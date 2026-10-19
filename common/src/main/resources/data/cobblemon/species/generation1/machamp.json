@@ -49,19 +49,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:focus_band",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:muscle_band",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:wepear_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/machamp"
       }
     ]
   },

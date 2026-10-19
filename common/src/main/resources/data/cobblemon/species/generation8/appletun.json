@@ -52,14 +52,14 @@
   },
   "standingEyeHeight": 0.15,
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:apple"
-      },
-      {
-        "item": "cobblemon:yache_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/appletun"
       }
     ]
   },

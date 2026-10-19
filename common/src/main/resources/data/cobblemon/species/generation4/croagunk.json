@@ -82,15 +82,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:black_sludge",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:payapa_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/croagunk"
       }
     ]
   },

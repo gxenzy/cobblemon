@@ -51,15 +51,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:string",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:occa_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/wormadam"
       }
     ]
   },
@@ -297,7 +296,19 @@
       ],
       "preEvolution": "burmy",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/wormadam_sandy"
+          }
+        ]
+      }
     },
     {
       "name": "Trash",
@@ -433,7 +444,19 @@
       ],
       "preEvolution": "burmy",
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/wormadam_trash"
+          }
+        ]
+      }
     }
   ],
   "behaviour": {

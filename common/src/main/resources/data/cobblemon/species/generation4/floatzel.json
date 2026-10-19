@@ -76,15 +76,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:salmon",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:wacan_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/floatzel"
       }
     ]
   },

@@ -49,19 +49,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:dead_bush",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:stick",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:kasib_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/brambleghast"
       }
     ]
   },

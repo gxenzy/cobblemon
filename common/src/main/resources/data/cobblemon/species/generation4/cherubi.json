@@ -49,19 +49,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:sweet_berries",
-        "quantityRange": "1-3"
-      },
-      {
-        "item": "cobblemon:miracle_seed",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:cheri_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/cherubi"
       }
     ]
   },

@@ -106,23 +106,14 @@
     }
   },
   "drops": {
-    "amount": 8,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:porkchop",
-        "quantityRange": "2-3"
-      },
-      {
-        "item": "minecraft:brown_wool",
-        "quantityRange": "2-3"
-      },
-      {
-        "item": "cobblemon:never_melt_ice",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:aspear_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/mamoswine"
       }
     ]
   },

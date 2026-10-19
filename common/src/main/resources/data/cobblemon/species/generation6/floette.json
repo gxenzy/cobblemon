@@ -255,7 +255,19 @@
           "requiredContext": "cobblemon:shiny_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/floette_yellow"
+          }
+        ]
+      }
     },
     {
       "name": "Orange",
@@ -284,7 +296,19 @@
           "requiredContext": "cobblemon:shiny_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/floette_orange"
+          }
+        ]
+      }
     },
     {
       "name": "Blue",
@@ -313,7 +337,19 @@
           "requiredContext": "cobblemon:shiny_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/floette_blue"
+          }
+        ]
+      }
     },
     {
       "name": "White",
@@ -342,7 +378,19 @@
           "requiredContext": "cobblemon:shiny_stone"
         }
       ],
-      "battleOnly": false
+      "battleOnly": false,
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/floette_white"
+          }
+        ]
+      }
     },
     {
       "name": "Eternal",
@@ -372,14 +420,14 @@
       },
       "baseExperienceYield": 193,
       "drops": {
-        "amount": 2,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:wither_rose"
-          },
-          {
-            "item": "cobblemon:kebia_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/floette_eternal"
           }
         ]
       },

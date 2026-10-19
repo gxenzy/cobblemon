@@ -84,19 +84,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:sweet_berries",
-        "quantityRange": "2-4"
-      },
-      {
-        "item": "minecraft:charcoal",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/ninetales"
       }
     ]
   },
@@ -289,19 +284,14 @@
         "speed": 2
       },
       "drops": {
-        "amount": 7,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:sweet_berries",
-            "quantityRange": "2-4"
-          },
-          {
-            "item": "minecraft:snowball",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:babiri_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/ninetales_alola"
           }
         ]
       },

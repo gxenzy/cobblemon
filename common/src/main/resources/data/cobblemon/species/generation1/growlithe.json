@@ -89,15 +89,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:bone",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/growlithe"
       }
     ]
   },
@@ -395,6 +394,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/growlithe_hisui"
+          }
+        ]
       }
     }
   ]

@@ -88,19 +88,14 @@
     }
   },
   "drops": {
-    "amount": 5,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:ink_sac",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "minecraft:prismarine_shard",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:dragon_scale",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/seadra"
       }
     ]
   },

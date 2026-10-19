@@ -135,17 +135,14 @@
     "fireImmune": true
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:feather",
-        "quantityRange": "2-4"
-      },
-      {
-        "item": "minecraft:cooked_chicken"
-      },
-      {
-        "item": "cobblemon:charcoal_stick"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/moltres"
       }
     ]
   },
@@ -311,17 +308,14 @@
       },
       "eggCycles": 120,
       "drops": {
-        "amount": 6,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:feather",
-            "quantityRange": "2-4"
-          },
-          {
-            "item": "minecraft:chicken"
-          },
-          {
-            "item": "cobblemon:sharp_beak"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/moltres_galar"
           }
         ]
       },

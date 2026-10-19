@@ -16,6 +16,7 @@ import com.cobblemon.mod.common.api.drop.CommandDropEntry
 import com.cobblemon.mod.common.api.drop.DropEntry
 import com.cobblemon.mod.common.api.drop.EvolutionItemDropEntry
 import com.cobblemon.mod.common.api.drop.ItemDropEntry
+import com.cobblemon.mod.common.api.drop.LootTableDropEntry
 import com.cobblemon.mod.common.api.events.CobblemonEvents
 import com.cobblemon.mod.common.api.events.CobblemonEvents.DATA_SYNCHRONIZED
 import com.cobblemon.mod.common.api.habitats.HabitatPools
@@ -229,6 +230,7 @@ object Cobblemon {
         DropEntry.register("command", CommandDropEntry::class.java)
         DropEntry.register("item", ItemDropEntry::class.java, isDefault = true)
         DropEntry.register("evolution", EvolutionItemDropEntry::class.java)
+        DropEntry.register("loot_table", LootTableDropEntry::class.java)
 
         ExperienceGroups.registerDefaults()
         CaptureCalculators.registerDefaults()

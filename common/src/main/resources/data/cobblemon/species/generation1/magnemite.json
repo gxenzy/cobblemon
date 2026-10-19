@@ -185,23 +185,14 @@
     }
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:raw_iron",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:magnet",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:metal_coat",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:shuca_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/magnemite"
       }
     ]
   },

@@ -90,8 +90,11 @@
     "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:big_root",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/lileep"
       }
     ]
   },

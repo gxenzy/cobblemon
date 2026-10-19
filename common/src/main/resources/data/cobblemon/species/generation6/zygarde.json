@@ -328,6 +328,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/zygarde_10"
+          }
+        ]
       }
     },
     {
@@ -757,6 +769,18 @@
             }
           ]
         }
+      },
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/zygarde_complete"
+          }
+        ]
       }
     }
   ],
@@ -787,5 +811,17 @@
         }
       ]
     }
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/zygarde"
+      }
+    ]
   }
 }

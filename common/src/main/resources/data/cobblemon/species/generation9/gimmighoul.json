@@ -89,11 +89,14 @@
     }
   },
   "drops": {
-    "amount": 48,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:relic_coin",
-        "quantityRange": "24-48"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/gimmighoul"
       }
     ]
   },
@@ -355,7 +358,11 @@
         "amount": 1,
         "entries": [
           {
-            "item": "cobblemon:relic_coin"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/gimmighoul_roaming"
           }
         ]
       },

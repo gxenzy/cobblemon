@@ -353,11 +353,14 @@
       "evolutions": [],
       "battleOnly": false,
       "drops": {
-        "amount": 5,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:phantom_membrane",
-            "quantityRange": "3-5"
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/giratina_origin"
           }
         ]
       },
@@ -415,5 +418,17 @@
     "herd": {
       "maxSize": 3
     }
+  },
+  "drops": {
+    "amount": 1,
+    "entries": [
+      {
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/giratina"
+      }
+    ]
   }
 }

@@ -81,11 +81,14 @@
     }
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:gunpowder",
-        "quantityRange": "0-2"
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/electrode"
       }
     ]
   },
@@ -225,19 +228,14 @@
         "hisuian"
       ],
       "drops": {
-        "amount": 5,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:gunpowder",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:red_apricorn",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:cheri_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/electrode_hisui"
           }
         ]
       },

@@ -50,23 +50,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:string",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:mental_herb",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:revival_herb",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:coba_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/leavanny"
       }
     ]
   },

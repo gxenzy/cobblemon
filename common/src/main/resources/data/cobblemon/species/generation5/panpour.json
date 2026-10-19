@@ -49,19 +49,14 @@
   },
   "standingEyeHeight": 0.6,
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:water_stone",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:mystic_water",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:rindo_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/panpour"
       }
     ]
   },

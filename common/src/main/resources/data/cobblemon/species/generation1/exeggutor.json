@@ -87,23 +87,14 @@
     }
   },
   "drops": {
-    "amount": 6,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:egg",
-        "quantityRange": "0-3"
-      },
-      {
-        "item": "cobblemon:oval_stone",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:psychic_seed",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:tanga_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/exeggutor"
       }
     ]
   },
@@ -503,19 +494,14 @@
         }
       },
       "drops": {
-        "amount": 5,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:egg",
-            "quantityRange": "0-3"
-          },
-          {
-            "item": "cobblemon:oval_stone",
-            "percentage": 5.0
-          },
-          {
-            "item": "cobblemon:tanga_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/exeggutor_alola"
           }
         ]
       }

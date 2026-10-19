@@ -89,19 +89,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:colbur_berry",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:soothe_bell",
-        "percentage": 2.5
-      },
-      {
-        "item": "cobblemon:cleanse_tag",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/chingling"
       }
     ]
   },

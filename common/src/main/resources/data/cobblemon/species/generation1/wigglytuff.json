@@ -81,19 +81,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:moon_stone",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:air_balloon",
-        "percentage": 10.0
-      },
-      {
-        "item": "cobblemon:oran_berry",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/wigglytuff"
       }
     ]
   },

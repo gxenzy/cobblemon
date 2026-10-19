@@ -92,15 +92,14 @@
     }
   },
   "drops": {
-    "amount": 3,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:turtle_scute",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:mystic_water",
-        "percentage": 10.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/wartortle"
       }
     ]
   },

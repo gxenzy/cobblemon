@@ -50,15 +50,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 2,
+    "amount": 1,
     "entries": [
       {
-        "item": "cobblemon:roasted_leek",
-        "quantityRange": "0-1"
-      },
-      {
-        "item": "cobblemon:rawst_berry",
-        "percentage": 2.5
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/capsakid"
       }
     ]
   },

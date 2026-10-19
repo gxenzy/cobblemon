@@ -53,19 +53,14 @@
     "fixed": false
   },
   "drops": {
-    "amount": 4,
+    "amount": 1,
     "entries": [
       {
-        "item": "minecraft:slime_ball",
-        "quantityRange": "0-2"
-      },
-      {
-        "item": "cobblemon:shed_shell",
-        "percentage": 5.0
-      },
-      {
-        "item": "cobblemon:haban_berry",
-        "percentage": 5.0
+        "type": "loot_table",
+        "percentage": 100,
+        "quantity": 1,
+        "maxSelectableTimes": 1,
+        "id": "cobblemon:pokemon/sliggoo"
       }
     ]
   },
@@ -209,23 +204,14 @@
         "fixed": false
       },
       "drops": {
-        "amount": 6,
+        "amount": 1,
         "entries": [
           {
-            "item": "minecraft:slime_ball",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:shed_shell",
-            "percentage": 5.0
-          },
-          {
-            "item": "minecraft:iron_ingot",
-            "quantityRange": "0-2"
-          },
-          {
-            "item": "cobblemon:bluk_berry",
-            "percentage": 5.0
+            "type": "loot_table",
+            "percentage": 100,
+            "quantity": 1,
+            "maxSelectableTimes": 1,
+            "id": "cobblemon:pokemon/sliggoo_hisui"
           }
         ]
       },
