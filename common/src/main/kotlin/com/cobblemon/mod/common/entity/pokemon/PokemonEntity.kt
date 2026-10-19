@@ -117,6 +117,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.NbtUtils
@@ -132,6 +133,7 @@ import net.minecraft.network.protocol.game.DebugPackets
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerEntity
 import net.minecraft.server.level.ServerLevel
@@ -173,6 +175,7 @@ import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.EmptyFluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.pathfinder.PathType
+import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import java.util.*
@@ -241,6 +244,12 @@ open class PokemonEntity(
     val subscriptions = mutableListOf<ObservableSubscription<*>>()
 
     override val schedulingTracker = SchedulingTracker()
+
+    override fun getDefaultLootTable(): ResourceKey<LootTable?>? {
+        println(cobblemonResource("pokemon/${this.pokemon.species.resourceIdentifier.path}"))
+//        return ResourceKey.create(Registries.LOOT_TABLE, )
+        return super.getDefaultLootTable()
+    }
 
     val form: FormData
         get() = pokemon.form

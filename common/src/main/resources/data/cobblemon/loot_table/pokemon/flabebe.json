@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:poppy"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "cobblemon:kebia_berry",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.025
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "cobblemon:pokemon/flabebe"
+}

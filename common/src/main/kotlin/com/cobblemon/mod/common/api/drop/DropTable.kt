@@ -10,9 +10,14 @@ package com.cobblemon.mod.common.api.drop
 
 import com.cobblemon.mod.common.api.events.CobblemonEvents.LOOT_DROPPED
 import com.cobblemon.mod.common.api.events.drops.LootDroppedEvent
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Pokemon
+import com.cobblemon.mod.common.util.cobblemonResource
+import net.minecraft.core.registries.Registries
 import kotlin.random.Random
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
@@ -105,7 +110,11 @@ class DropTable {
     ) {
         LOOT_DROPPED.postThen(
             event = LootDroppedEvent(this, player, entity, drops),
-            ifSucceeded = { it.drops.forEach { it.drop(entity, world, pos, player) } }
+            ifSucceeded = {
+                val pokemon = (entity as? PokemonEntity)?.pokemon?.species?.resourceIdentifier ?: return@postThen
+                it.drops.forEach { it.drop(entity, world, pos, player) }
+//                val lootKey = ResourceKey.create(Registries.LOOT_TABLE, cobblemonResource("pokemon/${pokemon}"))
+            }
         )
     }
 
