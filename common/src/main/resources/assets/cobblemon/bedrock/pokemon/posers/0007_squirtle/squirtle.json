@@ -56,7 +56,7 @@
         "q.bedrock_quirk('squirtle', 'blink')"
       ]
     },
-    "water-idle": {
+    "water-float": {
       "poseTypes": [
         "FLOAT"
       ],
@@ -85,7 +85,7 @@
       ],
       "transformTicks": 10
     },
-    "surfacewater-idle": {
+    "surfacewater-float": {
       "poseTypes": [
         "FLOAT"
       ],

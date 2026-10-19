@@ -1,0 +1,24 @@
+{
+  "portraitScale": 2,
+  "portraitTranslation": [-0.15, -1.25, 0],
+  "profileScale": 1.1,
+  "profileTranslation": [0, 0.1, 0],
+  "rootBone": "metapod",
+  "poses": {
+    "standing": {
+      "poseTypes": ["STAND", "PROFILE", "PORTRAIT"],
+      "animations": [
+        "q.bedrock('metapod', 'ground_idle')"
+      ],
+      "quirks": [
+        "q.bedrock_quirk('metapod', 'blink')"
+      ]
+    },
+    "sleep": {
+      "poseTypes": ["SLEEP"],
+      "animations": [
+        "q.bedrock('metapod', 'sleep')"
+      ]
+    }
+  }
+}
