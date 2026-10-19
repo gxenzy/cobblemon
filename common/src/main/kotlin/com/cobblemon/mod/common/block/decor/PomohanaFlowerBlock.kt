@@ -10,15 +10,15 @@ package com.cobblemon.mod.common.block.decor
 
 
 import net.minecraft.core.BlockPos
+import net.minecraft.world.item.Item
 import net.minecraft.world.level.BlockGetter
-import net.minecraft.world.level.block.PinkPetalsBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
 
-class PomohanaFlowerBlock(properties: Properties?) : PinkPetalsBlock(properties) {
+class PomohanaFlowerBlock(properties: Item.Properties?) : PinkPetalsBlock(properties) {
 
     override fun getShape(state: BlockState, world: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape = AABB
 

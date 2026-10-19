@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import java.util.Optional
 
 private val tooltipEdge = cobblemonResource("textures/gui/pokedex/tooltip_edge.png")
@@ -113,7 +113,7 @@ private fun wrapTooltipLine(line: MutableComponent, maxWidth: Int): List<Mutable
 // instead the caps are drawn 1:1 and only the flat fill row is stretched to cover the remaining height
 private fun blitSlicedVertical(
     poseStack: PoseStack,
-    texture: ResourceLocation,
+    texture: Identifier,
     x: Number,
     y: Int,
     width: Number,

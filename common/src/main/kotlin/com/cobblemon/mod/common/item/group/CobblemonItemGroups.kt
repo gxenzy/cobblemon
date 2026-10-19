@@ -111,14 +111,14 @@ object CobblemonItemGroups {
     val FUNCTIONAL_BLOCKS = this.inject(
         ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
-            ResourceLocation.parse("functional_blocks")
+            Identifier.parse("functional_blocks")
         ), this::functionalBlocksInjections
     )
     @JvmStatic
     val REDSTONE_BLOCKS = this.inject(
         ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
-            ResourceLocation.parse("redstone_blocks")
+            Identifier.parse("redstone_blocks")
         ), this::redstoneBlocksInjections
     )
     @JvmStatic

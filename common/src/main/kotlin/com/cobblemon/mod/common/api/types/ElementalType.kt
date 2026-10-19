@@ -31,9 +31,9 @@ class ElementalType(
     val textureXMultiplier: Int,
     val primaryColor: Int,
     val secondaryColor: Int,
-    val resourceLocation: Identifier = Identifier.fromNamespaceAndPath(Cobblemon.MODID, "ui/types.png"),
+    val identifier: Identifier = Identifier.fromNamespaceAndPath(Cobblemon.MODID, "ui/types.png"),
     val showdownId: String = ShowdownIdentifiable.REGEX.replace(name.lowercase(), ""),
-    val typeGem: ResourceLocation = Identifier.fromNamespaceAndPath(Cobblemon.MODID, showdownId + "_gem"),
+    val typeGem: Identifier = Identifier.fromNamespaceAndPath(Cobblemon.MODID, showdownId + "_gem"),
     val order: Int = 1000
     ) : ShowdownIdentifiable {
 

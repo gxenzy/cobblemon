@@ -98,7 +98,7 @@ class CookingPotRecipe(
         private fun toNetwork(buffer: RegistryFriendlyByteBuf, recipe: CookingPotRecipe) {
             buffer.writeUtf(recipe.groupName)
             buffer.writeEnum(recipe.category)
-            buffer.writeIdentifier(recipe.seasoningTag.location())
+            buffer.writeIdentifier(recipe.seasoningTag.identifier())
             ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern)
             ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.result)
             buffer.writeCollection(recipe.seasoningProcessors) { _, it ->

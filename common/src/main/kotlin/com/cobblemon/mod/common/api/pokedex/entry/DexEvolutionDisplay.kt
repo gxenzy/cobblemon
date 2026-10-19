@@ -32,7 +32,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.util.ExtraCodecs
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
@@ -41,10 +41,10 @@ import net.minecraft.world.level.levelgen.structure.Structure
 import kotlin.jvm.optionals.getOrNull
 
 data class DexEvolutionDisplay(
-    val fromSpecies: ResourceLocation,
+    val fromSpecies: Identifier,
     val fromForm: String,
     val fromAspects: Set<String>,
-    val toSpecies: ResourceLocation,
+    val toSpecies: Identifier,
     val toForm: String,
     val toAspects: Set<String>,
     val requirements: List<DexEvolutionRequirementDisplay>,
@@ -159,7 +159,7 @@ fun buildBattleCriticalHitsRequirement(battleCriticalHitsRequirement: BattleCrit
     return CobblemonDexEvolutionRequirementDisplay(icon, tooltip)
 }
 
-private fun tagDisplayName(registry: String, id: ResourceLocation): MutableComponent {
+private fun tagDisplayName(registry: String, id: Identifier): MutableComponent {
     return Component.translatableWithFallback("tag.$registry.${id.namespace}.${id.path.replace('/', '.')}", prettifyPath(id.path))
 }
 
@@ -189,7 +189,7 @@ fun buildBiomeRequirement(biomeRequirement: BiomeRequirement, negated: Boolean =
     val icon = Items.COMPASS
     val displayName: (RegistryLikeCondition<Biome>) -> MutableComponent = {
         when (it) {
-            is RegistryLikeTagCondition -> tagDisplayName("worldgen.biome", it.tag.location())
+            is RegistryLikeTagCondition -> tagDisplayName("worldgen.biome", it.tag.identifier())
             is RegistryLikeIdentifierCondition -> Component.translatable("biome.${it.identifier.namespace}.${it.identifier.path}")
             else -> Component.literal(it.toString())
         }
@@ -257,7 +257,7 @@ fun buildHeldItemRequirement(heldItemRequirement: HeldItemRequirement): DexEvolu
     val items = heldItemRequirement.itemCondition.items.getOrNull() ?: return null
     val item = items.firstOrNull()?.value() ?: return null
     val itemComponent = items.unwrapKey().map { tag ->
-        val id = tag.location()
+        val id = tag.identifier()
         val fallback = id.path.substringAfterLast('/').split('_').joinToString(" ") { part -> part.replaceFirstChar(Char::titlecase) }
         Component.translatableWithFallback("tag.item.${id.namespace}.${id.path.replace('/', '.')}", fallback)
     }.orElseGet { item.description.plainCopy() }
@@ -419,7 +419,7 @@ fun buildStructureRequirement(structureRequirement: StructureRequirement, negate
     val icon = Items.FILLED_MAP
     val displayName: (RegistryLikeCondition<Structure>) -> MutableComponent = {
         when (it) {
-            is RegistryLikeTagCondition -> tagDisplayName("worldgen.structure", it.tag.location())
+            is RegistryLikeTagCondition -> tagDisplayName("worldgen.structure", it.tag.identifier())
             is RegistryLikeIdentifierCondition -> Component.literal(prettifyPath(it.identifier.path))
             else -> Component.literal(it.toString())
         }

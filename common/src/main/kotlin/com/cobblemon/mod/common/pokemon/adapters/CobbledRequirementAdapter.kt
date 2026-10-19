@@ -98,7 +98,7 @@ object CobblemonRequirementAdapter : RequirementAdapter {
         val requirement = context.deserialize<Requirement>(json, type.java)
 
         obj.get(POKEDEX_ICON)?.takeIf { !it.isJsonNull }
-            ?.let { context.deserialize<ResourceLocation>(it, ResourceLocation::class.java) }
+            ?.let { context.deserialize<Identifier>(it, Identifier::class.java) }
             ?.let { Requirement.pokedexIconOverrides[requirement] = it }
         obj.get(POKEDEX_TOOLTIP)?.takeIf { !it.isJsonNull }?.asString
             ?.let { Requirement.pokedexTooltipOverrides[requirement] = it }
@@ -110,7 +110,7 @@ object CobblemonRequirementAdapter : RequirementAdapter {
         val json = context.serialize(requirement, requirement::class.java).asJsonObject
         val variant = getVariant(requirement)
         json.addProperty(VARIANT, variant)
-        Requirement.pokedexIconOverrides[requirement]?.let { json.add(POKEDEX_ICON, context.serialize(it, ResourceLocation::class.java)) }
+        Requirement.pokedexIconOverrides[requirement]?.let { json.add(POKEDEX_ICON, context.serialize(it, Identifier::class.java)) }
         Requirement.pokedexTooltipOverrides[requirement]?.let { json.addProperty(POKEDEX_TOOLTIP, it) }
         return json
     }

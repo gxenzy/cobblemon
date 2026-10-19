@@ -126,11 +126,11 @@ object CobblemonBakingOverrides {
         }
 
         val parsedModels: Map<Identifier, net.minecraft.client.resources.model.UnbakedModel> = models.associate { bakingOverride ->
-            val resourceLocation = bakingOverride.modelLocation.withPath("models/${bakingOverride.modelLocation.path}.json")
+            val identifier = bakingOverride.modelLocation.withPath("models/${bakingOverride.modelLocation.path}.json")
             val model = try {
-                resourceManager.getResourceOrThrow(resourceLocation).open().reader().use(CuboidModel::fromStream)
+                resourceManager.getResourceOrThrow(identifier).open().reader().use(CuboidModel::fromStream)
             } catch (exception: Exception) {
-                LOGGER.warn("Failed to load baked model {}", resourceLocation, exception)
+                LOGGER.warn("Failed to load baked model {}", identifier, exception)
                 missingBlockModel
             }
             bakingOverride.modelLocation to model

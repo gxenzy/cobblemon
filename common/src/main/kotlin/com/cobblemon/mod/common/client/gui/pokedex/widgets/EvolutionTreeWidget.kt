@@ -41,7 +41,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.locale.Language
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
 
 class EvolutionTreeWidget(
@@ -225,7 +225,7 @@ class EvolutionTreeWidget(
         pokedexEntry: PokedexEntry,
         pokedexForm: PokedexForm,
         aspects: Set<String> = emptySet(),
-        ancestors: Set<Pair<ResourceLocation, String>> = emptySet(),
+        ancestors: Set<Pair<Identifier, String>> = emptySet(),
     ): EvolutionNode {
         // Datapack evolutions can loop back (A -> B -> A), so stop at anything already on this branch
         val path = ancestors + (pokedexEntry.speciesId to pokedexForm.displayForm.lowercase())

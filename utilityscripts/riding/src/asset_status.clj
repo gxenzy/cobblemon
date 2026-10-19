@@ -12,7 +12,7 @@
     (com.cobblemon.mod.common.client.render.models.blockbench.bedrock.animation BedrockAnimationRepository)
     (com.cobblemon.mod.common.client.render.models.blockbench.repository VaryingModelRepository)
     (java.util Collection HashSet)
-    (net.minecraft.resources ResourceLocation)))
+    (net.minecraft.resources Identifier)))
 
 (def headers
   [:generation :dex-no :species :land-behaviour :liquid-behaviour :air-behaviour :land-speed :land-acceleration

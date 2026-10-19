@@ -11,6 +11,9 @@ pluginManagement {
     }
 
     includeBuild("gradle/build-logic")
+    plugins {
+        kotlin("kapt") version "2.3.20"
+    }
 }
 
 rootProject.name = "cobblemon"

@@ -19,7 +19,7 @@ class CobblemonAtlas(
         private set
 
     fun bind(textureAtlas: TextureAtlas): Boolean {
-        if (textureAtlas.location() != atlasId) {
+        if (textureAtlas.identifier() != atlasId) {
             return false
         }
 

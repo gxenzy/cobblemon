@@ -58,7 +58,7 @@ dependencies {
 
     // AppleSkin stores api under `api` classifier in their coordinates
     // Because of that, we cannot just add it to integrations bundle
-    modCompileOnly(variantOf(libs.appleskin.api.neoforge) { classifier("api") })
+    compileOnly(variantOf(libs.appleskin.api.neoforge) { classifier("api") })
 }
 
 tasks {

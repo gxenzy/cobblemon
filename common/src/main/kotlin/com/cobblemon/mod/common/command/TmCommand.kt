@@ -20,7 +20,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerPlayer
 
 object TmCommand {
@@ -120,7 +120,7 @@ object TmCommand {
     }
 
     private fun executeUnlockAll(context: CommandContext<CommandSourceStack>, players: Collection<ServerPlayer>) : Int {
-        val allTms = TechnicalMachines.getAllResourceLocations()
+        val allTms = TechnicalMachines.getAllIdentifiers()
 
         players.forEach { player ->
             val playerTMData = Cobblemon.playerDataManager.getTMData(player.uuid)
@@ -139,7 +139,7 @@ object TmCommand {
     }
 
     private fun executeLockAll(context: CommandContext<CommandSourceStack>, players: Collection<ServerPlayer>) : Int {
-        val allTms = TechnicalMachines.getAllResourceLocations()
+        val allTms = TechnicalMachines.getAllIdentifiers()
 
         players.forEach { player ->
             val playerTMData = Cobblemon.playerDataManager.getTMData(player.uuid)
@@ -163,7 +163,7 @@ object TmCommand {
         val playerParty = Cobblemon.storage.getParty(player)
         val allPlayerPokemon = playerPc.toList() + playerParty.toList()
 
-        val movesToLearn = mutableSetOf<ResourceLocation>()
+        val movesToLearn = mutableSetOf<Identifier>()
         for (pokemon in allPlayerPokemon) {
             val learnableMoves = playerTMData.getLearnableTMsFromPokemon(pokemon)
             movesToLearn.addAll(learnableMoves)

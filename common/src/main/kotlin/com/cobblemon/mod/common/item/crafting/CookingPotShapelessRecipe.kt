@@ -113,7 +113,7 @@ class CookingPotShapelessRecipe(
         private fun toNetwork(buffer: RegistryFriendlyByteBuf, recipe: CookingPotShapelessRecipe) {
             buffer.writeUtf(recipe.group())
             buffer.writeEnum(recipe.category)
-            buffer.writeIdentifier(recipe.seasoningTag.location())
+            buffer.writeIdentifier(recipe.seasoningTag.identifier())
             buffer.writeVarInt(recipe.ingredients.size)
             recipe.ingredients.forEach { ingredient ->
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient)

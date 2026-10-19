@@ -19,18 +19,18 @@ import com.mojang.brigadier.suggestion.Suggestions
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import java.util.concurrent.CompletableFuture
 
 class TmArgumentType : ArgumentType<TechnicalMachine> {
 
     override fun parse(reader: StringReader): TechnicalMachine {
-        val resourceLocation = ResourceLocation.read(reader)
-        if (resourceLocation == null) {
+        val identifier = Identifier.read(reader)
+        if (identifier == null) {
             throw SimpleCommandExceptionType(INVALID_TM).createWithContext(reader)
         }
 
-        val tm = TechnicalMachines.getByResourceLocation(resourceLocation)
+        val tm = TechnicalMachines.getByIdentifier(identifier)
         if (tm == null) {
             throw SimpleCommandExceptionType(INVALID_TM).createWithContext(reader)
         }
@@ -42,8 +42,8 @@ class TmArgumentType : ArgumentType<TechnicalMachine> {
         context: CommandContext<S>,
         builder: SuggestionsBuilder
     ): CompletableFuture<Suggestions> {
-        val resourceLocations = TechnicalMachines.getAllResourceLocations()
-        val suggestions = resourceLocations.map { it.toString() }
+        val identifiers = TechnicalMachines.getAllIdentifiers()
+        val suggestions = identifiers.map { it.toString() }
         return SharedSuggestionProvider.suggest(suggestions, builder)
     }
 

@@ -155,7 +155,7 @@ open class PokemonProperties {
             props.movesetBuilders = parseString(keyPairs, listOf("moveset_builders", "movesetbuilders", "moveset_builder", "movesetbuilder"))?.split(",")?.mapNotNull {
                 try {
                     it.asIdentifierDefaultingNamespace()
-                } catch (_: ResourceLocationException) {
+                } catch (_: IdentifierException) {
                     null
                 }
             }
@@ -367,7 +367,7 @@ open class PokemonProperties {
     var originalTrainerType: OriginalTrainerType? = null
     var originalTrainer: String? = null // Original Trainer by Username or UUID
     var moves: List<String>? = null
-    var movesetBuilders: List<ResourceLocation>? = null
+    var movesetBuilders: List<Identifier>? = null
     var heldItem: String? = null
     var cosmeticItem: String? = null
     var scaleModifier: Float? = null

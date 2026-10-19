@@ -1,4 +1,3 @@
-
 import utilities.isSnapshot
 import utilities.version
 import utilities.gitBranch
@@ -19,6 +18,7 @@ plugins {
     id("cobblemon.publish-conventions")
     id("net.kyori.blossom")
     id("org.jetbrains.gradle.plugin.idea-ext")
+    kotlin("kapt")
 }
 
 repositories {
@@ -27,6 +27,7 @@ repositories {
     maven(url = "https://maven.neoforged.net/releases")
     maven(url = "https://maven.gegy.dev")
     mavenLocal()
+    mavenCentral()
 }
 
 val mappingsAttribute = Attribute.of("net.minecraft.mappings", String::class.java)
@@ -61,6 +62,7 @@ dependencies {
     // Unit Testing
     testImplementation(libs.bundles.unitTesting)
     testRuntimeOnly(libs.junit.platform)
+    testImplementation(kotlin("test"))
 }
 
 tasks.withType<Test> {
@@ -97,11 +99,11 @@ sourceSets {
     main {
         blossom {
             kotlinSources {
-                fun generateLicenseHeader() : String {
+                fun generateLicenseHeader(): String {
                     val builder = StringBuilder()
                     builder.append("/*\n")
                     rootProject.file("HEADER").forEachLine {
-                        if(it.isEmpty()) {
+                        if (it.isEmpty()) {
                             builder.append(" *").append("\n")
                         } else {
                             builder.append(" * ").append(it).append("\n")
@@ -114,7 +116,7 @@ sourceSets {
                 property("license", generateLicenseHeader())
                 property("modid", "cobblemon")
                 property("version", project.version())
-                property("isSnapshot", if(rootProject.isSnapshot()) "true" else "false")
+                property("isSnapshot", if (rootProject.isSnapshot()) "true" else "false")
                 System.getProperty("buildNumber")?.let { property("buildNumber", it) }
             }
         }

@@ -154,7 +154,7 @@ open class PokeSnackBlockEntityRenderer(ctx: BlockEntityRendererProvider.Context
             poseStack.popPose()
         }
 
-        val berryAtlas = BERRY_SPRITE_ATLAS.textureAtlas?.location()
+        val berryAtlas = BERRY_SPRITE_ATLAS.textureAtlas?.identifier()
         if (renderState.berries.isNotEmpty() && berryAtlas != null) {
             submitNodeCollector.submitCustomGeometry(
                 poseStack,

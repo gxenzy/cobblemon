@@ -15,7 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -59,17 +59,17 @@ public abstract class ServerLevelMixin extends Level implements ServerLevelDuck 
     /**
      * Cached to speed up level world key checks every tick.
      */
-    private ResourceLocation cobblemon$levelResourceLocation;
+    private Identifier cobblemon$levelIdentifier;
 
     @Override
-    public ResourceLocation cobblemon$getLevelResourceLocation() {
-        if (this.cobblemon$levelResourceLocation == null) {
-            this.cobblemon$levelResourceLocation = ((MinecraftServerDuck) this.shadow$getServer())
+    public Identifier cobblemon$getLevelIdentifier() {
+        if (this.cobblemon$levelIdentifier == null) {
+            this.cobblemon$levelIdentifier = ((MinecraftServerDuck) this.shadow$getServer())
                     .cobblemon$getLevelKey(this)
                     .map(ResourceKey::location)
                     .orElse(null);
         }
-        return this.cobblemon$levelResourceLocation;
+        return this.cobblemon$levelIdentifier;
     }
 
     @Inject(method = "findLightningRod", at = @At(value = "RETURN"), cancellable = true)

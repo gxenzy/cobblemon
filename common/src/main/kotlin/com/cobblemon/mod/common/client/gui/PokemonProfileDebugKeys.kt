@@ -14,14 +14,14 @@ import com.cobblemon.mod.common.client.render.models.blockbench.repository.Varyi
 import com.mojang.blaze3d.platform.InputConstants
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.phys.Vec3
 
-fun handleProfileDebugKeys(keyCode: Int, poserResourceLocation: ResourceLocation, state: FloatingState) {
+fun handleProfileDebugKeys(keyCode: Int, poserIdentifier: Identifier, state: FloatingState) {
     if (!Cobblemon.config.enableDebugKeys) {
         return
     }
-    val model = VaryingModelRepository.getPoser(poserResourceLocation, state)
+    val model = VaryingModelRepository.getPoser(poserIdentifier, state)
 
     val delta = when (keyCode) {
         InputConstants.KEY_UP -> Vec3(0.0, -0.01, 0.0)
@@ -50,12 +50,12 @@ fun handleProfileDebugKeys(keyCode: Int, poserResourceLocation: ResourceLocation
     }
 }
 
-fun logProfileTranslations(poserResourceLocation: ResourceLocation, state: FloatingState) {
+fun logProfileTranslations(poserIdentifier: Identifier, state: FloatingState) {
     if (!Cobblemon.config.enableDebugKeys) {
         return
     }
 
-    val model = VaryingModelRepository.getPoser(poserResourceLocation, state)
+    val model = VaryingModelRepository.getPoser(poserIdentifier, state)
     val player = Minecraft.getInstance().player
 
     fun Double.f2() = "%.2f".format(this)

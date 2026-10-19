@@ -33,7 +33,7 @@ object CobblemonBlockEntities : PlatformRegistry<Registry<BlockEntityType<*>>, R
     val LECTERN: BlockEntityType<LecternBlockEntity> = this.create("lectern", BlockEntityType(::LecternBlockEntity, setOf(CobblemonBlocks.LECTERN)))
 
     @JvmField
-    val DISC_SHELF: BlockEntityType<DiscShelfBlockEntity> = this.create("disc_shelf", BlockEntityType.Builder.of(::DiscShelfBlockEntity, CobblemonBlocks.DISC_SHELF).build(null))
+    val DISC_SHELF: BlockEntityType<DiscShelfBlockEntity> = this.create("disc_shelf", BlockEntityType(::DiscShelfBlockEntity, setOf(CobblemonBlocks.DISC_SHELF)))
 
     @JvmField
     val BERRY = this.create("berry", BlockEntityType(::BerryBlockEntity, CobblemonBlocks.berries().values.toSet()))
@@ -61,11 +61,11 @@ object CobblemonBlockEntities : PlatformRegistry<Registry<BlockEntityType<*>>, R
         )
     ))
     @JvmField
-    val TM_MACHINE: BlockEntityType<TMMachineBlockEntity> = this.create("tm_machine", BlockEntityType.Builder.of(::TMMachineBlockEntity, CobblemonBlocks.TM_MACHINE).build(null))
+    val TM_MACHINE: BlockEntityType<TMMachineBlockEntity> = this.create("tm_machine", BlockEntityType(::TMMachineBlockEntity, setOf(CobblemonBlocks.TM_MACHINE)))
 
     @JvmField
     val HABITAT_BLOCK: BlockEntityType<HabitatBlockEntity> = this.create("habitat_block",
-            BlockEntityType.Builder.of(::HabitatBlockEntity, CobblemonBlocks.HABITAT_BLOCK).build(null)
+            BlockEntityType(::HabitatBlockEntity, setOf(CobblemonBlocks.HABITAT_BLOCK))
     )
 
     @JvmField
@@ -133,17 +133,15 @@ object CobblemonBlockEntities : PlatformRegistry<Registry<BlockEntityType<*>>, R
     @JvmField
     val TERRAIN_PLANT: BlockEntityType<TerrainPlantBlockEntity> = this.create(
         "terrain_plant",
-        BlockEntityType.Builder.of(::TerrainPlantBlockEntity,
-            CobblemonBlocks.VOLTACONIA,
-            CobblemonBlocks.LUCIBELL,
-            CobblemonBlocks.VERDROOT
-        ).build(null)
+        BlockEntityType(::TerrainPlantBlockEntity,
+            setOf(CobblemonBlocks.VOLTACONIA, CobblemonBlocks.LUCIBELL, CobblemonBlocks.VERDROOT)
+        )
     )
     @JvmField
     val MISTLEAF_FLOWER: BlockEntityType<MistleafFlowerBlockEntity> = this.create(
         "mistleaf",
-        BlockEntityType.Builder.of(::MistleafFlowerBlockEntity,
-            CobblemonBlocks.MISTLEAF
-        ).build(null)
+        BlockEntityType(::MistleafFlowerBlockEntity,
+            setOf(CobblemonBlocks.MISTLEAF)
+        )
     )
 }

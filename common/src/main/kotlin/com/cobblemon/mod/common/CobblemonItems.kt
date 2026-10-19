@@ -25,7 +25,6 @@ import com.cobblemon.mod.common.block.MintBlock
 import com.cobblemon.mod.common.block.MintBlock.MintType
 import com.cobblemon.mod.common.block.campfirepot.CampfirePotColor
 import com.cobblemon.mod.common.client.pokedex.PokedexType
-import com.cobblemon.mod.common.entity.boat.CobblemonBoatType
 import com.cobblemon.mod.common.item.*
 import com.cobblemon.mod.common.item.battle.DireHitItem
 import com.cobblemon.mod.common.item.battle.GuardSpecItem
@@ -1653,7 +1652,7 @@ object CobblemonItems : PlatformRegistry<Registry<Item>, ResourceKey<Registry<It
     )
     private fun wearableBlockItem(name: String, block: Block, heldItemRemappedName: String? = null): WearableBlockItem = create(
         name,
-        WearableBlockItem(name, block).also {
+        WearableBlockItem(name, block, emptyProperties(name)).also {
             wearables.add(it)
             if (heldItemRemappedName != null) {
                 CobblemonHeldItemManager.registerRemap(it, heldItemRemappedName)

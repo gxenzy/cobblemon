@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.cooking.effects
 
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
@@ -27,7 +28,7 @@ class CleanseAllEffect : MobEffect(MobEffectCategory.BENEFICIAL, 0xFFFFFF) {
         target.removeAllEffects()
     }
 
-    override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
+    override fun applyEffectTick(serverLevel: ServerLevel, livingEntity: LivingEntity, amplifier: Int): Boolean {
         if (livingEntity is ServerPlayer){
             livingEntity.removeAllEffects()
         }

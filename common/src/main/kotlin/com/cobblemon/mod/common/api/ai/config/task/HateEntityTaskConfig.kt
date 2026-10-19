@@ -59,7 +59,7 @@ class HateEntityTaskConfig : SingleTaskConfig {
             ).apply(instance) { entities, angryAt, attackTarget ->
                 Trigger { world, entity, _ ->
                     // bail if gamerule is disabled
-                    if (!world.gameRules.getBoolean(CobblemonGameRules.DO_POKEMON_PREDATION)) return@Trigger false
+                    if (!world.gameRules.get(CobblemonGameRules.DO_POKEMON_PREDATION)) return@Trigger false
                     val target = instance.get(entities).findClosest { hated ->
                         mainThreadRuntime.withQueryValue("entity", hated.asMostSpecificMoLangValue())
                         return@findClosest mainThreadRuntime.resolveBoolean(entityCondition)

@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.api.cooking.effects
 
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
@@ -31,7 +32,7 @@ class CleanseNegativeEffect : MobEffect(MobEffectCategory.BENEFICIAL, 0xFFFFFF) 
         }
     }
 
-    override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
+    override fun applyEffectTick(serverLevel: ServerLevel, livingEntity: LivingEntity, amplifier: Int): Boolean {
         if (livingEntity is ServerPlayer){
             val snapshot = livingEntity.activeEffects.toList()
             for (ei in snapshot) {
