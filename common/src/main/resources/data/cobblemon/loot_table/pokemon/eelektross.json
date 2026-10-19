@@ -1,5 +1,24 @@
 {
   "type": "minecraft:generic",
-  "pools": [],
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:slimeball",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "random_sequence": "cobblemon:pokemon/eelektross"
 }

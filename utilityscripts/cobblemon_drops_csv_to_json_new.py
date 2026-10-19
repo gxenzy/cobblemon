@@ -39,7 +39,6 @@ LOOT_TABLE_DIRECTORY = (
     / "loot_table"
     / "pokemon"
 )
-DROP_PATTERN = re.compile(r"\{([^{}]+)\}")
 RESOURCE_LOCATION_PATTERN = re.compile(r"^[a-z0-9_.-]+:[a-z0-9/._-]+$")
 QUANTITY_RANGE_PATTERN = re.compile(r"^(\d+)-(\d+)$")
 FORM_ENTRY_MAPPING = {
@@ -62,6 +61,7 @@ def main(dex_range=None):
     LOOT_TABLE_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
     generated = []
+    rows_marked_manual = []
     rows_without_drops = []
     rows_removed = []
     malformed_rows = []
@@ -69,6 +69,11 @@ def main(dex_range=None):
     for _, row in tqdm(drops_df.iterrows(), total=len(drops_df), desc="Generating loot tables"):
         pokemon_label = row["Pokémon"]
         drops_string = row["Drops"]
+        manual_status = row.get("Manual")
+        if isinstance(manual_status, str) and manual_status.strip().casefold() == "manual":
+            rows_marked_manual.append(pokemon_label)
+            continue
+
         no_drops = pd.isna(drops_string) or not str(drops_string).strip()
         removed = not no_drops and "REMOVED" in str(drops_string)
         if no_drops:
@@ -105,6 +110,7 @@ def main(dex_range=None):
 
     print_generation_report(
         generated,
+        rows_marked_manual,
         rows_without_drops,
         rows_removed,
         malformed_rows,
@@ -116,6 +122,7 @@ def main(dex_range=None):
 
 def print_generation_report(
     generated,
+    rows_marked_manual,
     rows_without_drops,
     rows_removed,
     malformed_rows,
@@ -124,9 +131,15 @@ def print_generation_report(
     print("\nGeneration report")
     print(f"  Loot tables generated: {len(generated)}")
     print(f"  Species files updated: {len(species_files_updated)}")
+    print(f"  Rows skipped (Manual): {len(rows_marked_manual)}")
     print(f"  Rows with no drops (empty tables): {len(rows_without_drops)}")
     print(f"  Rows marked REMOVED (empty tables): {len(rows_removed)}")
     print(f"  Malformed rows: {len(malformed_rows)}")
+
+    if rows_marked_manual:
+        print("\nRows skipped because they are marked as manual:")
+        for pokemon in rows_marked_manual:
+            print(f"  {pokemon}")
 
     if rows_without_drops:
         print("\nRows with no drops:")
@@ -203,9 +216,7 @@ def make_empty_loot_table(loot_table_name):
 
 def get_drops_df(dex_range=range(0, 1111)):
     drops_spreadsheet_csv_url = (
-        "https://docs.google.com/spreadsheets/d/e/"
-        "2PACX-1vTcW0b63Lw9LKKRT7AOu_jKqDla1f67bzi-waxNdZ9btGeZy5woHQU_axnjrEVekKcilcu0w8fw41HV/"
-        "pub?output=csv"
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTcW0b63Lw9LKKRT7AOu_jKqDla1f67bzi-waxNdZ9btGeZy5woHQU_axnjrEVekKcilcu0w8fw41HV/pub?output=csv"
     )
     csv_data = download_spreadsheet_data(drops_spreadsheet_csv_url)
     drops_df = load_data_from_csv(csv_data)
@@ -246,25 +257,24 @@ def get_loot_table_name(pokemon_name, form_name=None):
 
 
 def parse_drops(drops_string, loot_table_name):
-    matches = list(DROP_PATTERN.finditer(drops_string))
-    remainder = DROP_PATTERN.sub("", drops_string).strip()
-    if not matches or remainder:
-        raise ValueError(f"Invalid drops format: {drops_string!r}")
+    drop_entries = drops_string.split(" ; ")
+    if not drop_entries or any(not entry.strip() or ";" in entry for entry in drop_entries):
+        raise ValueError(f"Invalid drops format; expected entries separated by ' ; ': {drops_string!r}")
 
     pools = []
-    for match in matches:
-        item_text = match.group(1).strip()
+    for drop_entry in drop_entries:
+        item_text = drop_entry.strip()
         is_tag = item_text.startswith("#")
         if is_tag:
             item_text = item_text[1:]
 
         item_id, separator, amount_text = item_text.rpartition(":")
         if not separator or not item_id or not amount_text:
-            raise ValueError(f"Invalid drop entry: {{{match.group(1)}}}")
+            raise ValueError(f"Invalid drop entry: {drop_entry!r}")
 
         item_id = item_id.replace("mc:", "minecraft:", 1).replace("cb:", "cobblemon:", 1)
         if not RESOURCE_LOCATION_PATTERN.fullmatch(item_id):
-            raise ValueError(f"Invalid item or tag ID in drop entry: {{{match.group(1)}}}")
+            raise ValueError(f"Invalid item or tag ID in drop entry: {drop_entry!r}")
 
         entry = {
             "type": "minecraft:tag" if is_tag else "minecraft:item",
@@ -278,9 +288,9 @@ def parse_drops(drops_string, loot_table_name):
             try:
                 percentage = float(percentage_text)
             except ValueError as error:
-                raise ValueError(f"Invalid drop percentage in {{{match.group(1)}}}") from error
+                raise ValueError(f"Invalid drop percentage in {drop_entry!r}") from error
             if not 0 <= percentage <= 100:
-                raise ValueError(f"Drop percentage must be between 0 and 100 in {{{match.group(1)}}}")
+                raise ValueError(f"Drop percentage must be between 0 and 100 in {drop_entry!r}")
             if percentage < 100:
                 entry["conditions"] = [
                     {
@@ -291,10 +301,10 @@ def parse_drops(drops_string, loot_table_name):
         else:
             quantity_range = QUANTITY_RANGE_PATTERN.fullmatch(amount_text)
             if quantity_range is None:
-                raise ValueError(f"Expected a quantity range or percentage in {{{match.group(1)}}}")
+                raise ValueError(f"Expected a quantity range or percentage in {drop_entry!r}")
             minimum, maximum = map(int, quantity_range.groups())
             if maximum < minimum:
-                raise ValueError(f"Invalid quantity range in {{{match.group(1)}}}")
+                raise ValueError(f"Invalid quantity range in {drop_entry!r}")
             entry["functions"] = [
                 {
                     "function": "set_count",

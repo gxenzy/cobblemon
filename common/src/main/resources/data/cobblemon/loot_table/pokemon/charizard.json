@@ -24,7 +24,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "cobblemon:miracle_seed",
+          "name": "cobblemon:charcoal_stick",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

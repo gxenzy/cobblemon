@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:scute",
+          "name": "minecraft:turtle_scute",
           "functions": [
             {
               "function": "set_count",
@@ -24,7 +24,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "cobblemon:miracle_seed",
+          "name": "cobblemon:mystic_water",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
