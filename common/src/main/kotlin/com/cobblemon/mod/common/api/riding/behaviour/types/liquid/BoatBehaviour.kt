@@ -37,6 +37,7 @@ import com.cobblemon.mod.common.util.writeRidingStats
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.util.Mth
@@ -94,12 +95,16 @@ class BoatBehaviour : RidingBehaviour<BoatSettings, BoatState> {
             state.jumpBuffer.set(state.jumpBuffer.get() + 1)
         }
 
-        // Only start sprinting on vehicle if the state has changed and the pokemon has atleast 1/3 stamina
-        if (driver.isSprinting && !state.isVehicleSprinting.get()) {
-            state.isVehicleSprinting.set(state.stamina.get() > 0.33f)
-        }
-        else if (!driver.isSprinting) {
-            state.isVehicleSprinting.set(false)
+        if (vehicle.level().isClientSide) {
+            // Check the keys instead of driver.isSprinting since that can still be true from a previous ride style
+            val tryingToSprint = Minecraft.getInstance().options.keySprint.isDown() && Minecraft.getInstance().options.keyUp.isDown()
+            // Only start sprinting on vehicle if the state has changed and the pokemon has atleast 1/3 stamina
+            if (tryingToSprint && !state.isVehicleSprinting.get()) {
+                state.isVehicleSprinting.set(state.stamina.get() > 0.33f)
+            }
+            else if (!tryingToSprint) {
+                state.isVehicleSprinting.set(false)
+            }
         }
 
         if (!state.isVehicleSprinting.get()) {

@@ -72,6 +72,7 @@
 - Fixed absence or incorrect mergers in spawning conditions, making max height/depth of conditions to use the min value instead
 - Added stricter riding checks on server side to prevent possible packet forgery when player tries to ride pokemon
 - Fixed Pokémon cries and animation sounds played from GUIs, such as the starter selection screen and the Pokédex, being tied to the Master volume slider instead of Friendly Creatures
+- Fixed boat style mounts sprinting on their own after landing in water from jet flight
 
 ### Developer
 - Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
