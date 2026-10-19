@@ -1,66 +1,88 @@
 # Changelog
-## [1.7.4 (MONTH Xth, 2026)](#1-7-4)
+## [1.8.3 (MONTH xth, 2026)](#1-8-3)
 
 ### Additions
-- Added config options to award experience to fainted Pokémon for opponents they helped defeat (`awardExperienceToFaintedPokemon`) and to still award experience for defeated enemies even after battle loss/forfeit (`awardExperienceOnBattleLoss`)
-- Party Overlay Exp Gained Animation will now display the amount of EXP the Pokémon gained
-- Added a toast to notify players of how they can scroll through their party. Did you know you can hold R and scroll instead of using arrow keys??!
-- Added new layer property that makes a layer scroll in a direction. "scrolling": {"speedU": 0.1, "speedV": 0.1}
-- Added missing crops to Botany Pots integration
 
-### New rideable Pokémon
-
-### Pokémon Added
+### Cries added/updated for the following Pokémon
+- Hoppip
+- Skiploom
+- Jumpluff
+- Houndour
+- Houndoom
+- Wurmple
+- Silcoon
+- Beautifly
+- Cascoon
+- Dustox
+- Surskit
+- Masquerain
+- Torkoal
+- Starly
+- Staravia
+- Staraptor
+- Combee
+- Vespiquen
+- Dusknoir
+- Helioptile
+- Heliolisk
+- Grubbin
+- Charjabug
+- Vikavolt
+- Applin (updated)
+- Flapple (updated)
+- Appletun
+- Runerigus
+- Dipplin
 
 ### Model updates for the following Pokémon
 
 ### Animation updates for the following Pokémon
+- Vikavolt
 
 ### Changes
-- Restructured Botany Pots integration folder structure
-- Decrease default pastured mon wander radius to 32.
-- Factor in the weight of pokemon when calculating pushing forces between hitboxes.
-- Remade the Starter Selection Screen with new assets
-- Refactored berry trees to be less impactful on TPS (more performant)
-- Changed the bait effects of the following items: (Vanilla) Sweet & Glow Berries, Golden & Enchanted Golden Apples (Cobblemon) Custap, Eggant, Hopo & Micle Berries, Sweet Hearts
+- Changed the Misc icon in the Campfire Pot Recipe Book to Health Candy
+- Moved EXP Candies from the Medicine recipe book category to the Misc category
+- Removed Dynamic Lights data from the Magmarizer item for consistency with the block
+- Added `doPokemonPredation` gamerule, which controls aggressiveness of Pokémon with `hate_entity` brain task defined
+- Added `predation_chance` server config value, which controls the possibility of attacking the hated entity found by `hate_entity` brain task 
+- Prehistoric Eroded Pillar generates slightly more frequently
 
 ### Fixes
-- Fixes https://gitlab.com/cable-mc/cobblemon/-/issues/1943
-- Fix occasional crash on retrieving revived fossils
-- Fixed a compatibility issue with World Game Rules which caused some log spam in specific cases.
-- Fixed improper validation of Pokémon when performing a trade.
-- Fixed issue where particle like beam can disappear when you don't see the beginning of the beam or you look away
- - Fixes https://gitlab.com/cable-mc/cobblemon/-/issues/1943
- - Fix occasional crash on retrieving revived fossils
- - Fix brushing not working on Neoforge
- - [Various Submarine Ride Fixes](https://gitlab.com/cable-mc/cobblemon/-/merge_requests/2157)
- - Fix Pastured mons despawning and running away.
- - Fix Apricorn trees crashing when other mods bonemeal it
- - [Various UFO Ride Improvements](https://gitlab.com/cable-mc/cobblemon/-/merge_requests/2156)
-- Fixed NeoForge brewing stand unexpectedly crashing users when shift clicking items within it's menu
-- Fixed NPCs switching pokemon very often during battles
-- Fixed Campfire pot causing crashes under certain circumstances
-- Fixed Type Gems not being consumed upon use
-- Fixed Ancient Pokeball's to their respective modifiers
-- Fixed a Server warning when recalling Pokemon
-- Fixed sliding particles incorrectly handling block collision
-- Fixed Full Heal not curing status conditions in battle
-- Fixed a rare issue with battles locking up when you are forced to switch, with the switch menu appearing instantly.
+- Fixed datapacks with item interaction evolutions that don't specify an item crashing the world on load.
+- Fixed the Pokédex evolution tree crashing when a datapack's dex entry is missing an evolution's form.
+- Fixed the Pokédex evolution tree crashing with a stack overflow on evolutions that loop back on themselves.
+- Fixed the Pokédex evolution tree crashing when looking at a dex that is not part of the "National Dex" aggregate.
+- Fixed evolution trees not building properly when a Pokémon has several Pokédex entries for different regions.
+- Fixed form-changing evolutions sometimes resolving to the source form in the Pokédex evolution tree.
+- Broken datapack evolutions are now logged and skipped in the Pokédex evolution tree instead of crashing.
+- Fixed the `alpha` property having no tab completion in commands such as `/pokespawn`, `/pokegive` and `/pokeedit`, and added the missing `dmax_level`, `gmax_factor` and `tradable` aliases to tab completion
+- Fixed friendship booster items not being recognised as such
+- Fixed conflicts with other mods that would make use of recipe books in certain ways (Farmer's Delight Cooking Pot)
+- Fixed Pokémon battles stalling when a sidemod cancels the `THROWN_POKEBALL_HIT` hit event
+- Fixed choice feature tab completion in `spawnpokemon/pokegive/pokeedit` commands
+- Fixed MoLang that's targeting players intermittedly failing when they have died, needing them to relog
+- Fixed a NeoForge bug where none of the Cobblemon plants/berries could be placed into pots
+- Fixed party overlay not hiding when the player opens the Pokédex scanner 
+- Added compat for AppleSkin
+- Fixed some display names having unintended font colours
+- Fixed `hate_entity` task focusing on its own entity
+  - Thus enabled deadly warfare between Zangoose and Seviper
+- Prehistoric Frozen Pond, Prehistoric Frozen Spike, and Prehistoric Lush Den now generate
+- Fixed Frogadier floating in its battle_idle animation
+- Fixed absence or incorrect mergers in spawning conditions, making max height/depth of conditions to use the min value instead
+- Added stricter riding checks on server side to prevent possible packet forgery when player tries to ride pokemon
+- Fixed Pokémon cries and animation sounds played from GUIs, such as the starter selection screen and the Pokédex, being tied to the Master volume slider instead of Friendly Creatures
 
 ### Developer
-- Added `PokeSnackSpawnerFactory` which allows influence registration on PokeSnack encounters
-- Added `FishingSpawnerFactory` which allows influence registration on fishing encounters
-- Added `BattleFleeAttemptEvent` fired from `PokemonBattle.checkFleeAttempt`, allowing developers to intercept and control flee attempts
+- Bumped NeoForge to `21.1.195` to get access to MixinExtras `0.5` and the expressions annotation
+- New Platform Event `PLAYER_RESPAWN` which is fired when a player respawns (either through death or returning from the end)
+- Platform Events `SERVER_PLAYER_TICK_PRE` and `SERVER_PLAYER_TICK_POST` no longer fire when the player is dead
+  - it is now tied much closer to the actual entity rather than the player (or their connection)
 
 ### Molang & Datapacks
-- Added basic chatter NPC Behaviour
-- q.item.is_enchanted()
-- q.item.has_enchantment(minecraft:sharpness, 3)
-- Added `has_chosen_starter` & `get_starter_uuid` as available Molang functions
-- Added `marks`, `has_mark`, & `remove_marks` as available Molang functions for pokemon
-- Added Data Component support for species drops, eg `"components": {"minecraft:custom_model_data": 123}`
-- Added new sortOrder field to mark entries, (defaults to 0 if not specified) which controls the order in which marks are rendered on the HUD, with higher numbers being rendered on top of lower numbers
-- Added optional `order` field to starter categories. It will allow to explicitly sort categories in starter selection screen
+- Fixed `q.pokemon.nature` returning class instance instead of proper string value (`cobblemon:adamant`)
+- Fixed `q.entity.is_looking_at` result being always `1` for whatever entity passed as target
+- Added hate chance optional parameter to `hate_entity` task. `1.0` will make an entity always attack the target 
 
 ### Localization
 - Updated translations for:

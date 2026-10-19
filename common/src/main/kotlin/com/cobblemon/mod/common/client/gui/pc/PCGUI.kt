@@ -58,7 +58,8 @@ class PCGUI(
     val party: ClientParty,
     val configuration: PCGUIConfiguration,
     val openOnBox: Int = CobblemonClient.lastPcBoxViewed,
-    val unseenWallpapers: MutableSet<Identifier> = mutableSetOf()
+    val unseenWallpapers: MutableSet<Identifier> = mutableSetOf(),
+    val silent: Boolean = false
 ) : Screen(Component.translatable("cobblemon.ui.pc.title")), CobblemonRenderable {
 
     companion object {
@@ -705,7 +706,7 @@ class PCGUI(
     }
 
     fun closeNormally(unlink: Boolean = true) {
-        playSound(CobblemonSounds.PC_OFF)
+        if (!silent) playSound(CobblemonSounds.PC_OFF)
         Minecraft.getInstance().setScreen(null)
         if (unlink) {
             UnlinkPlayerFromPCPacket().sendToServer()
@@ -771,7 +772,7 @@ class PCGUI(
 
         if (isInventoryKeyPressed(minecraft, keyEvent) && !boxNameFocused && !filterFocused) {
             saveMarkings(isPreviewInParty ?: false)
-            playSound(CobblemonSounds.PC_OFF)
+            if (!silent) playSound(CobblemonSounds.PC_OFF)
             UnlinkPlayerFromPCPacket().sendToServer()
             Minecraft.getInstance().setScreen(null)
             return true
@@ -782,7 +783,7 @@ class PCGUI(
         if (!filterFocused && !boxNameFocused) {
             when (keyCode) {
                 InputConstants.KEY_ESCAPE -> {
-                    playSound(CobblemonSounds.PC_OFF)
+                    if (!silent) playSound(CobblemonSounds.PC_OFF)
                     UnlinkPlayerFromPCPacket().sendToServer()
                     onClose()
                     return true

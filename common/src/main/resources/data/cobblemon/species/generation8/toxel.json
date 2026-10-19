@@ -101,9 +101,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=hardy"
+          "target": "toxel nature=hardy",
+          "pokedexIcon": "cobblemon:serious_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelbrave_toxtricity",
@@ -118,9 +131,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=brave"
+          "target": "toxel nature=brave",
+          "pokedexIcon": "cobblemon:brave_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxeladamant_toxtricity",
@@ -135,9 +161,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=adamant"
+          "target": "toxel nature=adamant",
+          "pokedexIcon": "cobblemon:adamant_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelnaughty_toxtricity",
@@ -152,9 +191,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=naughty"
+          "target": "toxel nature=naughty",
+          "pokedexIcon": "cobblemon:naughty_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxeldocile_toxtricity",
@@ -169,9 +221,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=docile"
+          "target": "toxel nature=docile",
+          "pokedexIcon": "cobblemon:serious_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelimpish_toxtricity",
@@ -186,9 +251,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=impish"
+          "target": "toxel nature=impish",
+          "pokedexIcon": "cobblemon:impish_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxellax_toxtricity",
@@ -203,9 +281,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=lax"
+          "target": "toxel nature=lax",
+          "pokedexIcon": "cobblemon:lax_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelhasty_toxtricity",
@@ -220,9 +311,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=hasty"
+          "target": "toxel nature=hasty",
+          "pokedexIcon": "cobblemon:hasty_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxeljolly_toxtricity",
@@ -237,9 +341,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=jolly"
+          "target": "toxel nature=jolly",
+          "pokedexIcon": "cobblemon:jolly_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelnaive_toxtricity",
@@ -254,9 +371,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=naive"
+          "target": "toxel nature=naive",
+          "pokedexIcon": "cobblemon:naive_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelrash_toxtricity",
@@ -271,7 +401,9 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=rash"
+          "target": "toxel nature=rash",
+          "pokedexIcon": "cobblemon:rash_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
       ]
     },
@@ -288,9 +420,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=sassy"
+          "target": "toxel nature=sassy",
+          "pokedexIcon": "cobblemon:sassy_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelquirky_toxtricity",
@@ -307,9 +452,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=quirky"
+          "target": "toxel nature=quirky",
+          "pokedexIcon": "cobblemon:serious_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_amped"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxellonely_toxtricitylowkey",
@@ -324,9 +482,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=lonely"
+          "target": "toxel nature=lonely",
+          "pokedexIcon": "cobblemon:lonely_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelbold_toxtricitylowkey",
@@ -341,7 +512,9 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=bold"
+          "target": "toxel nature=bold",
+          "pokedexIcon": "cobblemon:bold_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
       ]
     },
@@ -358,9 +531,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=relaxed"
+          "target": "toxel nature=relaxed",
+          "pokedexIcon": "cobblemon:relaxed_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxeltimid_toxtricitylowkey",
@@ -375,9 +561,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=timid"
+          "target": "toxel nature=timid",
+          "pokedexIcon": "cobblemon:timid_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelserious_toxtricitylowkey",
@@ -392,9 +591,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=serious"
+          "target": "toxel nature=serious",
+          "pokedexIcon": "cobblemon:serious_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelmodest_toxtricitylowkey",
@@ -409,9 +621,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=modest"
+          "target": "toxel nature=modest",
+          "pokedexIcon": "cobblemon:modest_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelmild_toxtricitylowkey",
@@ -426,9 +651,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=mild"
+          "target": "toxel nature=mild",
+          "pokedexIcon": "cobblemon:mild_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelquiet_toxtricitylowkey",
@@ -443,9 +681,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=quiet"
+          "target": "toxel nature=quiet",
+          "pokedexIcon": "cobblemon:quiet_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelbashful_toxtricitylowkey",
@@ -460,9 +711,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=bashful"
+          "target": "toxel nature=bashful",
+          "pokedexIcon": "cobblemon:serious_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelcalm_toxtricitylowkey",
@@ -477,9 +741,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=calm"
+          "target": "toxel nature=calm",
+          "pokedexIcon": "cobblemon:calm_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelgentle_toxtricitylowkey",
@@ -494,9 +771,22 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=gentle"
+          "target": "toxel nature=gentle",
+          "pokedexIcon": "cobblemon:gentle_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     },
     {
       "id": "toxelcareful_toxtricitylowkey",
@@ -513,14 +803,27 @@
         },
         {
           "variant": "properties",
-          "target": "toxel nature=careful"
+          "target": "toxel nature=careful",
+          "pokedexIcon": "cobblemon:careful_mint",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nature.toxtricity_low_key"
         }
-      ]
+      ],
+      "drops": {
+        "amount": 1,
+        "entries": [
+          {
+            "type": "evolution",
+            "item": "cobblemon:shed_shell",
+            "percentage": 100.0,
+            "requirements": []
+          }
+        ]
+      }
     }
   ],
   "behaviour": {
     "herd": {
-      "maxSize": "2",
+      "maxSize": 2,
       "toleratedLeaders": [
         {
           "pokemon": "toxel",

@@ -22,6 +22,7 @@ import com.cobblemon.mod.common.item.group.CobblemonItemGroups
 import com.cobblemon.mod.common.loot.LootInjector
 import com.cobblemon.mod.common.particle.CobblemonParticles
 import com.cobblemon.mod.common.sherds.CobblemonSherds
+import com.cobblemon.mod.common.util.adapters.RegistryAccessResolver
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.didSleep
 import com.cobblemon.mod.common.world.CobblemonStructures
@@ -57,6 +58,8 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 import net.minecraft.world.level.biome.Biome
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.FlowerPotBlock
 import net.minecraft.world.level.levelgen.GenerationStep
 import net.minecraft.world.level.levelgen.placement.PlacedFeature
 import net.neoforged.api.distmarker.Dist
@@ -269,7 +272,26 @@ class CobblemonNeoForge : CobblemonImplementation {
     override fun registerBlocks() {
         MOD_BUS.addListener<RegisterEvent> { event ->
             event.register(CobblemonBlocks.resourceKey) { helper ->
-                CobblemonBlocks.register { identifier, block -> helper.register(identifier, block) }
+                CobblemonBlocks.register { identifier, block ->
+                    if (block !is FlowerPotBlock) helper.register(identifier, block)
+                }
+            }
+        }
+
+        MOD_BUS.addListener<RegisterEvent>(EventPriority.LOW) { event ->
+            // Register the pots after registering main blocks to solve race condition when pottable blocks are still not registered
+            event.register(CobblemonBlocks.resourceKey) { helper ->
+                CobblemonBlocks.register { identifier, block ->
+                    if (block is FlowerPotBlock) {
+                        helper.register(identifier, block)
+
+                        val pottedIdentifier = RegistryAccessResolver.getAccess()
+                            .registryOrThrow(Registries.BLOCK)
+                            .getKeyOrNull(block.potted)!!
+
+                        (Blocks.FLOWER_POT as FlowerPotBlock).addPlant(pottedIdentifier) { block }
+                    }
+                }
             }
         }
     }
@@ -462,9 +484,6 @@ class CobblemonNeoForge : CobblemonImplementation {
     ) {
         if (type == PackType.SERVER_DATA) {
             this.reloadableResources += QueuedReloadListener(identifier, reloaderFactory, dependencies)
-        }
-        else {
-            CobblemonNeoForgeClient.registerResourceReloader(identifier, reloaderFactory.invoke(RegistryAccess.EMPTY), dependencies) // client resources dont need access
         }
     }
 

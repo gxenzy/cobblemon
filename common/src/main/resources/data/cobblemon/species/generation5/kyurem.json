@@ -66,6 +66,7 @@
     "72:outrage",
     "80:glaciate",
     "88:sheercold",
+    "form_change:glaciate",
     "tm:aerialace",
     "tm:ancientpower",
     "tm:avalanche",
@@ -235,6 +236,8 @@
         "72:outrage",
         "80:iceburn",
         "88:sheercold",
+        "form_change:fusionflare",
+        "form_change:iceburn",
         "tm:aerialace",
         "tm:ancientpower",
         "tm:avalanche",
@@ -347,7 +350,29 @@
         "legacy:toxic"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true
+          },
+          "fly": {
+            "canFly": true
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "herd": {
+          "maxSize": 4
+        }
+      }
     },
     {
       "name": "Black",
@@ -405,6 +430,8 @@
         "72:outrage",
         "80:freezeshock",
         "88:sheercold",
+        "form_change:fusionbolt",
+        "form_change:freezeshock",
         "tm:aerialace",
         "tm:ancientpower",
         "tm:avalanche",
@@ -517,7 +544,29 @@
         "legacy:toxic"
       ],
       "evolutions": [],
-      "battleOnly": false
+      "battleOnly": false,
+      "behaviour": {
+        "resting": {
+          "drowsyChance": 0.0333,
+          "rouseChance": 0.0042
+        },
+        "moving": {
+          "swim": {
+            "avoidsWater": true
+          },
+          "fly": {
+            "canFly": true
+          }
+        },
+        "combat": {
+          "willDefendSelf": true,
+          "willDefendOwner": true,
+          "willFlee": false
+        },
+        "herd": {
+          "maxSize": 4
+        }
+      }
     }
   ],
   "behaviour": {
@@ -537,6 +586,9 @@
     "resting": {
       "drowsyChance": 0.0333,
       "rouseChance": 0.0042
+    },
+    "herd": {
+      "maxSize": 3
     }
   },
   "drops": {

@@ -10,6 +10,7 @@ package com.cobblemon.mod.fabric.mixin;
 
 import com.cobblemon.mod.common.api.riding.sound.RideAttenuationModel;
 import com.cobblemon.mod.common.api.riding.sound.RideLoopSound;
+import com.cobblemon.mod.common.client.sound.instances.AlphaCrySoundInstance;
 import com.cobblemon.mod.common.duck.ChannelDuck;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -45,7 +46,6 @@ public class FabricSoundEngineMixin {
             @Local(name = "handle") ChannelAccess.ChannelHandle handle
     ) {
         if (!(sound instanceof RideLoopSound rideSound)) return;
-
         if (handle == null) return;
 
         handle.execute((channel) -> {
@@ -71,6 +71,26 @@ public class FabricSoundEngineMixin {
             channel.setSelfPosition(position);
             channel.setRelative(isRelative);
         });
+    }
+
+    @Inject(method = "play",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/sounds/ChannelAccess$ChannelHandle;execute(Ljava/util/function/Consumer;)V"
+            )
+    )
+    private void cobblemon$applyAlphaReverb(
+            SoundInstance sound,
+            CallbackInfo ci,
+            @Local(name = "channelHandle") ChannelAccess.ChannelHandle handle
+    ) {
+        if (!(sound instanceof AlphaCrySoundInstance)) return;
+        if (handle == null) return;
+
+        // TODO: probably not make these values hardcoded? Maybe add to alphaCrySoundInstance?
+        handle.execute(channel ->
+                ((ChannelDuck) channel).cobblemon$applyReverb(1.8f, 0.25f, 0.1f, 0.9f)
+        );
     }
 
     @Inject(

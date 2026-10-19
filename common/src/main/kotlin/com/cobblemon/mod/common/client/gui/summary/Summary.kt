@@ -8,7 +8,6 @@
 
 package com.cobblemon.mod.common.client.gui.summary
 
-import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.CobblemonItems
 import com.cobblemon.mod.common.CobblemonNetwork.sendToServer
 import com.cobblemon.mod.common.CobblemonSounds
@@ -21,22 +20,16 @@ import com.cobblemon.mod.common.api.text.bold
 import com.cobblemon.mod.common.api.text.text
 import com.cobblemon.mod.common.client.CobblemonClient
 import com.cobblemon.mod.common.client.CobblemonResources
-import com.cobblemon.mod.common.client.gui.CobblemonRenderable
-import com.cobblemon.mod.common.client.gui.ExitButton
-import com.cobblemon.mod.common.client.gui.TypeIcon
-import com.cobblemon.mod.common.client.gui.summary.widgets.EvolutionSelectScreen
-import com.cobblemon.mod.common.client.gui.summary.widgets.MarkingsWidget
-import com.cobblemon.mod.common.client.gui.summary.widgets.ModelWidget
-import com.cobblemon.mod.common.client.gui.summary.widgets.NicknameEntryWidget
-import com.cobblemon.mod.common.client.gui.summary.widgets.PartyWidget
+import com.cobblemon.mod.common.client.gui.*
+import com.cobblemon.mod.common.client.gui.summary.widgets.*
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.SummaryTab
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.info.InfoWidget
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.marks.MarksWidget
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.moves.MoveSwapScreen
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.moves.MovesWidget
 import com.cobblemon.mod.common.client.gui.summary.widgets.screens.stats.StatWidget
+import com.cobblemon.mod.common.client.keybind.keybinds.SummaryBinding
 import com.cobblemon.mod.common.client.render.drawScaledText
-import com.cobblemon.mod.common.client.render.models.blockbench.repository.VaryingModelRepository
 import com.cobblemon.mod.common.net.messages.server.pokemon.update.SetItemHiddenPacket
 import com.cobblemon.mod.common.net.messages.server.storage.party.MovePartyPokemonPacket
 import com.cobblemon.mod.common.net.messages.server.storage.party.SwapPartyPokemonPacket
@@ -298,9 +291,10 @@ class Summary private constructor(party: Collection<Pokemon?>, private val edita
             baseScale = 2F,
             rotationY = 325F,
             offsetY = -10.0,
+            playCryOnClick = true,
             shouldFollowCursor = true,
         )
-        addRenderableOnly(this.modelWidget)
+        addRenderableWidget(this.modelWidget)
 
         updatePokemonInfo()
     }
@@ -699,7 +693,7 @@ class Summary private constructor(party: Collection<Pokemon?>, private val edita
         }
 
 
-        if (isInventoryKeyPressed(minecraft, keyEvent) && !nicknameSelected) {
+        if ( !nicknameSelected && (isInventoryKeyPressed(minecraft, keyEvent) || SummaryBinding.matches(keyCode, scanCode)) ){
             saveActiveMark()
             saveMarkings()
             Minecraft.getInstance().setScreen(null)
@@ -712,28 +706,10 @@ class Summary private constructor(party: Collection<Pokemon?>, private val edita
         ) {
             this.focused = null
         }
-        if (Cobblemon.config.enableDebugKeys) {
-            val model = VaryingModelRepository.getPoser(selectedPokemon.species.resourceIdentifier, modelWidget.state)
-            if (keyEvent.key() == InputConstants.KEY_UP) {
-                model.profileTranslation = model.profileTranslation.add(0.0, -0.01, 0.0)
-            }
-            if (keyEvent.key() == InputConstants.KEY_DOWN) {
-                model.profileTranslation = model.profileTranslation.add(0.0, 0.01, 0.0)
-            }
-            if (keyEvent.key() == InputConstants.KEY_LEFT) {
-                model.profileTranslation = model.profileTranslation.add(-0.01, 0.0, 0.0)
-            }
-            if (keyEvent.key() == InputConstants.KEY_RIGHT) {
-                model.profileTranslation = model.profileTranslation.add(0.01, 0.0, 0.0)
-            }
-            if (keyEvent.key() == InputConstants.KEY_EQUALS) {
-                model.profileScale += 0.01F
-            }
-            if (keyEvent.key() == InputConstants.KEY_MINUS) {
-                model.profileScale -= 0.01F
-            }
-        }
-        return super.keyPressed(keyEvent)
+
+        handleProfileDebugKeys(keyEvent, selectedPokemon.species.resourceIdentifier, modelWidget.state)
+
+        return super.keyPressed(keyCode, scanCode, modifiers)
     }
 
     fun playSound(soundEvent: SoundEvent) {
@@ -741,13 +717,8 @@ class Summary private constructor(party: Collection<Pokemon?>, private val edita
     }
 
     override fun onClose() {
-        if (Cobblemon.config.enableDebugKeys) {
-            val model = VaryingModelRepository.getPoser(selectedPokemon.species.resourceIdentifier, modelWidget.state)
-            Minecraft.getInstance().player?.displayClientMessage(Component.literal("Profile Translation: ${model.profileTranslation}"), false)
-            Minecraft.getInstance().player?.displayClientMessage(Component.literal("Profile Scale: ${model.profileScale}"), false)
-            Cobblemon.LOGGER.info("override var profileTranslation = Vec3d(${model.profileTranslation.x}, ${model.profileTranslation.y}, ${model.profileTranslation.z})")
-            Cobblemon.LOGGER.info("override var profileScale = ${model.profileScale}F")
-        }
+        logProfileTranslations(selectedPokemon.species.resourceIdentifier, modelWidget.state)
+
         super.onClose()
     }
 }

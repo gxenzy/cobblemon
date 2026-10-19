@@ -244,5 +244,4 @@ class PokerodItem(val pokeRodId: Identifier, settings: Properties) : FishingRodI
     private fun playDetachSound(entity: Entity) {
         entity.playSound(CobblemonSounds.FISHING_BAIT_DETACH, 1F, 1F)
     }
-
 }

@@ -32,6 +32,11 @@ abstract class InfoTextScrollWidget(val pX: Int, val pY: Int): ScrollingWidget<I
     height = POKEMON_DESCRIPTION_HEIGHT
 ) {
     companion object {
+        const val SCROLL_TRACK_WIDTH = 1
+        const val SCROLL_SLIDE_WIDTH = 3
+
+        val scrollbarSlide = cobblemonResource("textures/gui/pokedex/info_scrollbar_slide.png")
+        val scrollbarTrack = cobblemonResource("textures/gui/pokedex/info_scrollbar_track.png")
         private val scrollBorder = cobblemonResource("textures/gui/pokedex/info_scroll_border.png")
     }
 
@@ -59,7 +64,7 @@ abstract class InfoTextScrollWidget(val pX: Int, val pY: Int): ScrollingWidget<I
         text.forEach {
             Minecraft.getInstance().font.splitter.splitLines(
                 it.text(),
-                ((width - SCROLL_BAR_WIDTH  - (POKEMON_DESCRIPTION_PADDING * 2)) / SCALE).toInt(),
+                ((width - SCROLL_SLIDE_WIDTH  - (POKEMON_DESCRIPTION_PADDING * 2)) / SCALE).toInt(),
                 Style.EMPTY
             ).stream()
                 .map { it.string }
@@ -70,26 +75,39 @@ abstract class InfoTextScrollWidget(val pX: Int, val pY: Int): ScrollingWidget<I
 
     override fun extractScrollbar(context: GuiGraphicsExtractor, mouseX: Int, mouseY: Int) {
         val xLeft = this.scrollBarX()
-        val xRight = xLeft + 3
-        val yStart = y + 1
+        val yMargin = 1
+        val yStart = y + yMargin
 
-        val barHeight = this.bottom - yStart
+        val barHeight = this.bottom - yMargin - yStart
 
         var yBottom = ((barHeight * barHeight).toFloat() / this.contentHeight().toFloat()).toInt()
         yBottom = Mth.clamp(yBottom, 32, barHeight - 8)
         var yTop = scrollAmount().toInt() * (barHeight - yBottom) / this.maxScrollAmount() + yStart
         if (yTop < yStart) yTop = yStart
 
-        context.fill(xLeft + 1, yStart, xRight - 1, this.bottom, ARGB.color(255, 126, 231, 229)) // track
-        context.fill(xLeft, yTop, xRight, yTop + yBottom, ARGB.color(255, 58, 150, 182)) // bar
+        // Scroll Track
+        blitk(
+            texture = scrollbarTrack,
+            matrixStack = context.pose(),
+            x = xLeft + 1,
+            y = yStart,
+            width = SCROLL_TRACK_WIDTH,
+            height = height - (yMargin * 2)
+        )
+
+        // Scroll Slide
+        blitk(
+            texture = scrollbarSlide,
+            matrixStack = context.pose(),
+            x = xLeft,
+            y = yTop,
+            width = SCROLL_SLIDE_WIDTH,
+            height = yBottom
+        )
     }
 
     override fun scrollBarX(): Int {
         return left + width - scrollBarWidth
-    }
-
-    override fun getBottom(): Int {
-        return this.y + this.height - 1
     }
 
     class TextSlot(val text : String) : Slot<TextSlot>() {
@@ -102,7 +120,7 @@ abstract class InfoTextScrollWidget(val pX: Int, val pY: Int): ScrollingWidget<I
         ) {
             MultiLineLabelK.create(
                 component = text.text(),
-                width = (139 - SCROLL_BAR_WIDTH - (POKEMON_DESCRIPTION_PADDING * 2)) / SCALE,
+                width = (139 - SCROLL_SLIDE_WIDTH - (POKEMON_DESCRIPTION_PADDING * 2)) / SCALE,
                 maxLines = 30
             ).renderLeftAligned(
                 context = context,

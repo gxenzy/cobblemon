@@ -30,6 +30,7 @@
     },
     {
       "aspects": ["cosmetic_item-rage_candy_bar", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -40,6 +41,7 @@
     },
     {
       "aspects": ["cosmetic_item-pewter_crunchies", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -50,6 +52,7 @@
     },
     {
       "aspects": ["cosmetic_item-lava_cookie", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -60,6 +63,7 @@
     },
     {
       "aspects": ["cosmetic_item-old_gateau", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -70,6 +74,7 @@
     },
     {
       "aspects": ["cosmetic_item-casteliacone", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -80,6 +85,7 @@
     },
     {
       "aspects": ["cosmetic_item-lumiose_galette", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -90,6 +96,7 @@
     },
     {
       "aspects": ["cosmetic_item-big_malasada", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -100,6 +107,7 @@
     },
     {
       "aspects": ["cosmetic_item-smoked_tail_curry", "alolan"],
+      "poser": "cobblemon:raichu_alolan_cap",
       "model": "cobblemon:raichu_alolan_cap.geo",
       "layers": [
         {
@@ -149,6 +157,18 @@
         {
           "name": "detective",
           "texture": "cobblemon:textures/pokemon/0026_raichu/raichu_detective.png"
+        }
+      ]
+    },
+    {
+      "aspects": [
+        "alpha_eyes"
+      ],
+      "layers": [
+        {
+          "name": "alpha_eyes",
+          "texture": "cobblemon:textures/pokemon/0026_raichu/raichu_alolan_alpha.png",
+          "emissive": true
         }
       ]
     }

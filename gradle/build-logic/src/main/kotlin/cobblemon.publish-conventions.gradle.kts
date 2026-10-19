@@ -1,5 +1,6 @@
 import utilities.VersionType
 import utilities.isSnapshot
+import utilities.gitCommit
 import utilities.writeVersion
 
 plugins {
@@ -7,7 +8,6 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("org.relativitymc.neo-loom")
-    id("net.nemerosa.versioning")
 }
 
 java {
@@ -63,7 +63,7 @@ publishing {
             version = project.writeVersion(VersionType.PUBLISHING)
             pom {
                 properties = mapOf(
-                    "gitCommit" to versioning.info.commit
+                    "gitCommit" to project.gitCommit()
                 )
             }
         }

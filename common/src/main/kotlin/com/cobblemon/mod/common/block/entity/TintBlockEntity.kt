@@ -8,47 +8,50 @@
 
 package com.cobblemon.mod.common.block.entity
 
-import net.minecraft.core.BlockPos
-import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.IntTag
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
-import net.minecraft.world.level.block.entity.BlockEntityType
-import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.world.level.storage.ValueInput
-import net.minecraft.world.level.storage.ValueOutput
-import kotlin.jvm.optionals.getOrNull
 
-open class TintBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : BlockEntity(type, blockPos, blockState) {
+interface TintBlockEntity {
     companion object {
         const val TINT = "tint"
     }
 
-    var tint: Int? = null
+    var tint: Int?
 
-    override fun saveAdditional(valueOutput: ValueOutput) {
-        super.saveAdditional(valueOutput)
+    fun getTint(): Int = tint ?: 0xFFFFFF
+
+    fun setTint(tintValue: Int, opacity: Float = 1F) {
+        val entity = this as? BlockEntity ?: return
+        val level = entity.level ?: return
+
+        tint = if (opacity != 1F) {
+            val alpha = opacity.coerceIn(0F, 1F)
+
+            val r = (tintValue shr 16) and 0xFF
+            val g = (tintValue shr 8) and 0xFF
+            val b = tintValue and 0xFF
+
+            // Interpolate each channel toward 255 (White)
+            val rNew = (r * alpha + 255 * (1 - alpha)).toInt()
+            val gNew = (g * alpha + 255 * (1 - alpha)).toInt()
+            val bNew = (b * alpha + 255 * (1 - alpha)).toInt()
+
+            // Recombine into a single 0xRRGGBB integer
+            (rNew shl 16) or (gNew shl 8) or bNew
+        } else tintValue
+
+        entity.setChanged()
+        level.blockEntityChanged(entity.blockPos)
+        level.sendBlockUpdated(entity.blockPos, entity.blockState, entity.blockState, Block.UPDATE_ALL)
+    }
+
+    fun saveTint(valueOutput: ValueOutput) {
         tint?.let { valueOutput.putInt(TINT, it) }
     }
 
-    override fun loadAdditional(valueInput: ValueInput) {
-        super.loadAdditional(valueInput)
+    fun loadTint(valueInput: ValueInput) {
         tint = valueInput.getInt(TINT).getOrNull()
-    }
-
-    override fun getUpdateTag(registryLookup: HolderLookup.Provider): CompoundTag {
-        return this.saveWithoutMetadata(registryLookup)
-    }
-
-    fun getTint() = tint ?: 0xFFFFFF
-
-    fun setTint(tintValue: Int) {
-        level?.let {
-            tint = tintValue
-            setChanged()
-            it.blockEntityChanged(blockPos)
-            it.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_ALL)
-        }
     }
 }

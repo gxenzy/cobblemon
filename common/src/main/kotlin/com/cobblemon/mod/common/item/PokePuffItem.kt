@@ -84,7 +84,7 @@ class PokePuffItem(properties: Properties) : CobblemonItem(properties), PokemonS
             InteractionResult.CONSUME
         } else {
             if (user is ServerPlayer) {
-                super<PokemonSelectingItem>.use(user, stack)
+                super<PokemonSelectingItem>.use(user, stack, false)
             } else {
                 InteractionResult.PASS
             }

@@ -26,5 +26,13 @@ class CleanseAllEffect : MobEffect(MobEffectCategory.BENEFICIAL, 0xFFFFFF) {
     ) {
         target.removeAllEffects()
     }
-    override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int) = false
+
+    override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
+        if (livingEntity is ServerPlayer){
+            livingEntity.removeAllEffects()
+        }
+        return true
+    }
+
+    override fun shouldApplyEffectTickThisTick(duration: Int, amplifier: Int) = true
 }

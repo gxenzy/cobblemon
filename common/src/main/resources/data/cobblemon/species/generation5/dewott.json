@@ -65,7 +65,7 @@
       "rouseChance": 0.0042
     },
     "herd": {
-      "maxSize": "5",
+      "maxSize": 5,
       "toleratedLeaders": [
         {
           "pokemon": "dewott",
@@ -245,6 +245,13 @@
         {
           "variant": "biome",
           "biomeCondition": "#cobblemon:evolution/regional/dewott_hisuibiome"
+        },
+        {
+          "variant": "negate",
+          "inner": {
+            "variant": "biome",
+            "biomeCondition": "#cobblemon:beach"
+          }
         }
       ]
     }
@@ -286,6 +293,13 @@
             {
               "variant": "biome",
               "biomeCondition": "#cobblemon:evolution/regional/dewott_unovabiome"
+            },
+            {
+              "variant": "negate",
+              "inner": {
+                "variant": "biome",
+                "biomeCondition": "#cobblemon:is_cold"
+              }
             }
           ]
         },

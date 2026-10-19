@@ -32,7 +32,7 @@ object MountedLivingEntityRenderer {
         if (entity.vehicle !is Rideable) return
         val matrix = stack.last().pose()
         val delegate = pokemon.delegate as PokemonClientDelegate
-        val locator = delegate.locatorStates[delegate.getSeatLocator(entity)]
+        val locator = delegate.getSeatLocator(entity)?.let { delegate.locatorStates[it] }
 
         if (locator != null) {
             MountedPokemonAnimationRenderController.setup(pokemon, partialTicks)

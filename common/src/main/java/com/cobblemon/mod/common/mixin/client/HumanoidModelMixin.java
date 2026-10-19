@@ -12,6 +12,8 @@ import com.cobblemon.mod.common.client.render.player.MountedPlayerRenderer;
 import com.cobblemon.mod.common.duck.AvatarRenderStateDuck;
 import com.cobblemon.mod.common.duck.LivingEntityRenderStateDuck;
 import com.cobblemon.mod.common.entity.PoseType;
+import com.cobblemon.mod.common.client.render.player.RecallArmAnimationTracker;
+import com.cobblemon.mod.common.duck.RidePassenger;
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -113,5 +115,15 @@ public class HumanoidModelMixin {
         );
         MountedPlayerRenderer.shouldApplyRootAnimation = true;
 
+    }
+
+    @Inject(method = "setupAnim*", at = @At("TAIL"))
+    public void cobblemon$poseRecallArm(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
+        if (!(entity instanceof AbstractClientPlayer) || entity.getVehicle() instanceof PokemonEntity) return;
+        float raise = RecallArmAnimationTracker.INSTANCE.raiseFactor(entity.getUUID());
+        if (raise <= 0f) return;
+        this.rightArm.xRot = Mth.lerp(raise, this.rightArm.xRot, (float) (-Math.PI / 2.0));
+        this.rightArm.yRot = Mth.lerp(raise, this.rightArm.yRot, 0f);
+        this.rightArm.zRot = Mth.lerp(raise, this.rightArm.zRot, 0f);
     }
 }

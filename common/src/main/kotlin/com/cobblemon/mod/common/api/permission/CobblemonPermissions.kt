@@ -145,6 +145,8 @@ object CobblemonPermissions {
     val CHANGE_BOX_COUNT = this.create("${COMMAND_PREFIX}boxcount", PermissionLevel.GAMEMASTERS)
     @JvmStatic
     val SPECTATE_BATTLE = this.create("${COMMAND_PREFIX}spectatebattle", PermissionLevel.OWNERS)
+    @JvmStatic
+    val TECHNICAL_MACHINE = this.create("${COMMAND_PREFIX}technicalmachine", PermissionLevel.GAMEMASTERS)
 
     @JvmStatic
     val SEE_HIDDEN_NPCS = this.create("seehiddennpcs", PermissionLevel.GAMEMASTERS)

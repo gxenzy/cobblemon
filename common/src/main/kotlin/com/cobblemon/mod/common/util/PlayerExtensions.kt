@@ -62,6 +62,7 @@ import kotlin.math.sin
 fun ServerPlayer.party() = Cobblemon.storage.getParty(this)
 fun ServerPlayer.pc() = Cobblemon.storage.getPC(this)
 fun ServerPlayer.pokedex() = Cobblemon.playerDataManager.getPokedexData(this)
+fun ServerPlayer.tmList() = Cobblemon.playerDataManager.getTMData(this)
 val ServerPlayer.activeDialogue: ActiveDialogue?
     get() = DialogueManager.activeDialogues[uuid]
 val ServerPlayer.isInDialogue: Boolean
@@ -517,6 +518,6 @@ fun ServerPlayer.updateShoulderNbt(pokemon: Pokemon) {
     nbt.putString(DataKeys.SHOULDER_SPECIES, pokemon.species.resourceIdentifier.toString())
     nbt.putString(DataKeys.SHOULDER_FORM, pokemon.form.name)
     nbt.put(DataKeys.SHOULDER_ASPECTS, pokemon.aspects.map(StringTag::valueOf).toNbtList())
-    nbt.putFloat(DataKeys.SHOULDER_SCALE_MODIFIER, pokemon.scaleModifier)
+    nbt.putFloat(DataKeys.SHOULDER_SCALE_MODIFIER, pokemon.effectiveScale)
     setShoulderEntity(isLeftShoulder, nbt)
 }

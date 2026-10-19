@@ -499,6 +499,13 @@ private fun previewTranslation(
     )
 }
 
+enum class ProfileTransformType {
+    PROFILE,
+    NONE,
+    POKEDEX,
+    SUMMARY,
+}
+
 fun drawProfilePokemon(
     renderablePokemon: RenderablePokemon,
     matrixStack: PoseStack,
@@ -507,7 +514,7 @@ fun drawProfilePokemon(
     state: PosableState,
     partialTicks: Float,
     scale: Float = 20F,
-    applyProfileTransform: Boolean = true,
+    profileTransformType: ProfileTransformType = ProfileTransformType.PROFILE,
     applyBaseScale: Boolean = false,
     r: Float = 1F,
     g: Float = 1F,
@@ -527,7 +534,7 @@ fun drawProfilePokemon(
     },
     partialTicks = partialTicks,
     scale = scale,
-    applyProfileTransform = applyProfileTransform,
+    profileTransformType = profileTransformType,
     applyBaseScale = applyBaseScale,
     r = r,
     g = g,
@@ -743,7 +750,7 @@ fun drawProfilePokemon(
     state: PosableState,
     partialTicks: Float,
     scale: Float = 20F,
-    applyProfileTransform: Boolean = true,
+    profileTransformType: ProfileTransformType = ProfileTransformType.PROFILE,
     applyBaseScale: Boolean = false,
     doQuirks: Boolean = false,
     r: Float = 1F,

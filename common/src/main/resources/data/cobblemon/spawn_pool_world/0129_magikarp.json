@@ -13,13 +13,14 @@
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "1-20",
-            "weight": 9.9,
+            "weight": 59.4,
             "condition": {
                 "canSeeSky": true,
                 "biomes": [
                     "#cobblemon:is_freshwater",
                     "#cobblemon:is_ocean"
-                ]
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -29,46 +30,10 @@
                 "water"
             ],
             "type": "pokemon",
-            "spawnablePositionType": "surface",
-            "bucket": "uncommon",
-            "level": "1-20",
-            "weight": 1.84,
-            "condition": {
-                "minSkyLight": 8,
-                "maxSkyLight": 15,
-                "biomes": [
-                    "#cobblemon:is_freshwater",
-                    "#cobblemon:is_ocean"
-                ]
-            }
-        },
-        {
-            "id": "magikarp-3",
-            "pokemon": "magikarp",
-            "type": "pokemon",
-            "spawnablePositionType": "fishing",
-            "bucket": "common",
-            "level": "1-20",
-            "weight": 9.0,
-            "condition": {
-                "canSeeSky": true,
-                "biomes": [
-                    "#aether:is_aether",
-                    "#cobblemon:is_overworld"
-                ]
-            }
-        },
-        {
-            "id": "magikarp-4",
-            "pokemon": "magikarp",
-            "presets": [
-                "water"
-            ],
-            "type": "pokemon",
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "1-20",
-            "weight": 9.9,
+            "weight": 59.4,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,
@@ -76,6 +41,44 @@
                 "biomes": [
                     "#cobblemon:is_freshwater",
                     "#cobblemon:is_ocean"
+                ],
+                "isPokeSnack": true
+            }
+        },
+        {
+            "id": "magikarp-3",
+            "pokemon": "magikarp",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "surface",
+            "bucket": "uncommon",
+            "level": "1-20",
+            "weight": 18.4,
+            "condition": {
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
+                "biomes": [
+                    "#cobblemon:is_freshwater",
+                    "#cobblemon:is_ocean"
+                ],
+                "isPokeSnack": true
+            }
+        },
+        {
+            "id": "magikarp-4",
+            "pokemon": "magikarp",
+            "type": "pokemon",
+            "spawnablePositionType": "fishing",
+            "bucket": "common",
+            "level": "1-20",
+            "weight": 90.0,
+            "condition": {
+                "canSeeSky": true,
+                "biomes": [
+                    "#aether:is_aether",
+                    "#cobblemon:is_overworld"
                 ]
             }
         },
@@ -86,7 +89,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "1-20",
-            "weight": 9.0,
+            "weight": 90.0,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,
@@ -104,7 +107,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -129,7 +132,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 6.0,
+            "weight": 60.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -138,6 +141,11 @@
                     "#cobblemon:is_overworld"
                 ],
                 "minLureLevel": 1
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
+                ]
             }
         },
         {
@@ -147,7 +155,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -174,7 +182,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -210,7 +218,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -246,7 +254,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -282,7 +290,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -316,7 +324,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -354,7 +362,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -392,7 +400,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -430,7 +438,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -467,7 +475,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -504,7 +512,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -541,7 +549,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -578,7 +586,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -615,7 +623,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -652,7 +660,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -689,7 +697,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -726,7 +734,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -763,7 +771,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -800,7 +808,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -837,7 +845,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -874,7 +882,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -911,7 +919,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -948,7 +956,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -985,7 +993,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 3.0,
                 "condition": {
@@ -1013,7 +1021,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 3.0,
                 "condition": {
@@ -1041,7 +1049,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 10.0,
+            "weight": 100.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -1050,6 +1058,11 @@
                     "#cobblemon:is_overworld"
                 ],
                 "minLureLevel": 1
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
+                ]
             }
         },
         {
@@ -1059,7 +1072,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 10.0,
+            "weight": 100.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -1068,6 +1081,11 @@
                     "#cobblemon:is_overworld"
                 ],
                 "minLureLevel": 1
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
+                ]
             }
         },
         {
@@ -1077,7 +1095,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 3.0,
                 "condition": {
@@ -1107,7 +1125,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultiplier": {
                 "multiplier": 3.0,
                 "condition": {
@@ -1137,7 +1155,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1173,7 +1191,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1209,7 +1227,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 6.0,
+            "weight": 60.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -1218,6 +1236,11 @@
                     "#cobblemon:is_overworld"
                 ],
                 "minLureLevel": 1
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
+                ]
             }
         },
         {
@@ -1227,7 +1250,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 6.0,
+            "weight": 60.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -1236,6 +1259,11 @@
                     "#cobblemon:is_overworld"
                 ],
                 "minLureLevel": 1
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
+                ]
             }
         },
         {
@@ -1245,7 +1273,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1283,7 +1311,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1321,7 +1349,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1357,7 +1385,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1393,7 +1421,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,
@@ -1428,7 +1456,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "1-20",
-            "weight": 2.0,
+            "weight": 20.0,
             "weightMultipliers": [
                 {
                     "multiplier": 3.0,

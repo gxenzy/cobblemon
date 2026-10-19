@@ -31,6 +31,7 @@ import com.cobblemon.mod.common.client.sound.instances.CancellableSoundInstance
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.item.PokeBallItem
 import com.cobblemon.mod.common.pokemon.Pokemon
+import com.cobblemon.mod.common.pokemon.activestate.SentOutState
 import com.cobblemon.mod.common.util.DataKeys
 import com.cobblemon.mod.common.util.giveOrDropItemStack
 import com.cobblemon.mod.common.util.lang
@@ -41,6 +42,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import java.util.UUID
 import kotlin.math.ceil
+import kotlin.random.Random
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -128,7 +130,7 @@ class FossilMultiblockStructure (
                 val ballType = (stack.item as PokeBallItem).pokeBall
                 stack?.consume(1, player)
 
-                val pokemon = this.resultingFossil?.result?.create(player)
+                val pokemon = this.resultingFossil?.result?.create(player)?.also(::rollShiny)?.also(::rollAlpha)
 
                 if(pokemon != null) {
                     pokemon.caughtBall = ballType
@@ -237,6 +239,7 @@ class FossilMultiblockStructure (
                 entity.setPos(fixedPosition.center.subtract(0.0, 0.5, 0.0))
                 // TODO: Find a correct way to set the new entity's Yaw rotation. (Face away from the machine)
                 if (world.addFreshEntity(entity)) {
+                    pokemon.state = SentOutState(entity)
                     CobblemonEvents.FOSSIL_REVIVED.post(FossilRevivedEvent(pokemon, null))
                     return true
                 } else {
@@ -304,7 +307,7 @@ class FossilMultiblockStructure (
     override fun onTriggerEvent(state: BlockState?, world: ServerLevel?, pos: BlockPos?, random: RandomSource?) {
         // instantiate the pokemon as a new entity and spawn it at the location of the machine
         if(this.protectionTime <= 0) {
-            val wildPokemon: Pokemon = if (hasCreatedPokemon) resultingFossil?.result?.create() ?: return else return
+            val wildPokemon: Pokemon = if (hasCreatedPokemon) resultingFossil?.result?.create()?.also(::rollShiny)?.also(::rollAlpha) ?: return else return
             val direction = state?.getValue(HorizontalDirectionalBlock.FACING)?.opposite
             if(pos != null && direction != null && world != null) {
                 val success = this.spawn(world, pos, direction, wildPokemon)
@@ -329,7 +332,7 @@ class FossilMultiblockStructure (
         val tankTopEntity = world.getBlockEntity(tankBasePos.above()) as? MultiblockEntity
         val tankBaseBlockState =  tankBaseEntity?.blockPos?.let { world.getBlockState(it) }
         val direction = if (tankBaseBlockState?.block == CobblemonBlocks.RESTORATION_TANK) tankBaseBlockState.getValue(HorizontalDirectionalBlock.FACING).opposite else Direction.UP
-        val wildPokemon: Pokemon? = if (hasCreatedPokemon) resultingFossil?.result?.create() else null
+        val wildPokemon: Pokemon? = if (hasCreatedPokemon) resultingFossil?.result?.create()?.also(::rollShiny)?.also(::rollAlpha) else null
 
         monitorEntity?.multiblockStructure = null
         analyzerEntity?.multiblockStructure = null
@@ -375,6 +378,28 @@ class FossilMultiblockStructure (
     override fun setRemoved(world: Level) {
         if(world.isClientSide) {
             BlockEntitySoundTracker.stop(this.tankBasePos, runningSound.location)
+        }
+    }
+
+    fun rollAlpha(pokemon: Pokemon) {
+        if (pokemon.isAlpha) {
+            return
+        }
+        val chance = Cobblemon.config.fossilMachineAlphaChance
+        if (Random.nextInt(chance) == 0) {
+            pokemon.isAlpha = true
+            pokemon.initializeMovesetFromDefault()
+        }
+    }
+
+    fun rollShiny(pokemon: Pokemon) {
+        if (pokemon.shiny) {
+            return
+        }
+
+        val chance = Cobblemon.config.fossilMachineShinyChance
+        if (Random.nextInt(chance) == 0) {
+            pokemon.shiny = true
         }
     }
 

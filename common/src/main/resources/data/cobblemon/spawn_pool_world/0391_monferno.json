@@ -14,14 +14,15 @@
             "spawnablePositionType": "grounded",
             "bucket": "ultra-rare",
             "level": "14-41",
-            "weight": 3.6,
+            "weight": 21.6,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,
                 "biomes": [
                     "#cobblemon:is_mountain"
                 ],
-                "isRaining": false
+                "isRaining": false,
+                "isPokeSnack": true
             }
         },
         {
@@ -35,11 +36,12 @@
             "spawnablePositionType": "grounded",
             "bucket": "ultra-rare",
             "level": "14-41",
-            "weight": 3.6,
+            "weight": 21.6,
             "condition": {
                 "biomes": [
                     "#cobblemon:nether/is_forest"
-                ]
+                ],
+                "isPokeSnack": true
             }
         }
     ]

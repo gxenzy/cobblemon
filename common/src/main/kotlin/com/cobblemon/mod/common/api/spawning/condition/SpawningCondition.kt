@@ -12,6 +12,7 @@ import com.cobblemon.mod.common.api.conditional.RegistryLikeCondition
 import com.cobblemon.mod.common.api.spawning.MoonPhaseRange
 import com.cobblemon.mod.common.api.spawning.TimeRange
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
+import com.cobblemon.mod.common.block.entity.PokeSnackBlockEntity
 import com.cobblemon.mod.common.util.Merger
 import com.cobblemon.mod.common.util.dayTime
 import com.cobblemon.mod.common.util.math.orMax
@@ -60,6 +61,7 @@ abstract class SpawningCondition<T : SpawnablePosition> {
     var structures: MutableList<Either<Identifier, TagKey<Structure>>>? = null
     var isSlimeChunk: Boolean? = null
     var markers: MutableList<String>? = null
+    var isPokeSnack: Boolean? = null
 
     @Transient
     var appendages = mutableListOf<AppendageCondition>()
@@ -76,7 +78,9 @@ abstract class SpawningCondition<T : SpawnablePosition> {
     }
 
     protected open fun fits(spawnablePosition: T): Boolean {
-        if (spawnablePosition.position.x < minX.orMin() || spawnablePosition.position.x > maxX.orMax()) {
+        if (isPokeSnack != null && (spawnablePosition.spawner is PokeSnackBlockEntity.Spawner != isPokeSnack!!)) {
+            return false
+        } else if (spawnablePosition.position.x < minX.orMin() || spawnablePosition.position.x > maxX.orMax()) {
             return false
         } else if (spawnablePosition.position.y < minY.orMin() || spawnablePosition.position.y > maxY.orMax()) {
             return false

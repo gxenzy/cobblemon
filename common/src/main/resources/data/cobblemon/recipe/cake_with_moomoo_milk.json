@@ -1,7 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "category": "misc",
-    "key": {
+    "group": "cake",
+  "key": {
         "M": "cobblemon:moomoo_milk",
         "S": "minecraft:sugar",
         "W": "minecraft:wheat",

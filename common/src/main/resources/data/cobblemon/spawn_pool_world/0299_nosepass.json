@@ -13,7 +13,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "uncommon",
             "level": "13-38",
-            "weight": 5.52,
+            "weight": 55.2,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -23,7 +23,8 @@
             },
             "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_deep_dark"
+                    "#cobblemon:is_deep_dark",
+                    "minecraft:sulfur_caves"
                 ]
             }
         }

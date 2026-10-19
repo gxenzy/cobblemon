@@ -27,11 +27,13 @@ import com.cobblemon.mod.common.client.render.item.CobblemonModelPredicateRegist
 import com.cobblemon.mod.common.client.render.item.PokemonItemSpecialModelRenderer
 import com.cobblemon.mod.common.client.render.models.blockbench.repository.BerryModelRepository
 import com.cobblemon.mod.common.client.render.shader.CobblemonShaders
+import com.cobblemon.mod.common.data.CobblemonDataProvider
 import com.cobblemon.mod.common.item.PokedexItem
 import com.cobblemon.mod.common.particle.CobblemonParticles
 import com.cobblemon.mod.common.particle.SnowstormParticleType
-import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.isUsingPokedex
+import com.cobblemon.mod.neoforge.client.integration.appleskin.AppleSkinClientEventHandler
+import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
 import net.minecraft.client.Minecraft
 import net.minecraft.client.color.block.BlockTintSource
@@ -124,13 +126,39 @@ object CobblemonNeoForgeClient : CobblemonClientImplementation {
             CobblemonClient.initialize(this)
             CobblemonShaders.init()
             CobblemonModelPredicateRegistry.registerPredicates()
+            this.attemptClientModCompat()
         }
+
         NeoForgeClientPlatformEventHandler.register()
 
         val modContainer = ModList.get().getModContainerById(Cobblemon.MODID).get()
         modContainer.registerExtensionPoint(IConfigScreenFactory::class.java, object : IConfigScreenFactory {
             override fun createScreen(modContainer: ModContainer, arg: Screen): Screen = CobblemonConfigScreen(arg)
         })
+    }
+
+    private fun onRegisterReloadListener(event: RegisterClientReloadListenersEvent) {
+        event.registerReloadListener(CobblemonDataProvider.clientResourceReloader)
+        event.registerReloadListener { synchronizer, manager, prepareProfiler, applyProfiler, prepareExecutor, applyExecutor ->
+            val atlasFutures = mutableListOf<CompletableFuture<Void>>()
+            CobblemonAtlases.atlases.forEach {
+                atlasFutures.add(
+                    it.reload(
+                        synchronizer,
+                        manager,
+                        prepareProfiler,
+                        applyProfiler,
+                        prepareExecutor,
+                        applyExecutor
+                    )
+                )
+            }
+            val result = CompletableFuture.allOf(*atlasFutures.toTypedArray()).thenRun {
+                reloadCodedAssets(manager)
+            }
+            result
+        }
+
     }
 
     override fun registerLayer(modelLayer: ModelLayerLocation, supplier: Supplier<LayerDefinition>) {
@@ -298,5 +326,11 @@ object CobblemonNeoForgeClient : CobblemonClientImplementation {
 
     internal fun registerResourceReloader(identifier: Identifier, reloader: PreparableReloadListener, dependencies: Collection<Identifier>) {
         this.reloadableResources += QueuedReloadListener(identifier, reloader, dependencies)
+    }
+
+    private fun attemptClientModCompat() {
+        if (Cobblemon.implementation.isModInstalled("appleskin")) {
+            AppleSkinClientEventHandler.register()
+        }
     }
 }

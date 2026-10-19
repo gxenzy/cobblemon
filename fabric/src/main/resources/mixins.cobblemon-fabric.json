@@ -12,6 +12,8 @@
     "EntityMixin",
     "FabricBrewingStandMenuMixin",
     "FabricSoundEngineMixin",
-    "PlayerMixin"
+    "ServerPlayerMixin",
+    "PlayerMixin",
+    "ServerEntityMixin"
   ]
 }

@@ -29,9 +29,13 @@ class ElementalType(
     val displayName: MutableComponent,
     val hue: Int,
     val textureXMultiplier: Int,
-    val identifier: Identifier = Identifier.fromNamespaceAndPath(Cobblemon.MODID, "ui/types.png"),
-    val showdownId: String = ShowdownIdentifiable.REGEX.replace(name.lowercase(), "")
-) : ShowdownIdentifiable {
+    val primaryColor: Int,
+    val secondaryColor: Int,
+    val resourceLocation: Identifier = Identifier.fromNamespaceAndPath(Cobblemon.MODID, "ui/types.png"),
+    val showdownId: String = ShowdownIdentifiable.REGEX.replace(name.lowercase(), ""),
+    val typeGem: ResourceLocation = Identifier.fromNamespaceAndPath(Cobblemon.MODID, showdownId + "_gem"),
+    val order: Int = 1000
+    ) : ShowdownIdentifiable {
 
     override fun showdownId(): String {
         return showdownId
@@ -39,10 +43,12 @@ class ElementalType(
 
     companion object {
         @JvmStatic
-        val BY_STRING_CODEC: Codec<ElementalType> = CodecUtils.createByStringCodec(
-            ElementalTypes::get,
-            {it.showdownId}
-        ) { id -> "No ElementalType for ID $id" }
+        val BY_STRING_CODEC: Codec<ElementalType> by lazy {
+            CodecUtils.createByStringCodec(
+                ElementalTypes::get,
+                { it.showdownId }
+            ) { id -> "No ElementalType for ID $id" }
+        }
     }
 
 }

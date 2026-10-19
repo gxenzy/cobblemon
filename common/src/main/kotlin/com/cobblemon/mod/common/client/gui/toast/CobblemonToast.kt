@@ -26,16 +26,27 @@ import net.minecraft.util.FormattedCharSequence
 
 class CobblemonToast(
     val id: UUID,
-    var icon: ItemStack,
+    var icons: List<ItemStack>,
     var title: Component,
     var description: Component,
     var frameTexture: Identifier,
     var progress: Float,
-    var progressColor: Int
+    var progressColor: Int,
+    var durationMs: Long? = null
 ) : Toast {
 
-    constructor(packet: ToastPacket) : this(packet.uuid, packet.icon, packet.title, packet.description, packet.frameTexture, packet.progress, packet.progressColor)
+    constructor(packet: ToastPacket) : this(
+        packet.uuid,
+        packet.icons,
+        packet.title,
+        packet.description,
+        packet.frameTexture,
+        packet.progress,
+        packet.progressColor,
+        packet.durationMs
+    )
 
+    private var startTime: Long = -1
     private var lastProgress = 0F
     private var lastTime = 0L
     internal var nextVisibility: Toast.Visibility = Toast.Visibility.SHOW
@@ -65,6 +76,16 @@ class CobblemonToast(
     }
 
     override fun extractRenderState(context: GuiGraphicsExtractor, font: Font, fullyVisibleForMs: Long) {
+        if (this.startTime == -1L) this.startTime = startTime
+
+        val elapsedTime = startTime - this.startTime
+        val localDuration = this.durationMs
+        if (localDuration != null && elapsedTime >= localDuration) {
+            ToastTracker.remove(this)
+            return Toast.Visibility.HIDE
+        }
+
+        context.blitSprite(this.frameTexture, 0, 0, this.width(), this.height())
         val maxWidth = 125
         val textRenderer = font
         val titleColour = ARGB.opaque(this.title.style.color?.value ?: -1)
@@ -75,7 +96,24 @@ class CobblemonToast(
         context.text(textRenderer, this.title, 30, 7, titleColour, false)
         context.textWithWordWrap(textRenderer, this.description, 30, 18, maxWidth, descriptionColour)
         context.nextStratum()
-        context.fakeItem(this.icon, 8, 8)
+
+        val iconIndex = if (localDuration != null && localDuration > 0) {
+            val repeatsPerIcon = 2
+            val totalIcons = icons.size * repeatsPerIcon
+            val timePerIcon = (localDuration / totalIcons).coerceAtLeast(1L)
+
+            val iconIndex = (elapsedTime / timePerIcon)
+                .toInt()
+                .coerceIn(0, totalIcons - 1)
+
+            iconIndex / repeatsPerIcon
+        } else {
+            val switchIntervalMs = 500L
+            ((elapsedTime / switchIntervalMs) % icons.size).toInt()
+        }
+
+        val icon = this.icons[iconIndex]
+        context.fakeItem(icon, 8, 8)
         if (this.hasProgressBar()) {
             val progressY = this.height() - 4
             context.nextStratum()
@@ -85,7 +123,8 @@ class CobblemonToast(
     }
 
     internal fun updateFrom(packet: ToastPacket) {
-        this.icon = packet.icon
+        val newIcons = this.icons + packet.icons
+        this.icons = newIcons
         this.title = packet.title
         this.description = packet.description
         this.frameTexture = packet.frameTexture

@@ -1,5 +1,6 @@
 {
     "type": "minecraft:crafting_shaped",
+    "category": "misc",
     "pattern": [
         "GRG",
         "CAC"
@@ -8,7 +9,7 @@
         "G": "minecraft:glass",
         "R": "minecraft:redstone_lamp",
         "C": "#c:ingots/copper",
-        "A": "#c:gems/amethyst"
+        "A": "cobblemon:blank_tm"
     },
     "result": {
         "id": "cobblemon:upgrade"

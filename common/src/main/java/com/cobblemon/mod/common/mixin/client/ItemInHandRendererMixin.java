@@ -10,6 +10,7 @@ package com.cobblemon.mod.common.mixin.client;
 
 import com.cobblemon.mod.common.OrientationControllable;
 import com.cobblemon.mod.common.item.PokeBallItem;
+import com.cobblemon.mod.common.client.render.player.FirstPersonRecallBallRenderer;
 import com.cobblemon.mod.common.item.PokedexItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -42,6 +43,9 @@ public class ItemInHandRendererMixin {
     @Inject(method = "renderArmWithItem", at = @At(value = "HEAD"), cancellable = true)
     private void cobblemon$renderArmWithItem(AbstractClientPlayer abstractClientPlayer, float f, float g, InteractionHand interactionHand, float h, ItemStack itemStack, float i, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int j, CallbackInfo ci) {
         if (abstractClientPlayer.isUsingItem() && abstractClientPlayer.getUseItem().getItem() instanceof PokedexItem) {
+            ci.cancel();
+        }
+        else if (interactionHand == InteractionHand.MAIN_HAND && FirstPersonRecallBallRenderer.INSTANCE.render(poseStack, multiBufferSource, j, f)) {
             ci.cancel();
         }
         else if (abstractClientPlayer instanceof OrientationControllable controllable && controllable.getOrientationController().isActive()) {

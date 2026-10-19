@@ -14,7 +14,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-25",
-            "weight": 5.4,
+            "weight": 54.0,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,
@@ -42,7 +42,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-25",
-            "weight": 1.8,
+            "weight": 18.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -52,7 +52,8 @@
             },
             "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_deep_dark"
+                    "#cobblemon:is_deep_dark",
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
@@ -66,7 +67,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-25",
-            "weight": 5.4,
+            "weight": 54.0,
             "condition": {
                 "canSeeSky": false,
                 "biomes": [
@@ -76,7 +77,8 @@
             },
             "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_deep_dark"
+                    "#cobblemon:is_deep_dark",
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
@@ -91,7 +93,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-25",
-            "weight": 9.0,
+            "weight": 90.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7
@@ -107,7 +109,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-25",
-            "weight": 9.0,
+            "weight": 90.0,
             "condition": {
                 "canSeeSky": false,
                 "biomes": [
@@ -115,6 +117,11 @@
                 ],
                 "neededNearbyBlocks": [
                     "minecraft:cobweb"
+                ]
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
                 ]
             }
         }

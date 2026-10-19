@@ -13,7 +13,7 @@
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "40-48",
-            "weight": 0.6,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 10.0,
                 "condition": {
@@ -27,7 +27,8 @@
                 "biomes": [
                     "#cobblemon:is_ocean"
                 ],
-                "maxY": 48
+                "maxY": 48,
+                "isPokeSnack": true
             }
         },
         {
@@ -40,7 +41,7 @@
             "spawnablePositionType": "surface",
             "bucket": "common",
             "level": "40-48",
-            "weight": 0.6,
+            "weight": 2.0,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,
@@ -48,17 +49,72 @@
                     "#cobblemon:is_ocean"
                 ],
                 "timeRange": "night",
-                "moonPhase": "0"
+                "moonPhase": "0",
+                "isPokeSnack": true
             }
         },
         {
             "id": "jellicent-3",
             "pokemon": "jellicent",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "submerged",
+            "bucket": "common",
+            "level": "40-48",
+            "weight": 2.0,
+            "weightMultiplier": {
+                "multiplier": 10.0,
+                "condition": {
+                    "structures": [
+                        "#minecraft:shipwreck"
+                    ]
+                }
+            },
+            "condition": {
+                "canSeeSky": false,
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
+                "biomes": [
+                    "#cobblemon:is_ocean"
+                ],
+                "maxY": 48,
+                "isPokeSnack": true
+            }
+        },
+        {
+            "id": "jellicent-4",
+            "pokemon": "jellicent",
+            "presets": [
+                "water"
+            ],
+            "type": "pokemon",
+            "spawnablePositionType": "submerged",
+            "bucket": "common",
+            "level": "40-48",
+            "weight": 60.0,
+            "condition": {
+                "canSeeSky": false,
+                "biomes": [
+                    "#cobblemon:is_overworld"
+                ],
+                "structures": [
+                    "cobblemon:shipwreck_coves/submerged_shipwreck_cove"
+                ],
+                "minY": -60,
+                "maxY": 13,
+                "isPokeSnack": true
+            }
+        },
+        {
+            "id": "jellicent-5",
+            "pokemon": "jellicent",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "40-48",
-            "weight": 1.0,
+            "weight": 10.0,
             "weightMultipliers": [
                 {
                     "multiplier": 10.0,
@@ -84,42 +140,13 @@
             }
         },
         {
-            "id": "jellicent-4",
-            "pokemon": "jellicent",
-            "presets": [
-                "water"
-            ],
-            "type": "pokemon",
-            "spawnablePositionType": "submerged",
-            "bucket": "common",
-            "level": "40-48",
-            "weight": 0.6,
-            "weightMultiplier": {
-                "multiplier": 10.0,
-                "condition": {
-                    "structures": [
-                        "#minecraft:shipwreck"
-                    ]
-                }
-            },
-            "condition": {
-                "canSeeSky": false,
-                "minSkyLight": 8,
-                "maxSkyLight": 15,
-                "biomes": [
-                    "#cobblemon:is_ocean"
-                ],
-                "maxY": 48
-            }
-        },
-        {
-            "id": "jellicent-5",
+            "id": "jellicent-6",
             "pokemon": "jellicent",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "40-48",
-            "weight": 1.0,
+            "weight": 10.0,
             "weightMultipliers": [
                 {
                     "multiplier": 10.0,
@@ -147,36 +174,13 @@
             }
         },
         {
-            "id": "jellicent-6",
-            "pokemon": "jellicent",
-            "presets": [
-                "water"
-            ],
-            "type": "pokemon",
-            "spawnablePositionType": "submerged",
-            "bucket": "common",
-            "level": "40-48",
-            "weight": 6.0,
-            "condition": {
-                "canSeeSky": false,
-                "biomes": [
-                    "#cobblemon:is_overworld"
-                ],
-                "structures": [
-                    "cobblemon:shipwreck_coves/submerged_shipwreck_cove"
-                ],
-                "minY": -60,
-                "maxY": 13
-            }
-        },
-        {
             "id": "jellicent-7",
             "pokemon": "jellicent",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "40-48",
-            "weight": 6.0,
+            "weight": 60.0,
             "condition": {
                 "canSeeSky": false,
                 "biomes": [

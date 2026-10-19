@@ -53,7 +53,7 @@ open class PartyStore(override val uuid: UUID) : PokemonStore<PartyPosition>() {
 
     val struct = asMoLangValue()
 
-    override fun iterator() = slots.filterNotNull().iterator()
+    override fun iterator() = slots.asSequence().filterNotNull().iterator()
     /** Gets the Pokémon at the specified slot. It will return null if the slot is empty or the given slot is out of bounds. */
     fun get(slot: Int) = slot.takeIf { it < slots.size && it >= 0 }?.let { slots[it] }
     override operator fun get(position: PartyPosition) = get(position.slot)
@@ -89,7 +89,7 @@ open class PartyStore(override val uuid: UUID) : PokemonStore<PartyPosition>() {
     fun size() = slots.size
 
     /** The amount of party slots that are occupied by a [Pokemon]. */
-    fun occupied() = slots.filterNotNull().count()
+    fun occupied() = slots.count { it != null }
 
     fun isEmpty() = occupied() == 0
 
@@ -142,6 +142,7 @@ open class PartyStore(override val uuid: UUID) : PokemonStore<PartyPosition>() {
             val pokemon = get(slot) ?: continue
             pokemon.storeCoordinates.set(StoreCoordinates(this, PartyPosition(slot)))
         }
+        rebuildPokemonByUuid()
     }
 
     override fun onPokemonChanged(pokemon: Pokemon) {
@@ -237,7 +238,7 @@ open class PartyStore(override val uuid: UUID) : PokemonStore<PartyPosition>() {
             }
         }
 
-        return result
+        return result.sortedBy { it.health <= 0 }
     }
     fun clearParty() {
         forEach {

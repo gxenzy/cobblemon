@@ -14,7 +14,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 4.0,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,
@@ -32,7 +32,7 @@
             }
         },
         {
-            "id": "decidueye-hisuian-3",
+            "id": "decidueye-hisuian-2",
             "pokemon": "decidueye hisuian",
             "presets": [
                 "natural",
@@ -42,7 +42,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 4.0,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,

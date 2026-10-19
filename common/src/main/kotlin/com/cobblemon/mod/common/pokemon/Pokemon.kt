@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.pokemon
 
 import com.cobblemon.mod.common.Cobblemon
+import com.cobblemon.mod.common.CobblemonMovesetBuilders
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacket
 import com.cobblemon.mod.common.CobblemonNetwork.sendPacketToPlayers
 import com.cobblemon.mod.common.CobblemonSounds
@@ -34,6 +35,7 @@ import com.cobblemon.mod.common.api.moves.Move
 import com.cobblemon.mod.common.api.moves.MoveSet
 import com.cobblemon.mod.common.api.moves.MoveTemplate
 import com.cobblemon.mod.common.api.moves.Moves
+import com.cobblemon.mod.common.api.moves.MovesetBuilder
 import com.cobblemon.mod.common.api.pokeball.PokeBalls
 import com.cobblemon.mod.common.api.pokemon.Natures
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
@@ -103,13 +105,17 @@ import com.cobblemon.mod.common.pokemon.properties.UncatchableProperty
 import com.cobblemon.mod.common.pokemon.requirements.BlocksTraveledRequirement
 import com.cobblemon.mod.common.pokemon.status.PersistentStatus
 import com.cobblemon.mod.common.pokemon.status.PersistentStatusContainer
+import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
 import com.cobblemon.mod.common.util.cobblemonResource
 import com.cobblemon.mod.common.util.codec.internal.ClientPokemonP1
 import com.cobblemon.mod.common.util.codec.internal.ClientPokemonP2
 import com.cobblemon.mod.common.util.codec.internal.ClientPokemonP3
+import com.cobblemon.mod.common.util.codec.internal.ClientPokemonP4
 import com.cobblemon.mod.common.util.codec.internal.PokemonP1
 import com.cobblemon.mod.common.util.codec.internal.PokemonP2
 import com.cobblemon.mod.common.util.codec.internal.PokemonP3
+import com.cobblemon.mod.common.util.codec.internal.PokemonP4
+import com.cobblemon.mod.common.util.nextBetween
 import com.cobblemon.mod.common.util.playSoundServer
 import com.cobblemon.mod.common.util.server
 import com.cobblemon.mod.common.util.setPositionSafely
@@ -128,6 +134,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import net.minecraft.core.BlockPos
@@ -207,8 +214,9 @@ open class Pokemon : ShowdownIdentifiable {
             // Species updates already update HP but just a form change may require it
             // Moved to before the field was set else it won't actually do the hp calc proper <3
             val quotient = clamp(currentHealth / maxHealth.toFloat(), 0F, 1F)
+            val oldForm = field
             field = value
-            this.updateMovesOnFormChange(value)
+            this.updateMovesOnFormChange(oldForm)
             // Evo proxy is already cleared on species update but the form may be changed by itself, this is fine and no unnecessary packets will be sent out
             this.evolutionProxy.current().clear()
             checkGender()
@@ -243,12 +251,36 @@ open class Pokemon : ShowdownIdentifiable {
     var characteristic: Characteristic = Characteristic.calculate(ivs, uuid)
         private set
 
+    var isAlpha: Boolean = false
+        set(value) {
+            if (field != value) {
+                field = value
+                val alphaMark = Marks.getByIdentifier(cobblemonResource("mark_alpha"))!!
+
+                if (value) { activeMark = alphaMark }
+                else { scaleModifier = 1F }
+
+                exchangeMark(alphaMark, value)
+                updateAspects()
+                onChange(AlphaUpdatePacket({ this }, value))
+            }
+        }
+
     fun setIV(stat : Stat, value : Int) {
         val quotient = clamp(currentHealth / maxHealth.toFloat(), 0F, 1F)
         ivs[stat] = value
         if (stat == Stats.HP) {
             updateHP(quotient)
         }
+    }
+
+    fun initializeScale() {
+        if (isAlpha) {
+            scaleModifier = 1F
+            return
+        }
+        val config = Cobblemon.config
+        setIntrinsicScale(Random.nextBetween(config.pokemonIntrinsicSizeMin, config.pokemonIntrinsicSizeMax))
     }
 
     fun hyperTrainIV(stat: Stat, value: Int) {
@@ -299,7 +331,6 @@ open class Pokemon : ShowdownIdentifiable {
             if (experienceGroup.getLevel(experience) != boundedValue || value == Cobblemon.config.maxPokemonLevel) {
                 experience = experienceGroup.getExperience(boundedValue)
             }
-//            _level.emit(value)
 
             currentHealth = ceil(hpRatio * maxHealth).coerceIn(0..maxHealth)
         }
@@ -364,14 +395,18 @@ open class Pokemon : ShowdownIdentifiable {
      */
     var friendship = this.form.baseFriendship
         private set(value) {
+            val earned = this.friendshipEarned
+            this.friendshipEarned = false
             if (!this.isPossibleFriendship(value)) {
                 return
             }
-            FRIENDSHIP_UPDATED.post(FriendshipUpdatedEvent(this, value)) {
+            FRIENDSHIP_UPDATED.post(FriendshipUpdatedEvent(this, value, earned)) {
                 field = it.newFriendship
                 onChange(FriendshipUpdatePacket({ this }, it.newFriendship))
             }
         }
+
+    private var friendshipEarned = false
 
     var currentFullness = 0
         set(value) {
@@ -438,7 +473,7 @@ open class Pokemon : ShowdownIdentifiable {
      */
     var gmaxFactor = false
         set(value) {
-            val evolutions = species.standardForm.evolutions.mapNotNull { it.result.species }.mapNotNull { PokemonSpecies.getByName(it) }
+            val evolutions = species.standardForm.evolutions.mapNotNull { it.result.species }.mapNotNull { PokemonSpecies.getByIdentifier(it.asIdentifierDefaultingNamespace()) }
             if (species.canGmax() || evolutions.find { it.canGmax() } != null) {
                 field = value
                 onChange(GmaxFactorUpdatePacket({ this }, value))
@@ -518,11 +553,21 @@ open class Pokemon : ShowdownIdentifiable {
         }
 
     /**
+     * Cache friendship on trade for OT
+     */
+    var originalTrainerFriendship: Int? = null
+        internal set
+
+    /**
      * All moves that the Pokémon has, at some point, known. This is to allow players to
      * swap in moves they've used before at any time, while holding onto the remaining PP
      * that they had last.
      */
-    var benchedMoves = BenchedMoves().also { it.changeFunction = { onChange(BenchedMovesUpdatePacket({ this }, it)) }}
+    var benchedMoves = BenchedMoves().also { it.changeFunction = {
+            onChange(BenchedMovesUpdatePacket({ this }, it))
+            this.getOwnerUUID()?.let { it1 -> Cobblemon.playerDataManager.getTMData(it1)?.syncTMsFromPokemon(this) } // we want to make sure to update the players TM Data store when any moves are learned
+        }
+    }
         internal set(value) {
             val oldChangeFunction = field.changeFunction
             field.changeFunction = {}
@@ -555,7 +600,49 @@ open class Pokemon : ShowdownIdentifiable {
     val speed: Int
         get() = getStat(Stats.SPEED)
 
-    var scaleModifier = 1F
+    var scaleModifier: Float = 1F
+        set(value) {
+            if (field != value) {
+                field = value.coerceAtLeast(0.05F)
+                onChange(ScaleModifierUpdatePacket({ this }, value))
+            }
+        }
+
+    val effectiveScale: Float
+        get() {
+            val babyPokemonMultiplier = if (level <= 1) {
+                Cobblemon.config.babyPokemonSizeMultiplier
+            } else if (Cobblemon.config.babyPokemonLevelDuration <= 1 || level >= Cobblemon.config.babyPokemonLevelDuration) {
+                1F
+            } else {
+                val minMultiplier = Cobblemon.config.babyPokemonSizeMultiplier
+                val maxLevel = Cobblemon.config.babyPokemonLevelDuration
+                val t = (level - 1).toFloat() / (maxLevel - 1).toFloat()
+                minMultiplier + (1F - minMultiplier) * t
+            }
+            return if (this.isAlpha) getAlphaScaleMultiplier() else babyPokemonMultiplier * scaleModifier // todo for cleanliness we can also move the alpha check at the start to get that scale early
+        }
+
+    private fun getAlphaScaleMultiplier(): Float {
+        val hitbox = form.hitbox
+        val baseHitboxSize = max(hitbox.width, hitbox.height) * form.baseScale
+
+        // returns the multiplier for the alpha scale based on the hitbox size.
+        val largestSize = 5.0
+        val smallestSize = 0.25
+
+        val coercedHitboxSize = clamp(baseHitboxSize.toDouble(), smallestSize, largestSize)
+
+        val newPokemonAlphaScaleMultiplier = 1.1 + (0.8 * ( (1.0/2.0).pow(coercedHitboxSize) ))
+
+        return newPokemonAlphaScaleMultiplier.toFloat()
+    }
+
+    private fun setIntrinsicScale(value: Float) {
+        val deltaPercent = (value - 1F) * 100F
+        val roundedPercent = (deltaPercent * 10F).roundToInt() / 10F
+        scaleModifier = 1F + (roundedPercent / 100F)
+    }
 
     var caughtBall: PokeBall = PokeBalls.POKE_BALL
         set(value) {
@@ -575,6 +662,7 @@ open class Pokemon : ShowdownIdentifiable {
     var activeMark: Mark? = null
         set(value) {
             field = value
+            updateAspects()
             onChange(ActiveMarkUpdatePacket({ this }, value))
         }
 
@@ -595,6 +683,9 @@ open class Pokemon : ShowdownIdentifiable {
             field = value
             onChange(MarkingsUpdatePacket({ this }, value))
         }
+
+    // Last flower fed to a Mooshtank
+    var lastFlowerFed: ItemStack = ItemStack.EMPTY
 
     fun asRenderablePokemon() = RenderablePokemon(species, aspects, if (heldItemVisible) heldItem else ItemStack.EMPTY)
 
@@ -954,6 +1045,10 @@ open class Pokemon : ShowdownIdentifiable {
 
     fun isFireImmune(): Boolean {
         return ElementalTypes.FIRE in types || form.behaviour.moving.swim.canSwimInLava || form.behaviour.fireImmune
+    }
+
+    fun isFreezeImmune(): Boolean {
+        return ElementalTypes.ICE in types || form.behaviour.freezeImmune
     }
 
     fun dampensVibrations(): Boolean = form.behaviour.dampensVibrations
@@ -1518,6 +1613,7 @@ open class Pokemon : ShowdownIdentifiable {
         val sanitizedAmount = if (coerceSafe) amount.absoluteValue.coerceAtMost(Cobblemon.config.maxPokemonFriendship - this.friendship) else amount.absoluteValue
         val newValue = this.friendship + sanitizedAmount
         if (this.isPossibleFriendship(newValue)) {
+            this.friendshipEarned = true
             this.friendship = newValue
         }
         return this.friendship == newValue
@@ -1570,10 +1666,8 @@ open class Pokemon : ShowdownIdentifiable {
         originalTrainer = fakeTrainerName
     }
 
-    fun refreshOriginalTrainer()
-    {
-        when (originalTrainerType)
-        {
+    fun refreshOriginalTrainer() {
+        when (originalTrainerType) {
             OriginalTrainerType.PLAYER -> {
                 UUID.fromString(originalTrainer)?.let { uuid ->
                     server()?.services()?.profileResolver?.fetchById(uuid)?.getOrNull()?.name?.let {
@@ -1590,8 +1684,7 @@ open class Pokemon : ShowdownIdentifiable {
         }
     }
 
-    fun removeOriginalTrainer()
-    {
+    fun removeOriginalTrainer() {
         originalTrainer = null
         originalTrainerType = OriginalTrainerType.NONE
         originalTrainerName = null
@@ -1633,13 +1726,10 @@ open class Pokemon : ShowdownIdentifiable {
         species = species
         checkGender()
         if (moveSet.getMoves().isEmpty()) {
-            initializeMoveset()
+            initializeMovesetFromDefault()
         }
         return this
     }
-
-    // Last flower fed to a Mooshtank
-    var lastFlowerFed: ItemStack = ItemStack.EMPTY
 
     fun checkGender() {
         var reassess = false
@@ -1654,12 +1744,22 @@ open class Pokemon : ShowdownIdentifiable {
         }
 
         if (reassess) {
-            gender = if (form.maleRatio !in 0F..1F) {
-                Gender.GENDERLESS
-            } else if (form.maleRatio == 1F || Random.nextFloat() <= form.maleRatio) {
-                Gender.MALE
+            val allForms = form.species.forms
+            val isGenderedForms = allForms.any { it.maleRatio == 1F } && allForms.any { it.maleRatio == 0F }
+            gender = if (isGenderedForms) {
+                if (Random.nextBoolean()) {
+                    Gender.FEMALE
+                } else {
+                    Gender.MALE
+                }
             } else {
-                Gender.FEMALE
+                if (form.maleRatio !in 0F..1F) {
+                    Gender.GENDERLESS
+                } else if (form.maleRatio == 1F || Random.nextFloat() <= form.maleRatio) {
+                    Gender.MALE
+                } else {
+                    Gender.FEMALE
+                }
             }
         }
     }
@@ -1816,6 +1916,29 @@ open class Pokemon : ShowdownIdentifiable {
         moveSet.update()
     }
 
+    fun initializeMovesetFromDefault() {
+        if (isClient) {
+            moveSet.copyFrom(MoveSet().also { it.add(Moves.getExceptional().create()) })
+            return
+        }
+        val movesetBuilderId = if (isAlpha) {
+            cobblemonResource("alpha")
+        } else {
+            form.defaultWildMovesetBuilder
+        }
+        initializeMovesetFrom(movesetBuilder = CobblemonMovesetBuilders.getOrThrow(movesetBuilderId))
+    }
+
+    fun initializeMovesetFrom(movesetBuilder: MovesetBuilder) {
+        val newMoveset = movesetBuilder.build(form = form, level = level)
+        moveSet.copyFrom(newMoveset)
+    }
+
+    @Deprecated(
+        message = "Will be removed with a title update, maybe as early as 1.9",
+        replaceWith = ReplaceWith("initializeMovesetFromDefault() or initializeMovesetFrom(movesetBuilder)"),
+        level = DeprecationLevel.WARNING
+    )
     fun initializeMoveset(preferLatest: Boolean = true) {
         val possibleMoves = form.moves.getLevelUpMovesUpTo(level).toMutableList()
         moveSet.doWithoutEmitting {
@@ -1895,17 +2018,26 @@ open class Pokemon : ShowdownIdentifiable {
         return 0F
     }
 
-    fun canAddRideBoost(stat: RidingStat): Boolean {
+    fun canApplyRideBoost(stat: RidingStat, decreases: Boolean = false): Boolean {
+        return if (!decreases) canIncreaseRideBoost(stat) else canDecreaseRideBoost(stat)
+    }
+
+    private fun canIncreaseRideBoost(stat: RidingStat): Boolean {
         val current = rideBoosts[stat] ?: 0F
         return current < getMaxRideBoost(stat)
     }
 
+    private fun canDecreaseRideBoost(stat: RidingStat): Boolean {
+        val current = rideBoosts[stat] ?: 0F
+        return current > 0
+    }
+
     fun addRideBoost(stat: RidingStat, boostAmount: Float): Boolean {
-        if (!canAddRideBoost(stat)) {
+        if (!canApplyRideBoost(stat, boostAmount < 0F)) {
             return false
         }
         val max = getMaxRideBoost(stat)
-        rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
+        rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceIn(0F, max)
         onChange(RideBoostsUpdatePacket({ this }, getRideBoosts()))
         return true
     }
@@ -1916,12 +2048,12 @@ open class Pokemon : ShowdownIdentifiable {
         for (boost in boosts) {
             val (stat, boostAmount) = boost
 
-            if (!canAddRideBoost(stat)) {
+            if (!canApplyRideBoost(stat, boostAmount < 0F)) {
                 continue
             }
 
             val max = getMaxRideBoost(stat)
-            rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceAtMost(max)
+            rideBoosts[stat] = (getRideBoost(stat) + boostAmount).coerceIn(0F, max)
 
             changed = true
         }
@@ -2013,6 +2145,10 @@ open class Pokemon : ShowdownIdentifiable {
      */
     fun createPokemonProperties(extractors: MutableList<PokemonPropertyExtractor>): PokemonProperties {
         return createPokemonProperties(*extractors.toTypedArray())
+    }
+
+    fun getSizeCategory(): PokemonSizeCategory {
+        return PokemonSizeCategory.fromScale(scaleModifier)
     }
 
     fun addExperience(source: ExperienceSource, xp: Int): AddExperienceResult {
@@ -2132,6 +2268,19 @@ open class Pokemon : ShowdownIdentifiable {
         onChange(packet)
     }
 
+    fun cacheFriendship(playerID: UUID) {
+        if ((OriginalTrainerType.PLAYER == originalTrainerType) && (UUID.fromString(originalTrainer) == playerID)) originalTrainerFriendship = friendship
+    }
+
+    fun restoreFriendship(playerID: UUID) : Boolean {
+        if ((OriginalTrainerType.PLAYER == originalTrainerType) && (UUID.fromString(originalTrainer) == playerID)) {
+            originalTrainerFriendship?.let { friendship = it }
+            originalTrainerFriendship = null
+            return true
+        }
+        return false
+    }
+
     /**
      * Function to run when a save-able change has been made to the Pokémon. This takes a packet to send to watching
      * players just for convenience, but the main thing is that this will notify the store that this Pokémon is in
@@ -2160,15 +2309,16 @@ open class Pokemon : ShowdownIdentifiable {
      *
      * E.g, Removing Overheat from Rotom when it is no longer Rotom-Heat and the target form is not compatible with Overheat.
      */
-    private fun updateMovesOnFormChange(newForm: FormData) {
+    private fun updateMovesOnFormChange(oldForm: FormData) {
         if (this.isClient) return
 
-        val oldFormChangeMoves = this.form.moves.formChangeMoves.toSet()
+        val newForm = this.form
+        val oldFormChangeMoves = oldForm.moves.formChangeMoves.toSet()
 
         // Only remove moves that were provided by the old form's form-change moves AND are not learnable by the new form
         for (i in 0 until MoveSet.MOVE_COUNT) {
             val move = this.moveSet[i]
-            if (move != null && move.template in oldFormChangeMoves) {
+            if (move != null && move.template in oldFormChangeMoves && !LearnsetQuery.ANY.canLearn(move.template, newForm.moves)) {
                 this.moveSet.setMove(i, null)
             }
         }
@@ -2181,16 +2331,8 @@ open class Pokemon : ShowdownIdentifiable {
             }
         }
 
-        // Add new form's form-change moves
-        newForm.moves.formChangeMoves.forEach { move ->
-            if (this.moveSet.filterNotNull().none { it.template == move }) {
-                if (this.moveSet.hasSpace()) {
-                    this.moveSet.add(move.create())
-                } else {
-                    this.benchedMoves.add(BenchedMove(move, 0))
-                }
-            }
-        }
+        // Add the new form's form-change moves (skipping any the Pokémon isn't high enough level for yet).
+        grantEligibleFormChangeMoves()
 
         // If moveset is empty try to find one valid move to fill it
         if (this.moveSet.filterNotNull().isEmpty()) {
@@ -2198,6 +2340,30 @@ open class Pokemon : ShowdownIdentifiable {
             // This shouldn't ever be null, but you never know with data driven
             if (benchedMove != null) {
                 this.moveSet.setMove(0, Move(benchedMove.moveTemplate, benchedMove.ppRaisedStages))
+            }
+        }
+    }
+
+    /**
+     * Grants any of the current form's `form_change` moves that this Pokémon doesn't already know and is high
+     * enough level for (form-change moves that are also level-up moves, e.g. Glaciate on Kyurem, shouldn't be
+     * granted until that level is reached).
+     */
+    private fun grantEligibleFormChangeMoves() {
+        if (this.isClient) return
+
+        this.form.moves.formChangeMoves.forEach { move ->
+            if (this.moveSet.filterNotNull().none { it.template == move } && this.benchedMoves.none { it.moveTemplate == move }) {
+                val requiredLevel = this.form.moves.levelUpMoves.entries.firstOrNull { move in it.value }?.key
+                if (requiredLevel != null && this.level < requiredLevel) {
+                    return@forEach
+                }
+
+                if (this.moveSet.hasSpace()) {
+                    this.moveSet.add(move.create())
+                } else {
+                    this.benchedMoves.add(BenchedMove(move, 0))
+                }
             }
         }
     }
@@ -2225,13 +2391,15 @@ open class Pokemon : ShowdownIdentifiable {
             instance.group(
                 PokemonP1.CODEC.forGetter(PokemonP1::from),
                 PokemonP2.CODEC.forGetter(PokemonP2::from),
-                PokemonP3.CODEC.forGetter(PokemonP3::from)
-            ).apply(instance) { p1, p2, p3->
+                PokemonP3.CODEC.forGetter(PokemonP3::from),
+                PokemonP4.CODEC.forGetter(PokemonP4::from)
+            ).apply(instance) { p1, p2, p3, p4 ->
                 val pokemon = Pokemon()
                 pokemon.isClient = false
                 p1.into(pokemon)
                 p2.into(pokemon)
                 p3.into(pokemon)
+                p4.into(pokemon)
                 pokemon.initialize()
             }
         }
@@ -2250,13 +2418,15 @@ open class Pokemon : ShowdownIdentifiable {
             instance.group(
                 ClientPokemonP1.CODEC.forGetter(ClientPokemonP1::from),
                 ClientPokemonP2.CODEC.forGetter(ClientPokemonP2::from),
-                ClientPokemonP3.CODEC.forGetter(ClientPokemonP3::from)
-            ).apply(instance) { p1, p2, p3->
+                ClientPokemonP3.CODEC.forGetter(ClientPokemonP3::from),
+                ClientPokemonP4.CODEC.forGetter(ClientPokemonP4::from)
+            ).apply(instance) { p1, p2, p3, p4 ->
                 val pokemon = Pokemon()
                 pokemon.isClient = true
                 p1.into(pokemon)
                 p2.into(pokemon)
                 p3.into(pokemon)
+                p4.into(pokemon)
                 pokemon.initialize()
             }
         }

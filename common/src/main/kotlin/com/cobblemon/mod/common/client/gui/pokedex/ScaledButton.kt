@@ -31,6 +31,18 @@ class ScaledButton(
     val clickAction: Button.OnPress
 ): Button(buttonX.toInt(), buttonY.toInt(), buttonWidth.toInt(), buttonHeight.toInt(), "".text(), clickAction, DEFAULT_NARRATION), CobblemonRenderable {
 
+    var buttonX: Float = buttonX
+        set(value) {
+            field = value
+            this.x = value.toInt()
+        }
+
+    var buttonY: Float = buttonY
+        set(value) {
+            field = value
+            this.y = value.toInt()
+        }
+
     var isWidgetActive = false
 
     override fun mouseDragged(mouseButtonEvent: MouseButtonEvent, deltaX: Double, deltaY: Double) = false

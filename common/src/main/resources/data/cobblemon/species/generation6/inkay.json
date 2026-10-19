@@ -64,15 +64,19 @@
       }
     },
     "herd": {
-      "maxSize": "9",
+      "maxSize": 9,
       "toleratedLeaders": [
         {
           "pokemon": "inkay",
           "tier": 1
         },
         {
-          "pokemon": "malamar",
+          "pokemon": "malamar mega=false",
           "tier": 2
+        },
+        {
+          "pokemon": "malamar mega",
+          "tier": 3
         }
       ]
     },
@@ -254,7 +258,9 @@
         },
         {
           "variant": "properties",
-          "target": "nickname=Dinnerbone"
+          "target": "nickname=Dinnerbone",
+          "pokedexIcon": "minecraft:name_tag",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nickname.malamar"
         }
       ]
     },
@@ -271,9 +277,15 @@
         },
         {
           "variant": "properties",
-          "target": "nickname=Grumm"
+          "target": "nickname=Grumm",
+          "pokedexIcon": "minecraft:name_tag",
+          "pokedexTooltip": "cobblemon.ui.pokedex.requirement.nickname.malamar"
         }
       ]
     }
-  ]
+  ],
+  "lightingData": {
+    "lightLevel": 6,
+    "liquidGlowMode": "BOTH"
+  }
 }

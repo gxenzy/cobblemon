@@ -53,6 +53,7 @@ class MoveSet : Iterable<Move> {
      */
     fun getMoves() = moves.filterNotNull()
     fun getMovesWithNulls() = moves.toList()
+    fun getMoveTemplates() = getMoves().map { move -> move.template }
     fun hasSpace() = moves.any { it == null }
 
     /**

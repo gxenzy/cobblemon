@@ -42,10 +42,10 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 0.9,
+  "baseScale": 0.6,
   "hitbox": {
-    "width": 1,
-    "height": 2,
+    "width": 1.5,
+    "height": 3,
     "fixed": false
   },
   "behaviour": {
@@ -65,7 +65,13 @@
       }
     },
     "herd": {
-      "maxSize": "5"
+      "maxSize": 5,
+      "toleratedLeaders": [
+        {
+          "pokemon": "greninja alpha",
+          "tier": 1
+        }
+      ]
     },
     "combat": {
       "willDefendSelf": true,
@@ -290,9 +296,18 @@
       "battleOnly": true,
       "behaviour": {
         "herd": {
-          "maxSize": "6"
+          "maxSize": 6,
+          "toleratedLeaders": [
+            {
+              "pokemon": "greninja alpha",
+              "tier": 1
+            }
+          ]
         },
         "moving": {
+          "walk": {
+            "walkSpeed": 0.3
+          },
           "swim": {
             "canBreatheUnderwater": true
           }

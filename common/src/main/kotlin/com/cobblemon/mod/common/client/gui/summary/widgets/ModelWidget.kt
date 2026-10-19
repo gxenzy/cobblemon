@@ -30,7 +30,7 @@ class ModelWidget(
     pX: Int, pY: Int,
     pWidth: Int, pHeight: Int,
     pokemon: RenderablePokemon,
-    val baseScale: Float = 2.7F,
+    var baseScale: Float = 2.7F,
     var rotationY: Float = 35F,
     var offsetY: Double = 0.0,
     val playCryOnClick: Boolean = false,
@@ -39,7 +39,6 @@ class ModelWidget(
 ): SoundlessWidget(pX, pY, pWidth, pHeight, Component.literal("Summary - ModelWidget")) {
 
     companion object {
-        var render = true
         const val MAX_SECONDS_LOOKING = 6L
         private const val SLOT_COMPARE_BOUNDS_X_PADDING = 4
         private const val SLOT_COMPARE_BOUNDS_TOP_PADDING = 8
@@ -78,8 +77,10 @@ class ModelWidget(
     var currentYawAndPitch: Pair<Float, Float> = Pair(0f, 0f)
     val rotationVector = Vector3f(13F, rotationY, 0F)
 
+    var shouldRender = true
+
     override fun extractWidgetRenderState(context: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, partialTicks: Float) {
-        if (!render) {
+        if (!shouldRender) {
             return
         }
         renderPKM(context, partialTicks, pMouseX, pMouseY)
@@ -138,7 +139,8 @@ class ModelWidget(
             scale = geometry.scale,
             headYaw = currentYawAndPitch.first,
             headPitch = currentYawAndPitch.second,
-            blockLight = blockLight
+            blockLight = blockLight,
+            profileTransformType = ProfileTransformType.SUMMARY,
         )
 
         context.disableScissor()

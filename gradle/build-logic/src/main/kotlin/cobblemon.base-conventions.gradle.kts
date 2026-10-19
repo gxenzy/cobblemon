@@ -35,10 +35,13 @@ repositories {
     mavenCentral()
     //JEI
     maven("https://maven.blamejared.com/")
+    // AppleSkin
+    maven("https://maven.ryanliptak.com/")
 }
 
 license {
     header(rootProject.file("HEADER"))
+    include("**/*.kt", "**/*.java")
 }
 
 loom {
@@ -62,5 +65,17 @@ tasks {
 
     withType<Jar> {
         from(rootProject.file("LICENSE"))
+    }
+
+    // Dev/intermediate jars only feed remapJar, which writes the compressed release jar.
+    // Deflating ~250MB of already-compressed assets at every stage is wasted time.
+    named<Jar>("jar") {
+        entryCompression = ZipEntryCompression.STORED
+    }
+
+    // Assets/data are ~250MB and already ship in the main jar; copying and remapping them
+    // into sources jars cost minutes per build.
+    withType<Jar>().named { it == "sourcesJar" }.configureEach {
+        exclude("assets/**", "data/**")
     }
 }

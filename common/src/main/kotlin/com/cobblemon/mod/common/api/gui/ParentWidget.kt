@@ -57,6 +57,8 @@ abstract class ParentWidget(
     }
 
     override fun mouseClicked(mouseButtonEvent: MouseButtonEvent, doubleClick: Boolean): Boolean {
+        if (!active) return false
+
         return children.any {
             it.mouseClicked(mouseButtonEvent, false)
         } || super.mouseClicked(mouseButtonEvent, false)

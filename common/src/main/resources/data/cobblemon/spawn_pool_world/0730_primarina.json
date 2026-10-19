@@ -13,13 +13,14 @@
             "spawnablePositionType": "grounded",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 2.4,
             "condition": {
                 "minSkyLight": 8,
                 "maxSkyLight": 15,
                 "biomes": [
                     "#cobblemon:is_coast"
-                ]
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -32,7 +33,13 @@
             "spawnablePositionType": "submerged",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 1.2,
+            "weightMultiplier": {
+                "multiplier": 2.0,
+                "condition": {
+                    "isPokeSnack": true
+                }
+            },
             "condition": {
                 "canSeeSky": true,
                 "biomes": [
@@ -47,7 +54,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 4.0,
             "condition": {
                 "canSeeSky": true,
                 "biomes": [
@@ -72,7 +79,13 @@
             "spawnablePositionType": "submerged",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 1.2,
+            "weightMultiplier": {
+                "multiplier": 2.0,
+                "condition": {
+                    "isPokeSnack": true
+                }
+            },
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,
@@ -89,7 +102,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "ultra-rare",
             "level": "34-53",
-            "weight": 0.4,
+            "weight": 4.0,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,

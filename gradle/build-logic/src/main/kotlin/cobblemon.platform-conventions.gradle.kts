@@ -54,6 +54,7 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
+        entryCompression = ZipEntryCompression.STORED
         archiveBaseName.set("Cobblemon-${project.name}")
         archiveVersion.set("${rootProject.version}")
         configurations = listOf(bundle)

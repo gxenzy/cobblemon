@@ -13,12 +13,13 @@
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "30-47",
-            "weight": 1.0,
+            "weight": 6.0,
             "condition": {
                 "canSeeSky": true,
                 "biomes": [
                     "#cobblemon:is_swamp"
-                ]
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -31,38 +32,40 @@
             "spawnablePositionType": "submerged",
             "bucket": "uncommon",
             "level": "30-47",
-            "weight": 1.6,
+            "weight": 16.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
                 "biomes": [
                     "#cobblemon:is_overworld"
+                ],
+                "isPokeSnack": true
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
         {
             "id": "whiscash-3",
             "pokemon": "whiscash",
+            "presets": [
+                "water"
+            ],
             "type": "pokemon",
-            "spawnablePositionType": "fishing",
+            "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "30-47",
-            "weight": 1.0,
+            "weight": 6.0,
             "condition": {
-                "canSeeSky": true,
+                "canSeeSky": false,
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
                 "biomes": [
-                    "#cobblemon:is_arid",
-                    "#cobblemon:is_freshwater",
-                    "#cobblemon:is_hills",
-                    "#cobblemon:is_jungle",
-                    "#cobblemon:is_mushroom",
-                    "#cobblemon:is_temperate"
-                ]
-            },
-            "anticondition": {
-                "biomes": [
-                    "#cobblemon:is_freezing"
-                ]
+                    "#cobblemon:is_swamp"
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -71,22 +74,6 @@
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
-            "level": "30-47",
-            "weight": 1.0,
-            "condition": {
-                "minSkyLight": 0,
-                "maxSkyLight": 7,
-                "biomes": [
-                    "#cobblemon:is_overworld"
-                ]
-            }
-        },
-        {
-            "id": "whiscash-true-5",
-            "pokemon": "whiscash whiscash_nero=true",
-            "type": "pokemon",
-            "spawnablePositionType": "fishing",
-            "bucket": "rare",
             "level": "30-47",
             "weight": 10.0,
             "condition": {
@@ -98,12 +85,32 @@
                     "#cobblemon:is_jungle",
                     "#cobblemon:is_mushroom",
                     "#cobblemon:is_temperate"
-                ],
-                "rodType": "cobblemon:master_rod"
+                ]
             },
             "anticondition": {
                 "biomes": [
                     "#cobblemon:is_freezing"
+                ]
+            }
+        },
+        {
+            "id": "whiscash-5",
+            "pokemon": "whiscash",
+            "type": "pokemon",
+            "spawnablePositionType": "fishing",
+            "bucket": "common",
+            "level": "30-47",
+            "weight": 10.0,
+            "condition": {
+                "minSkyLight": 0,
+                "maxSkyLight": 7,
+                "biomes": [
+                    "#cobblemon:is_overworld"
+                ]
+            },
+            "anticondition": {
+                "biomes": [
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
@@ -114,7 +121,33 @@
             "spawnablePositionType": "fishing",
             "bucket": "rare",
             "level": "30-47",
-            "weight": 10.0,
+            "weight": 100.0,
+            "condition": {
+                "canSeeSky": true,
+                "biomes": [
+                    "#cobblemon:is_arid",
+                    "#cobblemon:is_freshwater",
+                    "#cobblemon:is_hills",
+                    "#cobblemon:is_jungle",
+                    "#cobblemon:is_mushroom",
+                    "#cobblemon:is_temperate"
+                ],
+                "rodType": "cobblemon:master_rod"
+            },
+            "anticondition": {
+                "biomes": [
+                    "#cobblemon:is_freezing"
+                ]
+            }
+        },
+        {
+            "id": "whiscash-true-7",
+            "pokemon": "whiscash whiscash_nero=true",
+            "type": "pokemon",
+            "spawnablePositionType": "fishing",
+            "bucket": "rare",
+            "level": "30-47",
+            "weight": 100.0,
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -122,25 +155,10 @@
                     "#cobblemon:is_overworld"
                 ],
                 "rodType": "cobblemon:master_rod"
-            }
-        },
-        {
-            "id": "whiscash-7",
-            "pokemon": "whiscash",
-            "presets": [
-                "water"
-            ],
-            "type": "pokemon",
-            "spawnablePositionType": "submerged",
-            "bucket": "common",
-            "level": "30-47",
-            "weight": 1.0,
-            "condition": {
-                "canSeeSky": false,
-                "minSkyLight": 8,
-                "maxSkyLight": 15,
+            },
+            "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_swamp"
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
@@ -151,7 +169,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "30-47",
-            "weight": 1.0,
+            "weight": 10.0,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,
@@ -178,7 +196,7 @@
             "spawnablePositionType": "fishing",
             "bucket": "rare",
             "level": "30-47",
-            "weight": 10.0,
+            "weight": 100.0,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,

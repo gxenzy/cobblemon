@@ -305,6 +305,7 @@ class NPCEntity(world: Level) : AgeableMob(CobblemonEntities.NPC, world), Posabl
         const val RECALL_ANIMATION = "recall"
         const val LOSE_ANIMATION = "lose"
         const val WIN_ANIMATION = "win"
+        const val COMMAND_ANIMATION = "command"
     }
 
     override fun getBreedOffspring(world: ServerLevel, entity: AgeableMob) = null // No lovemaking! Unless...

@@ -13,28 +13,36 @@
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "31-46",
-            "weight": 1.0,
+            "weight": 6.0,
             "condition": {
                 "canSeeSky": true,
                 "biomes": [
                     "#cobblemon:is_deep_ocean"
                 ],
-                "maxY": 48
+                "maxY": 48,
+                "isPokeSnack": true
             }
         },
         {
             "id": "lumineon-2",
             "pokemon": "lumineon",
+            "presets": [
+                "water"
+            ],
             "type": "pokemon",
-            "spawnablePositionType": "fishing",
+            "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "31-46",
-            "weight": 1.0,
+            "weight": 6.0,
             "condition": {
-                "canSeeSky": true,
+                "canSeeSky": false,
+                "minSkyLight": 8,
+                "maxSkyLight": 15,
                 "biomes": [
-                    "#cobblemon:is_ocean"
-                ]
+                    "#cobblemon:is_deep_ocean"
+                ],
+                "maxY": 48,
+                "isPokeSnack": true
             }
         },
         {
@@ -47,15 +55,18 @@
             "spawnablePositionType": "submerged",
             "bucket": "common",
             "level": "31-46",
-            "weight": 1.0,
+            "weight": 6.0,
             "condition": {
                 "canSeeSky": false,
-                "minSkyLight": 8,
-                "maxSkyLight": 15,
                 "biomes": [
-                    "#cobblemon:is_deep_ocean"
+                    "#cobblemon:is_overworld"
                 ],
-                "maxY": 48
+                "structures": [
+                    "cobblemon:shipwreck_coves/submerged_shipwreck_cove"
+                ],
+                "minY": -60,
+                "maxY": 13,
+                "isPokeSnack": true
             }
         },
         {
@@ -65,7 +76,22 @@
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "31-46",
-            "weight": 1.0,
+            "weight": 10.0,
+            "condition": {
+                "canSeeSky": true,
+                "biomes": [
+                    "#cobblemon:is_ocean"
+                ]
+            }
+        },
+        {
+            "id": "lumineon-5",
+            "pokemon": "lumineon",
+            "type": "pokemon",
+            "spawnablePositionType": "fishing",
+            "bucket": "common",
+            "level": "31-46",
+            "weight": 10.0,
             "condition": {
                 "canSeeSky": false,
                 "minSkyLight": 8,
@@ -76,36 +102,13 @@
             }
         },
         {
-            "id": "lumineon-5",
-            "pokemon": "lumineon",
-            "presets": [
-                "water"
-            ],
-            "type": "pokemon",
-            "spawnablePositionType": "submerged",
-            "bucket": "common",
-            "level": "31-46",
-            "weight": 1.0,
-            "condition": {
-                "canSeeSky": false,
-                "biomes": [
-                    "#cobblemon:is_overworld"
-                ],
-                "structures": [
-                    "cobblemon:shipwreck_coves/submerged_shipwreck_cove"
-                ],
-                "minY": -60,
-                "maxY": 13
-            }
-        },
-        {
             "id": "lumineon-6",
             "pokemon": "lumineon",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "31-46",
-            "weight": 1.0,
+            "weight": 10.0,
             "condition": {
                 "canSeeSky": false,
                 "biomes": [

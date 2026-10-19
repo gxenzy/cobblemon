@@ -1,7 +1,8 @@
 {
     "type": "minecraft:crafting_shaped",
     "category": "building",
-    "key": {
+    "group": "evo_stone_blocks",
+  "key": {
         "#": "cobblemon:leaf_stone"
     },
     "pattern": [

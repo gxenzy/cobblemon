@@ -42,7 +42,6 @@ dependencies {
     testImplementation(project(":common"))
 
     listOf(
-        libs.bundles.graal,
         libs.bundles.mongo
     ).forEach {
         include(it)
@@ -50,12 +49,16 @@ dependencies {
     runtimeOnly(libs.bundles.graal)
 
     listOf(
+        libs.bundles.graal,
         libs.molang
     ).forEach {
         runtimeOnly(it)
         include(it)
     }
 
+    // AppleSkin stores api under `api` classifier in their coordinates
+    // Because of that, we cannot just add it to integrations bundle
+    modCompileOnly(variantOf(libs.appleskin.api.neoforge) { classifier("api") })
 }
 
 tasks {

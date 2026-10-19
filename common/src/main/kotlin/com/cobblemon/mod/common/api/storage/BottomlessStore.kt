@@ -45,6 +45,7 @@ open class BottomlessStore(override val uuid: UUID) : PokemonStore<BottomlessPos
         pokemon.forEachIndexed { index, pokemon ->
             pokemon.storeCoordinates.set(StoreCoordinates(this, BottomlessPosition(index)))
         }
+        rebuildPokemonByUuid()
     }
 
     override fun save(valueOutput: ValueOutput): ValueOutput {

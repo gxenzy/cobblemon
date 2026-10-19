@@ -34,8 +34,7 @@ object ToastTracker {
         toasts.remove(uuid)
     }
 
-    fun reset() {
-        toasts.clear()
+    fun remove(toast: CobblemonToast) {
+        toasts.remove(toast.id)
     }
-
 }

@@ -1,7 +1,8 @@
 {
     "type": "minecraft:crafting_shapeless",
     "category": "misc",
-    "ingredients": [
+    "group": "evolution_stone_from_block",
+  "ingredients": [
         "cobblemon:dusk_stone_block"
     ],
     "result": {

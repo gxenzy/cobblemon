@@ -21,6 +21,9 @@ import com.cobblemon.mod.common.api.spawning.detail.SpawnDetail
 import com.cobblemon.mod.common.api.spawning.position.SpawnablePosition
 import com.cobblemon.mod.common.api.types.ElementalTypes
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import com.cobblemon.mod.common.entity.pokemon.ai.sensors.AlphaLevelMatchingSensor
+import com.cobblemon.mod.common.util.asIdentifierDefaultingNamespace
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 
 /**
@@ -47,6 +50,13 @@ open class SpawnBaitInfluence(val effects: List<SpawnBait.Effect>, val onUsed: (
                     Effects.getEffectFunction(effect.type)?.invoke(entity, effect)
                 }
             }
+
+            if (entity.pokemon.isAlpha) {
+                val spawningPlayer = action.spawnablePosition.cause.entity as? ServerPlayer
+                if (spawningPlayer != null) {
+                    AlphaLevelMatchingSensor.applyLevelMatching(entity, spawningPlayer)
+                }
+            }
         }
     }
 
@@ -67,7 +77,7 @@ open class SpawnBaitInfluence(val effects: List<SpawnBait.Effect>, val onUsed: (
             ?: return super.affectWeight(detail, spawnablePosition, weight)
 
         val detailSpecies = pokemonDetail.pokemon.species
-            ?.let { PokemonSpecies.getByName(it) }
+            ?.let { PokemonSpecies.getByIdentifier(it.asIdentifierDefaultingNamespace()) }
             ?: return super.affectWeight(detail, spawnablePosition, weight)
 
         val formData = detailSpecies.getForm(pokemonDetail.pokemon.aspects)

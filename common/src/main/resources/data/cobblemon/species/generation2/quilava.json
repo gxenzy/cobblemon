@@ -71,7 +71,7 @@
       }
     },
     "herd": {
-      "maxSize": "5",
+      "maxSize": 5,
       "toleratedLeaders": [
         {
           "pokemon": "quilava",
@@ -281,6 +281,13 @@
             {
               "variant": "biome",
               "biomeCondition": "#cobblemon:evolution/regional/quilava_johtobiome"
+            },
+            {
+              "variant": "negate",
+              "inner": {
+                "variant": "biome",
+                "biomeCondition": "#cobblemon:evolution/regional/quilava_hisuibiome"
+              }
             }
           ]
         },

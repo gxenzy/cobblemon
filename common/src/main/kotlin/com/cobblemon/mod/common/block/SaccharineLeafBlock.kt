@@ -12,6 +12,7 @@ import com.bedrockk.molang.runtime.value.DoubleValue
 import com.cobblemon.mod.common.entity.MoLangScriptingEntity
 import com.cobblemon.mod.common.util.sidedSuccess
 import com.mojang.serialization.MapCodec
+import com.cobblemon.mod.common.util.giveOrDropItemStack
 import com.cobblemon.mod.common.util.isServerSide
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -36,7 +37,9 @@ import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
+import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.BonemealableBlock
 import net.minecraft.world.level.block.DispenserBlock
 import net.minecraft.world.level.block.LeavesBlock
 import net.minecraft.world.level.block.state.BlockState
@@ -54,7 +57,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
-class SaccharineLeafBlock(settings: Properties) : LeavesBlock(0.0F, settings) {
+class SaccharineLeafBlock(settings: Properties) : LeavesBlock(0.0F, settings), BonemealableBlock {
     companion object {
         val CODEC: MapCodec<SaccharineLeafBlock> = simpleCodec(::SaccharineLeafBlock)
         val AGE: IntegerProperty = BlockStateProperties.AGE_2
@@ -186,6 +189,15 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(0.0F, settings) {
         super.randomTick(state, world, pos, random)
     }
 
+    override fun isValidBonemealTarget(level: LevelReader, pos: BlockPos, state: BlockState): Boolean =
+        state.getValue(AGE) < MAX_AGE && !state.getValue(BlockStateProperties.WATERLOGGED)
+
+    override fun isBonemealSuccess(level: Level, random: RandomSource, pos: BlockPos, state: BlockState) = true
+
+    override fun performBonemeal(level: ServerLevel, random: RandomSource, pos: BlockPos, state: BlockState) {
+        level.setBlock(pos, changeAge(state, 1), UPDATE_CLIENTS)
+    }
+
     override fun placeLiquid(level: LevelAccessor, pos: BlockPos, state: BlockState, fluidState: FluidState): Boolean {
         if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.type === Fluids.WATER) {
             val hasHoney = state.getValue(AGE) > 0
@@ -291,7 +303,7 @@ class SaccharineLeafBlock(settings: Properties) : LeavesBlock(0.0F, settings) {
                     // Replace the consumed empty bottle with a honey bottle
                     player.setItemInHand(hand, ItemStack(Items.HONEY_BOTTLE));
                 } else {
-                    player.addItem(Items.HONEY_BOTTLE.defaultInstance)
+                    player.giveOrDropItemStack(Items.HONEY_BOTTLE.defaultInstance)
                 }
 
                 level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS)

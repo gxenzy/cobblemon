@@ -13,7 +13,13 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "26-43",
-            "weight": 1.0,
+            "weight": 3.0,
+            "weightMultiplier": {
+                "multiplier": 2.0,
+                "condition": {
+                    "isPokeSnack": true
+                }
+            },
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -24,7 +30,8 @@
             },
             "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_deep_dark"
+                    "#cobblemon:is_deep_dark",
+                    "minecraft:sulfur_caves"
                 ]
             }
         },
@@ -38,7 +45,13 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "26-43",
-            "weight": 1.0,
+            "weight": 3.0,
+            "weightMultiplier": {
+                "multiplier": 2.0,
+                "condition": {
+                    "isPokeSnack": true
+                }
+            },
             "condition": {
                 "minSkyLight": 0,
                 "maxSkyLight": 7,
@@ -49,7 +62,8 @@
             },
             "anticondition": {
                 "biomes": [
-                    "#cobblemon:is_deep_dark"
+                    "#cobblemon:is_deep_dark",
+                    "minecraft:sulfur_caves"
                 ]
             }
         }

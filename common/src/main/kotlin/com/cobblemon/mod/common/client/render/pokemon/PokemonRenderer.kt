@@ -28,6 +28,7 @@ import com.cobblemon.mod.common.client.render.models.blockbench.pose.ModelPartTr
 import com.cobblemon.mod.common.client.render.models.blockbench.repository.MiscModelRepository
 import com.cobblemon.mod.common.client.render.models.blockbench.repository.RenderContext
 import com.cobblemon.mod.common.client.render.models.blockbench.repository.VaryingModelRepository
+import com.cobblemon.mod.common.client.render.player.RecallArmAnimationTracker
 import com.cobblemon.mod.common.client.render.pokeball.PokeBallPosableState
 import com.cobblemon.mod.common.client.render.renderBeaconBeam
 import com.cobblemon.mod.common.client.render.models.blockbench.pokemon.PosablePokemonEntityModel
@@ -65,6 +66,8 @@ import net.minecraft.resources.Identifier
 import net.minecraft.util.ARGB
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.Pose
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 import net.minecraft.client.renderer.texture.OverlayTexture
 import org.joml.Matrix4f
@@ -167,7 +170,7 @@ class PokemonRenderer(
             (min(
                 entity.boundingBox.maxX - entity.boundingBox.minX,
                 entity.boundingBox.maxZ - entity.boundingBox.minZ
-            ).toFloat() / 1.5F * delegate.entityScaleModifier) / entity.scale
+            ).toFloat() / 1.5F * delegate.activeSendoutScale) / entity.scale
 
         val freezeFrame = entity.entityData.get(PokemonEntity.FREEZE_FRAME)
         if (freezeFrame != -1F) {
@@ -556,9 +559,7 @@ class PokemonRenderer(
             beamSourcePosition = clientDelegate.sendOutPosition!!
         }
 
-        if (beamSourcePosition.distanceTo(pokemonPosition) > 20) {
-            return
-        }
+        if (beamSourcePosition.distanceTo(pokemonPosition) > 20) return
 
         var newOffset = offset.scale(2.0)
         val distance = beamSourcePosition.distanceTo(entity.position())
@@ -681,7 +682,7 @@ class PokemonRenderer(
         return when {
             !ServerSettings.displayEntityNameLabel -> Component.empty()
             Cobblemon.config.displayNameForUnknownPokemon ||
-                CobblemonClient.clientPokedexData.getKnowledgeForSpecies(entity.pokemon.species.resourceIdentifier) != PokedexEntryProgress.NONE ->
+                CobblemonClient.clientPokedexData.getKnowledgeForSpecies(entity.pokemon.species.resourceIdentifier) != PokedexEntryProgress.UNREGISTERED ->
                 entity.effectiveName().copy()
             else -> Component.literal(HIDDEN_NAME)
         }

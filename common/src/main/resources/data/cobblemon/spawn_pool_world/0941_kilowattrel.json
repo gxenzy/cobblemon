@@ -13,7 +13,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "25-49",
-            "weight": 0.2,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -28,7 +28,8 @@
                     "#cobblemon:is_island",
                     "#cobblemon:is_ocean",
                     "#cobblemon:is_sky"
-                ]
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -38,7 +39,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "25-49",
-            "weight": 0.2,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -51,7 +52,8 @@
                     "#cobblemon:is_island",
                     "#cobblemon:is_ocean",
                     "#cobblemon:is_sky"
-                ]
+                ],
+                "isPokeSnack": true
             }
         },
         {
@@ -64,7 +66,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "25-49",
-            "weight": 0.2,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -78,7 +80,8 @@
                 "biomes": [
                     "#cobblemon:is_coast"
                 ],
-                "timeRange": "night"
+                "timeRange": "night",
+                "isPokeSnack": true
             },
             "anticondition": {
                 "biomes": [
@@ -94,7 +97,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "25-49",
-            "weight": 0.2,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -106,7 +109,8 @@
                 "biomes": [
                     "#cobblemon:is_coast"
                 ],
-                "timeRange": "night"
+                "timeRange": "night",
+                "isPokeSnack": true
             },
             "anticondition": {
                 "biomes": [
@@ -125,7 +129,7 @@
             "spawnablePositionType": "surface",
             "bucket": "uncommon",
             "level": "25-49",
-            "weight": 1.0,
+            "weight": 2.0,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -140,7 +144,8 @@
                     "#cobblemon:is_island",
                     "#cobblemon:is_ocean",
                     "#cobblemon:is_sky"
-                ]
+                ],
+                "isPokeSnack": true
             },
             "anticondition": {
                 "biomes": [
@@ -150,13 +155,13 @@
             }
         },
         {
-            "id": "kilowattrel-7",
+            "id": "kilowattrel-6",
             "pokemon": "kilowattrel",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "uncommon",
             "level": "25-49",
-            "weight": 0.96,
+            "weight": 9.6,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -180,13 +185,13 @@
             }
         },
         {
-            "id": "kilowattrel-8",
+            "id": "kilowattrel-7",
             "pokemon": "kilowattrel",
             "type": "pokemon",
             "spawnablePositionType": "fishing",
             "bucket": "common",
             "level": "25-49",
-            "weight": 0.2,
+            "weight": 2.0,
             "weightMultipliers": [
                 {
                     "multiplier": 5.0,

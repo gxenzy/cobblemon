@@ -9,6 +9,7 @@
 package com.cobblemon.mod.common.client.render.layer
 
 import com.bedrockk.molang.runtime.value.DoubleValue
+import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.pokemon.PokemonSpecies
 import com.cobblemon.mod.common.api.tags.CobblemonItemTags
 import com.cobblemon.mod.common.client.CobblemonClient
@@ -29,7 +30,6 @@ import com.cobblemon.mod.common.util.getUUID
 import com.cobblemon.mod.common.util.hasUUID
 import com.cobblemon.mod.common.util.isPokemonEntity
 import com.mojang.blaze3d.vertex.PoseStack
-import com.mojang.math.Axis
 import java.util.UUID
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.player.PlayerModel
@@ -39,16 +39,20 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.client.renderer.entity.state.AvatarRenderState
 import net.minecraft.client.renderer.rendertype.RenderTypes
 import net.minecraft.client.renderer.texture.OverlayTexture
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
 import net.minecraft.resources.Identifier
+import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.ItemStack
 import kotlin.jvm.optionals.getOrNull
 
 class PokemonOnShoulderRenderer(
     renderLayerParent: RenderLayerParent<AvatarRenderState, PlayerModel>
-) : RenderLayer<AvatarRenderState, PlayerModel>(renderLayerParent) {
+) :
+    RenderLayer<AvatarRenderState, PlayerModel>(renderLayerParent) {
     private val context = RenderContext().also {
         it.put(RenderContext.RENDER_STATE, RenderContext.RenderState.WORLD)
     }
@@ -69,26 +73,44 @@ class PokemonOnShoulderRenderer(
     ) {
         val minecraft = Minecraft.getInstance()
         val player = minecraft.level?.getEntity(renderState.id) as? Player ?: return
-        renderShoulder(matrixStack, submitNodeCollector, packedLight, renderState, player, yRot, xRot, true)
-        renderShoulder(matrixStack, submitNodeCollector, packedLight, renderState, player, yRot, xRot, false)
+        renderShoulder(
+            matrixStack,
+            submitNodeCollector,
+            packedLight,
+            renderState, player, yRot, xRot,
+            true
+        )
+        renderShoulder(
+            matrixStack,
+            submitNodeCollector,
+            packedLight,
+            renderState, player, yRot, xRot,
+            false
+        )
     }
 
-    private fun configureState(state: FloatingState, model: PosableModel, leftShoulder: Boolean, shoulderData: ShoulderData): FloatingState {
+    private fun configureState(
+        state: FloatingState,
+        model: PosableModel,
+        leftShoulder: Boolean,
+        shoulderData: ShoulderData
+    ): FloatingState {
         state.currentModel = model
         state.currentAspects = shoulderData.aspects
         state.setPoseToFirstSuitable(if (leftShoulder) PoseType.SHOULDER_LEFT else PoseType.SHOULDER_RIGHT)
+
         state.runtime.environment.query.addFunction("is_holding_item") {
-            DoubleValue(
+            return@addFunction DoubleValue(
                 shoulderData.shownItem.let {
                     !it.isEmpty && !it.`is`(CobblemonItemTags.WEARABLE_HAT_ITEMS) && !it.`is`(CobblemonItemTags.WEARABLE_FACE_ITEMS)
                 }
             )
         }
         state.runtime.environment.query.addFunction("is_wearing_hat") {
-            DoubleValue(shoulderData.shownItem.`is`(CobblemonItemTags.WEARABLE_HAT_ITEMS))
+            return@addFunction DoubleValue(shoulderData.shownItem.`is`(CobblemonItemTags.WEARABLE_HAT_ITEMS))
         }
         state.runtime.environment.query.addFunction("is_wearing_face") {
-            DoubleValue(shoulderData.shownItem.`is`(CobblemonItemTags.WEARABLE_FACE_ITEMS))
+            return@addFunction DoubleValue(shoulderData.shownItem.`is`(CobblemonItemTags.WEARABLE_FACE_ITEMS))
         }
         return state
     }
@@ -128,6 +150,21 @@ class PokemonOnShoulderRenderer(
         val scale = shoulderData.form.baseScale * shoulderData.scaleModifier
         val widthOffset = shoulderData.form.hitbox.width / 2 - 0.7
         val heightOffset = -1.5 * scale
+        val widthOffset = width / 2 - 0.7
+        val chestItem = livingEntity.getItemBySlot(EquipmentSlot.CHEST)
+        val armorHeightOffset = if (chestItem.item is ArmorItem && !isArmorOffsetBlacklisted(chestItem)) {
+            ARMOR_HEIGHT_OFFSET
+        } else {
+            0F
+        }
+        parentModel.body.translateAndRotate(matrixStack)
+        matrixStack.translate(
+            if (pLeftShoulder) -widthOffset else widthOffset,
+            heightOffset - armorHeightOffset,
+            0.0
+        )
+        matrixStack.scale(scale, scale, scale)
+        matrixStack.translate(0f, 1.5f, 0f)
 
         context.put(RenderContext.SPECIES, speciesIdentifier)
         context.put(RenderContext.ASPECTS, shoulderData.aspects)
@@ -136,17 +173,6 @@ class PokemonOnShoulderRenderer(
         model.context = context
 
         matrixStack.pushPose()
-        if (player.isCrouching) {
-            matrixStack.mulPose(Axis.XP.rotation(0.4F))
-            matrixStack.translate(0F, 0F, -0.15F)
-        }
-        matrixStack.translate(
-            if (leftShoulder) -widthOffset else widthOffset,
-            if (player.isCrouching) heightOffset + 0.2 else heightOffset,
-            0.0
-        )
-        matrixStack.scale(scale, scale, scale)
-        matrixStack.translate(0F, 1.5F, 0F)
 
         model.applyAnimations(
             entity = null,
@@ -167,10 +193,12 @@ class PokemonOnShoulderRenderer(
             model.setDefault()
         }
 
-        for (layer in VaryingModelRepository.getLayers(speciesIdentifier, shoulderState)) {
+        for (layer in
+                VaryingModelRepository.getLayers(speciesIdentifier, shoulderState)) {
             val layerTexture = layer.texture?.invoke(shoulderState) ?: continue
             val layerRenderType =
-                if (layer.scrolling != null) {
+                if (layer.scrolling != null)
+             {
                     model.getScrollingLayer(layerTexture, layer.scrolling)
                 } else {
                     model.getLayer(layerTexture, layer.emissive, layer.translucent, layer.translucent_cull)
@@ -287,17 +315,30 @@ class PokemonOnShoulderRenderer(
         var lastKnownRight: ShoulderData? = null
     )
 
-    data class ShoulderData(
+    class ShoulderData(
         val uuid: UUID,
         val species: Species,
         val form: FormData,
         val aspects: Set<String>,
         val scaleModifier: Float,
-        val shownItem: ItemStack
-    )
+        val shownItem: ItemStack,
+    ) {
+        fun matches(other: ShoulderData?): Boolean = other != null
+                && uuid == other.uuid
+                && species == other.species
+                && form == other.form
+                && aspects == other.aspects
+                && shownItem.item == other.shownItem.item
+    }
 
     companion object {
+        private const val ARMOR_HEIGHT_OFFSET = 1F / 16F
         private val playerCache = hashMapOf<UUID, ShoulderCache>()
+
+        private fun isArmorOffsetBlacklisted(itemStack: ItemStack): Boolean {
+            val itemIdentifier = BuiltInRegistries.ITEM.getKey(itemStack.item)
+            return itemIdentifier in Cobblemon.config.shoulderMountArmorOffsetBlacklist
+        }
 
         private fun extractUuid(shoulderNbt: CompoundTag): UUID {
             return if (shoulderNbt.hasUUID(DataKeys.SHOULDER_UUID)) {
@@ -317,7 +358,7 @@ class PokemonOnShoulderRenderer(
                             it.species,
                             it.form,
                             it.aspects,
-                            it.scaleModifier,
+                            it.effectiveScale,
                             it.heldItem
                         )
                     }, { null })

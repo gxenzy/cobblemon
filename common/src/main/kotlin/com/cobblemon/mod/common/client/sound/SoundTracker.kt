@@ -33,6 +33,7 @@ abstract class SoundTracker<T> {
     fun isActive(id: T, location: Identifier) = trackedSounds.get(id)?.get(location)?.let { manager.isActive(it) } == true
 
     fun play(id: T, sound: SoundInstance) {
+        if (!sound.canPlaySound()) return //If sound cannot be played, return early
         val tracks = this.trackedSounds.computeIfAbsent(id) { hashMapOf() }
         tracks.get(sound.identifier)?.let { existing -> manager.stop(existing) }  // replace anything already playing
         tracks.put(sound.identifier, sound)

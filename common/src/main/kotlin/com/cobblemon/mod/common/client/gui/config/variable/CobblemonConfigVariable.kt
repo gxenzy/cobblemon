@@ -8,18 +8,19 @@
 
 package com.cobblemon.mod.common.client.gui.config.variable
 
-import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.LABEL_Y_OFFSET
+import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.LABEL_MAX_WIDTH
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.RESET_SLOT_WIDTH
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.SLOT_WIDTH
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.WIDGET_HEIGHT
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigScreen.Companion.WIDGET_Y_OFFSET
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigVariableList
 import com.cobblemon.mod.common.client.gui.config.CobblemonConfigVariableList.CobblemonConfigVariableListEntry
-import com.cobblemon.mod.common.client.render.drawScaledText
+import com.cobblemon.mod.common.client.render.drawScrollingText
 import com.cobblemon.mod.common.config.CobblemonConfig
 import com.cobblemon.mod.common.config.CobblemonConfigField
 import com.cobblemon.mod.common.util.lang
 import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.network.chat.MutableComponent
@@ -86,12 +87,15 @@ abstract class CobblemonConfigVariable(
         val x = this.x
         val y = this.y
 
-        drawScaledText(
-            context = context,
-            text = labelLang,
-            x = x,
-            y = y + LABEL_Y_OFFSET,
-            shadow = true
+        drawScrollingText(
+            context,
+            Minecraft.getInstance().font,
+            labelLang,
+            x,
+            y + WIDGET_Y_OFFSET,
+            x + LABEL_MAX_WIDTH,
+            y + WIDGET_Y_OFFSET + WIDGET_HEIGHT,
+            -1
         )
 
         resetButton.x = x + SLOT_WIDTH - RESET_SLOT_WIDTH

@@ -7,7 +7,7 @@ repositories {
     maven("https://maven.fabricmc.net/")
     maven("https://repo.codemc.io/repository/relativitymc/")
     maven("https://maven.neoforged.net/releases")
-    maven("https://maven.terraformersmc.com/")
+    maven("https://maven.terraformersmc.com/releases/")
 }
 
 dependencies {
@@ -19,5 +19,4 @@ dependencies {
 
     implementation(libs.blossom)
     implementation(libs.ideaExt)
-    implementation(libs.versioning)
 }

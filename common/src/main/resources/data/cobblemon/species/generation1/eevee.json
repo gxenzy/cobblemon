@@ -95,7 +95,6 @@
     "tm:batonpass",
     "tm:bodyslam",
     "tm:calmmind",
-    "tm:captivate",
     "tm:charm",
     "tm:covet",
     "tm:curse",
@@ -114,7 +113,6 @@
     "tm:laserfocus",
     "tm:lastresort",
     "tm:mudslap",
-    "tm:naturalgift",
     "tm:payday",
     "tm:protect",
     "tm:raindance",
@@ -168,17 +166,6 @@
   ],
   "evolutions": [
     {
-      "id": "eevee_jolteon",
-      "variant": "item_interact",
-      "result": "jolteon",
-      "consumeHeldItem": false,
-      "learnableMoves": [
-        "thundershock"
-      ],
-      "requirements": [],
-      "requiredContext": "cobblemon:thunder_stone"
-    },
-    {
       "id": "eevee_vaporeon",
       "variant": "item_interact",
       "result": "vaporeon",
@@ -188,6 +175,17 @@
       ],
       "requirements": [],
       "requiredContext": "cobblemon:water_stone"
+    },
+    {
+      "id": "eevee_jolteon",
+      "variant": "item_interact",
+      "result": "jolteon",
+      "consumeHeldItem": false,
+      "learnableMoves": [
+        "thundershock"
+      ],
+      "requirements": [],
+      "requiredContext": "cobblemon:thunder_stone"
     },
     {
       "id": "eevee_flareon",
@@ -240,26 +238,6 @@
       ]
     },
     {
-      "id": "eevee_sylveon",
-      "variant": "level_up",
-      "result": "sylveon",
-      "consumeHeldItem": false,
-      "learnableMoves": [
-        "fairywind",
-        "disarmingvoice"
-      ],
-      "requirements": [
-        {
-          "variant": "friendship",
-          "amount": 160
-        },
-        {
-          "variant": "has_move_type",
-          "type": "fairy"
-        }
-      ]
-    },
-    {
       "id": "eevee_leafeon",
       "variant": "item_interact",
       "result": "leafeon",
@@ -280,6 +258,26 @@
       ],
       "requirements": [],
       "requiredContext": "cobblemon:ice_stone"
+    },
+    {
+      "id": "eevee_sylveon",
+      "variant": "level_up",
+      "result": "sylveon",
+      "consumeHeldItem": false,
+      "learnableMoves": [
+        "fairywind",
+        "disarmingvoice"
+      ],
+      "requirements": [
+        {
+          "variant": "friendship",
+          "amount": 160
+        },
+        {
+          "variant": "has_move_type",
+          "type": "fairy"
+        }
+      ]
     }
   ],
   "forms": [
@@ -306,8 +304,12 @@
   ],
   "behaviour": {
     "herd": {
-      "maxSize": "2",
+      "maxSize": 2,
       "toleratedLeaders": [
+        {
+          "pokemon": "eevee alpha",
+          "tier": 1
+        },
         {
           "pokemon": "vaporeon",
           "tier": 1

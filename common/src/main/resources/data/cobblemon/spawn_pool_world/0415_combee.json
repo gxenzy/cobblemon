@@ -4,8 +4,8 @@
     "neededUninstalledMods": [],
     "spawns": [
         {
-            "id": "combee-1",
-            "pokemon": "combee",
+            "id": "combee-male-1",
+            "pokemon": "combee male",
             "presets": [
                 "natural"
             ],
@@ -13,7 +13,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-24",
-            "weight": 9.9,
+            "weight": 17.5,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -39,8 +39,8 @@
             }
         },
         {
-            "id": "combee-2",
-            "pokemon": "combee",
+            "id": "combee-male-2",
+            "pokemon": "combee male",
             "presets": [
                 "natural"
             ],
@@ -48,7 +48,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-24",
-            "weight": 9.9,
+            "weight": 87.5,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -77,8 +77,8 @@
             }
         },
         {
-            "id": "combee-3",
-            "pokemon": "combee",
+            "id": "combee-male-3",
+            "pokemon": "combee male",
             "presets": [
                 "natural"
             ],
@@ -86,7 +86,7 @@
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-24",
-            "weight": 9.9,
+            "weight": 87.5,
             "weightMultiplier": {
                 "multiplier": 5.0,
                 "condition": {
@@ -109,13 +109,13 @@
             }
         },
         {
-            "id": "combee-4",
-            "pokemon": "combee",
+            "id": "combee-male-4",
+            "pokemon": "combee male",
             "type": "pokemon",
             "spawnablePositionType": "grounded",
             "bucket": "common",
             "level": "1-24",
-            "weight": 99.0,
+            "weight": 875.0,
             "condition": {
                 "biomes": [
                     "#the_bumblezone:the_bumblezone"

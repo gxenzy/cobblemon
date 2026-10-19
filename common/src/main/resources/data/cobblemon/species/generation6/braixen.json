@@ -41,10 +41,10 @@
   "catchRate": 45,
   "eggCycles": 20,
   "baseFriendship": 50,
-  "baseScale": 0.6,
+  "baseScale": 0.75,
   "hitbox": {
-    "width": 1,
-    "height": 2.5,
+    "width": 0.65,
+    "height": 2,
     "fixed": false
   },
   "behaviour": {
@@ -58,11 +58,19 @@
       }
     },
     "herd": {
-      "maxSize": "3",
+      "maxSize": 3,
       "toleratedLeaders": [
         {
-          "pokemon": "delphox",
+          "pokemon": "braixen alpha",
           "tier": 1
+        },
+        {
+          "pokemon": "delphox mega=false",
+          "tier": 1
+        },
+        {
+          "pokemon": "delphox mega",
+          "tier": 2
         }
       ]
     },

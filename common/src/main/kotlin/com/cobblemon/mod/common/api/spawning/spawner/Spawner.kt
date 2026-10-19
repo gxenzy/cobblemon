@@ -12,7 +12,6 @@ import com.cobblemon.mod.common.Cobblemon
 import com.cobblemon.mod.common.api.events.CobblemonEvents
 import com.cobblemon.mod.common.api.events.entity.SpawnBucketChosenEvent
 import com.cobblemon.mod.common.api.spawning.BestSpawner
-import com.cobblemon.mod.common.api.spawning.SpawnBucket
 import com.cobblemon.mod.common.api.spawning.SpawnCause
 import com.cobblemon.mod.common.api.spawning.SpawningZoneGenerator
 import com.cobblemon.mod.common.api.spawning.detail.EntitySpawnResult
@@ -26,16 +25,11 @@ import com.cobblemon.mod.common.api.spawning.position.calculators.SpawnablePosit
 import com.cobblemon.mod.common.api.spawning.selection.SpawningSelector
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.util.isBoxLoaded
+import com.cobblemon.mod.common.util.removeIf
 import com.cobblemon.mod.common.util.squeezeWithinBounds
+import com.cobblemon.mod.common.util.toBlockPos
 import com.cobblemon.mod.common.util.toVec3f
 import com.cobblemon.mod.common.util.weightedSelection
-import kotlin.Any
-import kotlin.Boolean
-import kotlin.Float
-import kotlin.Int
-import kotlin.Pair
-import kotlin.String
-import kotlin.collections.plus
 import kotlin.math.max
 import net.minecraft.core.BlockPos
 import net.minecraft.core.SectionPos
@@ -59,6 +53,7 @@ import net.minecraft.world.phys.Vec3
 interface Spawner {
     val name: String
     val influences: MutableList<SpawningInfluence>
+    val buckets: Map<String, Float>
     var spawnPool: SpawnPool
     var selector: SpawningSelector<*>
     var generator: SpawningZoneGenerator
@@ -72,7 +67,7 @@ interface Spawner {
         const val ENTITY_LIMIT_CHUNK_RANGE = 3
     }
 
-    fun getMatchingSpawns(bucket: SpawnBucket, spawnablePosition: SpawnablePosition): List<SpawnDetail> {
+    fun getMatchingSpawns(bucket: String, spawnablePosition: SpawnablePosition): List<SpawnDetail> {
         val spawns = mutableListOf<SpawnDetail>()
         spawns.addAll(spawnPool.retrieve(bucket, spawnablePosition).filter { it.isSatisfiedBy(spawnablePosition) })
         spawnablePosition.influences.forEach { influence ->
@@ -95,10 +90,9 @@ interface Spawner {
     ): SpawnAction<*>? {
         influences.removeIf { it.isExpired() }
         spawnablePosition.influences.addAll(influences)
-        val bucket = chooseBucket(cause, spawnablePosition.influences)
         return selector.select(
             spawner = this,
-            bucket = bucket,
+            bucketSelector = { chooseBucket(cause, spawnablePosition.influences) },
             spawnablePositions = listOf(spawnablePosition),
             maxSpawns = 1
         ).firstOrNull()
@@ -116,9 +110,9 @@ interface Spawner {
 
         val areaBox = AABB.ofSize(
             Vec3(constrainedArea.getCenter().toVec3f()),
-            ENTITY_LIMIT_CHUNK_RANGE * 16.0 * 2,
+            ENTITY_LIMIT_CHUNK_RANGE * 16.0,
             1000.0,
-            ENTITY_LIMIT_CHUNK_RANGE * 16.0 * 2
+            ENTITY_LIMIT_CHUNK_RANGE * 16.0
         )
 
         if (!constrainedArea.world.isBoxLoaded(areaBox)) {
@@ -140,11 +134,10 @@ interface Spawner {
         val zone = generator.generate(this, constrainedArea)
         val spawnablePositions = resolver.resolve(this, prioritizedAreaCalculators, zone)
         val influences = influences + zone.unconditionalInfluences
-        val bucket = chooseBucket(zoneInput.cause, influences)
 
         return selector.select(
             spawner = this,
-            bucket = bucket,
+            bucketSelector = { chooseBucket(zoneInput.cause, influences) },
             spawnablePositions = spawnablePositions,
             maxSpawns = maxSpawns
         )
@@ -181,11 +174,12 @@ interface Spawner {
 
     fun copyInfluences() = influences.filter { !it.isExpired() }.toMutableList()
 
-    fun chooseBucket(cause: SpawnCause, influences: List<SpawningInfluence>): SpawnBucket {
-        val buckets = Cobblemon.bestSpawner.config.buckets
-        val bucketWeights = buckets.associateWith { it.weight }.toMutableMap()
+    fun chooseBucket(cause: SpawnCause, influences: List<SpawningInfluence>): String {
+        val bucketWeights = buckets.toMutableMap()
         influences.forEach { it.affectBucketWeights(bucketWeights) }
-        val bucket = bucketWeights.entries.weightedSelection { it.value }?.key ?: buckets.first()
+        val usedBuckets = spawnPool.buckets.intersect(bucketWeights.keys)
+        bucketWeights.removeIf { it.key !in usedBuckets }
+        val bucket = bucketWeights.entries.weightedSelection { it.value }?.key ?: buckets.keys.first()
         val event = SpawnBucketChosenEvent(
             spawner = this,
             spawnCause = cause,
@@ -197,73 +191,60 @@ interface Spawner {
     }
 
     fun isValidStartPoint(world: Level, chunk: ChunkAccess, startPos: BlockPos.MutableBlockPos): Boolean {
-        val y = startPos.y
-        if (!world.isLoaded(startPos) || !world.isLoaded(startPos.setY(y + 1))) {
+        val abovePos = startPos.above()
+        if (!world.isLoaded(startPos) || !world.isLoaded(abovePos)) {
             return false
         }
+        val mid = chunk.getBlockState(startPos)
+        val above = chunk.getBlockState(abovePos)
 
-        val mid = chunk.getBlockState(startPos.setY(y))
-        val above = chunk.getBlockState(startPos.setY(y + 1))
-
-        // Above must be non-solid
-        if (!above.isPathfindable(PathComputationType.AIR)) {
-            return false
-        }
-
-        // Position must be non-air
-        if (mid.isAir) {
-            return false
-        }
-
-        return true
+        return above.isPathfindable(PathComputationType.AIR) && mid.isAir
     }
 
     fun constrainArea(area: SpawningZoneInput): SpawningZoneInput? {
-        val basePos = BlockPos.MutableBlockPos(area.baseX, area.baseY, area.baseZ)
-        val originalY = area.baseY
+        val world = area.world
+        val centerPos = area.getCenter().toBlockPos()
 
-        val (chunkX, chunkZ) = Pair(SectionPos.blockToSectionCoord(area.baseX), SectionPos.blockToSectionCoord(area.baseZ))
-
+        val (centerChunkX, centerChunkZ) = Pair(SectionPos.blockToSectionCoord(centerPos.x), SectionPos.blockToSectionCoord(centerPos.z))
         // if the chunk isn't loaded, we don't want to go further & we don't want the getChunk function below to load/create the chunk.
-        if (!area.world.areEntitiesLoaded(ChunkPos.pack(chunkX, chunkZ))) return null
+        if (!area.world.areEntitiesLoaded(ChunkPos.pack(centerChunkX, centerChunkZ))) return null
 
-        val chunk = area.world.getChunk(chunkX, chunkZ, ChunkStatus.FULL) ?: return null
+        val chunk = world.getChunk(centerChunkX, centerChunkZ, ChunkStatus.FULL) ?: return null
 
-        var valid = isValidStartPoint(area.world, chunk, basePos)
+        val probePos = centerPos.mutable()
+        var validY = if (isValidStartPoint(world, chunk, probePos)) centerPos.y else null
 
-        if (!valid) {
-            var offset = 1
-            do {
-                if (isValidStartPoint(area.world, chunk, basePos.setY(originalY + offset))) {
-                    valid = true
-                    basePos.y = originalY + offset
+        if (validY == null) {
+            for (offset in 1..Cobblemon.config.maxVerticalCorrectionBlocks) {
+                if (isValidStartPoint(world, chunk, probePos.set(centerPos.x, centerPos.y + offset, centerPos.z))) {
+                    validY = centerPos.y + offset
                     break
-                } else if (isValidStartPoint(area.world, chunk, basePos.setY(originalY - offset))) {
-                    valid = true
-                    basePos.y = originalY - offset
+                } else if (isValidStartPoint(world, chunk, probePos.set(centerPos.x, centerPos.y - offset, centerPos.z))) {
+                    validY = centerPos.y - offset
                     break
                 }
-                offset++
-            } while (offset <= Cobblemon.config.maxVerticalCorrectionBlocks)
-        }
-
-        if (valid) {
-            val min = area.world.squeezeWithinBounds(basePos)
-            val max = area.world.squeezeWithinBounds(basePos.move(area.length, area.height, area.width))
-            if (area.world.isLoaded(min) && area.world.isLoaded(max) &&
-                min.x < max.x && min.y < max.y && min.z < max.z
-            ) {
-                return SpawningZoneInput(
-                    cause = area.cause,
-                    world = area.world,
-                    baseX = min.x,
-                    baseY = min.y,
-                    baseZ = min.z,
-                    length = max.x - min.x,
-                    height = max.y - min.y,
-                    width = max.z - min.z
-                )
             }
+        }
+        val targetY = validY ?: return null
+        val newBaseY = (targetY - (area.height / 2)).coerceIn(world.minBuildHeight, world.maxBuildHeight)
+        val minPos = world.squeezeWithinBounds(BlockPos(area.baseX, newBaseY, area.baseZ))
+        val maxPos = world.squeezeWithinBounds(BlockPos(area.baseX + area.length, newBaseY + area.height, area.baseZ + area.width))
+
+        val finalBox = AABB(
+            minPos.x.toDouble(), minPos.y.toDouble(), minPos.z.toDouble(),
+            maxPos.x.toDouble(), maxPos.y.toDouble(), maxPos.z.toDouble()
+        )
+        if (minPos.x < maxPos.x && minPos.y < maxPos.y && minPos.z < maxPos.z && world.isBoxLoaded(finalBox)) {
+            return SpawningZoneInput(
+                cause = area.cause,
+                world = world,
+                baseX = minPos.x,
+                baseY = minPos.y,
+                baseZ = minPos.z,
+                length = maxPos.x - minPos.x,
+                height = maxPos.y - minPos.y,
+                width = maxPos.z - minPos.z
+            )
         }
 
         return null

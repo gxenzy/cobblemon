@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack
  *
  * @param title The [Component] representing the toast title, this can be a [Component.empty].
  * @param description The [Component] representing the toast description, this can be a [Component.empty].
- * @param icon The [ItemStack] that is rendered as the toast icon, this can be a [ItemStack.EMPTY].
+ * @param icons The [ItemStack] that is rendered as the toast icon, this can be a [ItemStack.EMPTY].
  * @param frameTexture The texture of the frame, default is the [VANILLA_BACKGROUND_SPRITE].
  * @param progress The value of the progress bar, this accepts a value between 0.0F and 1.0F, any other value will not extractRenderState a progress bar.
  * @param progressColor The progress bar color in RGB, default is the [VANILLA_PROGRESS_COLOR].
@@ -39,7 +39,7 @@ import net.minecraft.world.item.ItemStack
 class Toast(
     title: Component,
     description: Component,
-    icon: ItemStack,
+    icons: List<ItemStack>,
     frameTexture: Identifier = VANILLA_BACKGROUND_SPRITE,
     progress: Float = -1F,
     progressColor: Int = VANILLA_PROGRESS_COLOR
@@ -58,7 +58,7 @@ class Toast(
     /**
      * The [ItemStack] that is rendered as the toast icon, this can be a [ItemStack.EMPTY].
      */
-    var icon: ItemStack by Delegates.observable(icon) { _, old, new -> if (old != new) this.launchUpdate() }
+    var icons: List<ItemStack> by Delegates.observable(icons) { _, old, new -> if (old != new) this.launchUpdate() }
 
     /**
      * The texture of the frame.
@@ -186,7 +186,7 @@ class Toast(
     private fun toPacket(behaviour: ToastPacket.Behaviour): ToastPacket = ToastPacket(
         this.title,
         this.description,
-        this.icon,
+        this.icons,
         this.frameTexture,
         this.progress,
         this.progressColor,
