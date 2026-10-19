@@ -218,8 +218,6 @@ object VaryingModelRepository {
         inbuilt("ancient_leaden_ball", ::AncientPokeBallModel)
         inbuilt("ancient_gigaton_ball", ::AncientPokeBallModel)
 
-        inbuilt("raticate", ::RaticateModel)
-        inbuilt("raticate_alolan", ::RaticateAlolanModel)
         inbuilt("krabby", ::KrabbyModel)
         inbuilt("paras", ::ParasModel)
         inbuilt("mankey", ::MankeyModel)
