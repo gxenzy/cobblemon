@@ -16,7 +16,7 @@
       ],
       "transformedParts": [
         {
-          "part": "butterfree",
+          "part": "body",
           "position": [0, -5, 0]
         }
       ]
@@ -30,7 +30,7 @@
       ],
       "transformedParts": [
         {
-          "part": "butterfree",
+          "part": "body",
           "position": [0, -5, 0]
         }
       ]

@@ -16,7 +16,7 @@
       ],
       "transformedParts": [
         {
-          "part": "beedrill",
+          "part": "body",
           "position": [0, -10, 0]
         }
       ]
@@ -29,7 +29,7 @@
       ],
       "transformedParts": [
         {
-          "part": "beedrill",
+          "part": "body",
           "position": [0, -5, 0]
         }
       ]
@@ -41,7 +41,7 @@
       ],
       "transformedParts": [
         {
-          "part": "beedrill",
+          "part": "body",
           "position": [0, -3, 0]
         }
       ]

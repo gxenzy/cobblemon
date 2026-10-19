@@ -88,8 +88,8 @@
       ],
       "transformedParts": [
         {
-          "part":"wartortle",
-          "position":[0,-10,0]
+          "part": "body",
+          "position": [0, -10, 0]
         }
       ]
     },
@@ -108,8 +108,8 @@
       ],
       "transformedParts": [
         {
-          "part":"wartortle",
-          "position":[0,-10,0]
+          "part":"body",
+          "position":[0, -10, 0]
         }
       ]
     },
